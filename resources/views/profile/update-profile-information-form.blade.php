@@ -81,6 +81,13 @@
                 @endif
             @endif
         </div>
+
+        <!-- Bio -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="bio" value="{{ __('Bio') }}" />
+            <x-textarea id="bio" class="mt-1 block w-full" wire:model="state.bio" />
+            <x-input-error for="bio" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="actions">
