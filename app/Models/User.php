@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use JoelButcher\Socialstream\HasConnectedAccounts;
@@ -77,5 +78,20 @@ class User extends Authenticatable
         return filter_var($this->profile_photo_path, FILTER_VALIDATE_URL)
             ? Attribute::get(fn () => $this->profile_photo_path)
             : $this->getPhotoUrl();
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Like::class);
     }
 }
