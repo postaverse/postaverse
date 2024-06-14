@@ -1,7 +1,7 @@
 # Postaverse
 
 > [!NOTE]
-> test
+> Postaverse is not ready to be a social media platform yet. We require contributions to make this possible!
 
 Welcome to the **Postaverse** - an open-source project designed to create a robust and scalable social media network. This platform allows users to connect, share, and communicate with each other seamlessly.
 
