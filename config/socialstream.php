@@ -18,10 +18,10 @@ return [
         Features::providerAvatars(),
         Features::refreshOAuthTokens(),
     ],
-    'home' => '/dashboard',
+    'home' => '/home',
     'redirects' => [
-        'login' => '/dashboard',
-        'register' => '/dashboard',
+        'login' => '/home',
+        'register' => '/home',
         'login-failed' => '/login',
         'registration-failed' => '/register',
         'provider-linked' => '/user/profile',
