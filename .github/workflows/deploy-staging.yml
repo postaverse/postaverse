@@ -61,6 +61,8 @@ jobs:
         run: npm run build
 
       - name: Setup SSH
+        env:
+          HOST: ${{ secrets.SFTP_HOST }}
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
