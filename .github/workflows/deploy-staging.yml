@@ -58,7 +58,7 @@ jobs:
         run: npm install
 
       - name: Compile assets
-        run: npm run production # Adjusted to use Laravel's production build command
+        run: npm run build # Use npm run build for compiling assets
 
       - name: Deploy via rsync and sshpass
         env:
