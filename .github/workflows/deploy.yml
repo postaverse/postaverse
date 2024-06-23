@@ -43,16 +43,17 @@ jobs:
           cp .env.example .env
 
           # set production
-          sed -i 's/APP_ENV=local/APP_ENV=$APP_KEY/g' .env
-          sed -i 's/APP_DEBUG=true/APP_DEBUG=false/g' .env
-          sed -i 's/APP_URL=https:\/\/postaverse.test/APP_URL=https:\/\/staging.postaverse.net/g' .env
+          sed -i "s/APP_ENV=local/APP_ENV=production/g" .env
+          sed -i "s/APP_KEY=/APP_KEY=$APP_KEY/g" .env
+          sed -i "s/APP_DEBUG=true/APP_DEBUG=false/g" .env
+          sed -i "s/APP_URL=https:\/\/postaverse.test/APP_URL=https:\/\/staging.postaverse.net/g" .env
 
           # replace database settings
-          sed -i 's/DB_HOST=127.0.0.1/DB_HOST=$DB_HOST/g' .env
-          sed -i 's/DB_PORT=3310/DB_PORT=$DB_PORT/g' .env
-          sed -i 's/DB_DATABASE=postaverse/DB_DATABASE=$DB_DATABASE/g' .env
-          sed -i 's/DB_USERNAME=root/DB_USERNAME=$DB_USERNAME/g' .env
-          sed -i 's/DB_PASSWORD=/DB_PASSWORD=$DB_PASSWORD/g' .env
+          sed -i "s/DB_HOST=127.0.0.1/DB_HOST=$DB_HOST/g" .env
+          sed -i "s/DB_PORT=3310/DB_PORT=$DB_PORT/g" .env
+          sed -i "s/DB_DATABASE=postaverse/DB_DATABASE=$DB_DATABASE/g" .env
+          sed -i "s/DB_USERNAME=root/DB_USERNAME=$DB_USERNAME/g" .env
+          sed -i "s/DB_PASSWORD=/DB_PASSWORD=$DB_PASSWORD/g" .env
 
       - name: Install NPM dependencies
         run: npm install
