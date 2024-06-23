@@ -68,7 +68,7 @@ jobs:
           USERNAME: ${{ secrets.SFTP_USERNAME }}
           PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           HOST: ${{ secrets.SFTP_HOST }}
-          DEPLOY_PATH: subdomain.domain.tld/ # Change this to your project path
+          DEPLOY_PATH: staging.postaverse.net/
         run: |
           lftp -u $USERNAME,$PASSWORD sftp://$HOST -e "
           set sftp:auto-confirm yes;
