@@ -60,16 +60,17 @@ jobs:
       - name: Compile assets
         run: npm run build
 
-      - name: Install lftp
-        run: sudo apt-get install lftp
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
 
-      - name: Deploy via SFTP
+      - name: Deploy via rsync
         env:
           USERNAME: ${{ secrets.SFTP_USERNAME }}
-          PASSWORD: ${{ secrets.SFTP_PASSWORD }}
           HOST: ${{ secrets.SFTP_HOST }}
           DEPLOY_PATH: staging.postaverse.net/
         run: |
-          lftp -u $USERNAME,$PASSWORD sftp://$HOST -e "
-          set sftp:auto-confirm yes;
-          mirror --reverse --delete --verbose --exclude .git/ ./ $DEPLOY_PATH; quit"
+          rsync -avz --delete --exclude .git/ ./ $USERNAME@$HOST:$DEPLOY_PATH
