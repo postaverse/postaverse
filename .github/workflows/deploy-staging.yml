@@ -60,19 +60,14 @@ jobs:
       - name: Compile assets
         run: npm run build
 
-      - name: Setup SSH
-        env:
-          HOST: ${{ secrets.SFTP_HOST }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
 
-      - name: Deploy via rsync
+      - name: Deploy via rsync and sshpass
         env:
           USERNAME: ${{ secrets.SFTP_USERNAME }}
+          PASSWORD: ${{ secrets.SFTP_PASSWORD }} # Ensure this secret is set in your repository
           HOST: ${{ secrets.SFTP_HOST }}
           DEPLOY_PATH: staging.postaverse.net/
         run: |
-          rsync -avz --delete --exclude .git/ ./ $USERNAME@$HOST:$DEPLOY_PATH
+          sshpass -p "$PASSWORD" rsync -avz --delete --exclude .git/ --rsh="ssh -o StrictHostKeyChecking=no" ./ $USERNAME@$HOST:$DEPLOY_PATH
