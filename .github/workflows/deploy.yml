@@ -40,7 +40,7 @@ jobs:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
         run: |
-          cp .env.example .env
+          cp .env.ci .env
 
           # set production
           sed -i 's/APP_ENV=local/APP_ENV=$APP_KEY/g' .env
