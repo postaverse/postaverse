@@ -1,0 +1,75 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            composer-
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Install composer dependencies
+        run: |
+          composer install --no-scripts
+
+      - name: Prepare Laravel Application
+        env:
+          APP_ENV: production
+          APP_KEY: ${{ secrets.APP_KEY }}
+          APP_URL: ${{ secrets.APP_URL }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        run: |
+          cp .env.example .env
+
+          # set production
+          sed -i 's/APP_ENV=local/APP_ENV=$APP_KEY/g' .env
+          sed -i 's/APP_DEBUG=true/APP_DEBUG=false/g' .env
+          sed -i 's/APP_URL=https:\/\/postaverse.test/APP_URL=https:\/\/staging.postaverse.net/g' .env
+
+          # replace database settings
+          sed -i 's/DB_HOST=127.0.0.1/DB_HOST=$DB_HOST/g' .env
+          sed -i 's/DB_PORT=3310/DB_PORT=$DB_PORT/g' .env
+          sed -i 's/DB_DATABASE=postaverse/DB_DATABASE=$DB_DATABASE/g' .env
+          sed -i 's/DB_USERNAME=root/DB_USERNAME=$DB_USERNAME/g' .env
+          sed -i 's/DB_PASSWORD=/DB_PASSWORD=$DB_PASSWORD/g' .env
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Compile assets
+        run: npm run build
+
+      - name: Install lftp
+        run: sudo apt-get install lftp
+
+      - name: Deploy via SFTP
+        env:
+          USERNAME: ${{ secrets.SFTP_USERNAME }}
+          PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          HOST: ${{ secrets.SFTP_HOST }}
+          DEPLOY_PATH: subdomain.domain.tld/ # Change this to your project path
+        run: |
+          lftp -u $USERNAME,$PASSWORD sftp://$HOST -e "
+          set sftp:auto-confirm yes;
+          mirror --reverse --delete --verbose --exclude .git/ ./ $DEPLOY_PATH; quit"
