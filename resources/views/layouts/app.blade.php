@@ -36,10 +36,11 @@
 
         <!-- Page Content -->
         <main>
-            <div id="stars1" class="stars"></div>
+           {{ $slot }}
+        <div id="stars1" class="stars"></div>
             <div id="stars2" class="stars"></div>
             <div id="stars3" class="stars"></div>
-            {{ $slot }}
+
         </main>
     </div>
 
