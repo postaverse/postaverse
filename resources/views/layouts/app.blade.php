@@ -36,9 +36,7 @@
 
         <!-- Page Content -->
         <main>
-            <div class="z">
-                {{ $slot }}
-            </div>
+            {{ $slot }}
             <div id="stars1" class="stars"></div>
             <div id="stars2" class="stars"></div>
             <div id="stars3" class="stars"></div>
