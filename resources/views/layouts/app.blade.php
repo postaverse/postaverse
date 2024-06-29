@@ -36,11 +36,12 @@
 
         <!-- Page Content -->
         <main>
-           {{ $slot }}
-        <div id="stars1" class="stars"></div>
+            <div class="z">
+                {{ $slot }}
+            </div>
+            <div id="stars1" class="stars"></div>
             <div id="stars2" class="stars"></div>
             <div id="stars3" class="stars"></div>
-
         </main>
     </div>
 

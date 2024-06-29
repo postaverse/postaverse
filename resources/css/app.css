@@ -17,7 +17,7 @@ body {
     overflow: hidden;
     top: 0;
     left: 0;
-    z-index: -1;
+    z-index: 0;
 }
 
 .star {
@@ -25,4 +25,8 @@ body {
     height: 2px;
     background: white;
     position: absolute;
+}
+
+.z {
+    z-index: 1;
 }

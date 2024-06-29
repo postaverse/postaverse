@@ -23,7 +23,7 @@
     <div id="stars1" class="stars"></div>
     <div id="stars2" class="stars"></div>
     <div id="stars3" class="stars"></div>
-    <div class="font-sans text-gray-900 dark:text-gray-100 antialiased">
+    <div class="font-sans text-gray-900 dark:text-gray-100 antialiased z">
         {{ $slot }}
     </div>
 
