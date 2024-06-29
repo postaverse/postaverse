@@ -5,3 +5,23 @@
 [x-cloak] {
     display: none;
 }
+
+body {
+    background-color: #000;
+}
+
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+}
+
+.star {
+    width: 2px;
+    height: 2px;
+    background: white;
+    position: absolute;
+}
