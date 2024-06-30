@@ -56,6 +56,7 @@
                 let size = Math.random() * 3; // Change this value to adjust the range of sizes
                 star.style.width = `${size}px`;
                 star.style.height = `${size}px`;
+                star.style.transform = `rotate(${Math.random() * 360}deg)`;
                 document.getElementById(id).appendChild(star);
             }
         }
