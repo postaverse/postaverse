@@ -33,5 +33,7 @@ div {
 }
 
 header {
+    position: relative; /* Establish stacking context */
     z-index: 2 !important;
+    background-color: #fff; /* Ensure solid background for dark mode */
 }
