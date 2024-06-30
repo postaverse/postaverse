@@ -11,7 +11,7 @@
                 <p class="text-white">{{ $post->content }}</p>
 
                 @if ($post->user_id == auth()->user()->id)
-                    <button class="text-white" wire:click="delete({{ $post->id }})">
+                    <button class="text-red-800" wire:click="delete({{ $post->id }})">
                         Delete
                     </button>
                 @endif
