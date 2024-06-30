@@ -11,7 +11,7 @@ body {
 }
 
 .stars {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -25,9 +25,5 @@ body {
     width: 2px;
     height: 2px;
     background: white;
-    position: absolute;
-}
-
-main {
-    fill-opacity: 0.5 !important;
+    position: relative;
 }
