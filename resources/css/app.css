@@ -11,7 +11,7 @@ body {
 }
 
 .stars {
-    position: relative;
+    position: absolute;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -25,5 +25,10 @@ body {
     width: 2px;
     height: 2px;
     background: white;
-    position: relative;
+    position: absolute;
+}
+
+main {
+    /* RGBA for the hex code of: #1a202c */
+    background-color: rgba(26, 32, 44, 0.5);
 }
