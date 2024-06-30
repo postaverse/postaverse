@@ -29,5 +29,5 @@ body {
 }
 
 main {
-    opacity: 0.5 !important;
+    fill-opacity: 0.5 !important;
 }
