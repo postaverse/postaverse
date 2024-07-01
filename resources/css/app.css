@@ -10,6 +10,18 @@ body {
     background-color: #000;
 }
 
+@keyframes twinkle {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 .stars {
     position: absolute;
     width: 100%;
@@ -26,9 +38,10 @@ body {
     height: 2px;
     background: white;
     position: absolute;
+    animation: twinkle 1s infinite;
 }
 
-main {
-    /* RGBA for the hex code of: #1a202c */
-    background-color: rgba(26, 32, 44, 0.5);
+.main {
+    position: relative;
+    z-index: 2;
 }

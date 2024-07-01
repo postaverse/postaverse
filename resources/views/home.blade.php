@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12 main">
         <livewire:create-post />
         <livewire:all-posts />
     </div>
