@@ -1,10 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Profile;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/u/{userId}', Profile::class);
 
 Route::middleware([
     'auth:sanctum',
