@@ -4,7 +4,12 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Profile;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        return redirect()->route('home');
+    }
+    else {
+        return view('welcome');
+    }
 });
 
 Route::get('/u/{userId}', Profile::class)->name('user-profile');
