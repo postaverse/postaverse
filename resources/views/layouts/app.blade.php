@@ -20,7 +20,9 @@
 </head>
 
 <body class="font-sans antialiased">
-    <x-banner />
+    <div class="header">
+        <x-banner />
+    </div>
 
     <div class="min-h-screen bg-gray-900">
         @livewire('navigation-menu')
