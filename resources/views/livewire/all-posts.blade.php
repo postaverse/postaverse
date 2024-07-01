@@ -5,10 +5,10 @@
                 <h1 class="text-xl font-bold text-white">
                     {{ $post->title }}
                 </h1>
-                <h2 class="text-xl font-bold text-white">
+                <h2 class="text-lg font-bold text-white">
                     {{ $post->user->name  }}
                 </h2>
-                <h3 class="text-xl font-bold text-white">
+                <h3 class="text-base font-bold text-white">
                     {{ $post->created_at->diffForHumans() }} -
                 </h3>
                 <p class="text-white">{{ $post->content }}</p>
