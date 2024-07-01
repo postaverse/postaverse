@@ -16,7 +16,9 @@
             <div class="flex items-center space-x-4">
                 <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->name }}'s profile photo" class="w-10 h-10 rounded-full">
                 <h2 class="text-lg font-bold text-white">
-                    {{ $post->user->name }}
+                    <a href="{{ route('user-profile', $post->user->id) }}">
+                        {{ $post->user->name }}
+                    </a>
                 </h2>
             </div>
             <h1 class="text-xl font-bold text-white">
