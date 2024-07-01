@@ -1,4 +1,9 @@
 <div>
+    <div>
+        {{ $user->profile_photo_url }}
+        {{ $user->name }}
+    </div>
+    <br>
     @foreach ($posts as $post)
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
             <div wire:key="{{ $post->id }}" class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
