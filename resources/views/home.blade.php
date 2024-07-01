@@ -10,9 +10,7 @@
         <livewire:all-posts />
     </div>
     <div>
-        <div id="stars1" class="stars"></div>
-        <div id="stars2" class="stars"></div>
-        <div id="stars3" class="stars"></div>
+        <div id="stars" class="stars"></div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -30,9 +28,7 @@
                 }
             }
 
-            createStars('stars1', 400);
-            createStars('stars2', 300);
-            createStars('stars3', 200);
+            createStars('stars', 400);
 
             const stars = document.querySelectorAll('.star');
 
