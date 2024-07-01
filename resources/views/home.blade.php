@@ -12,5 +12,5 @@
     <div>
         <div id="stars" class="stars"></div>
     </div>
-    <script src="stars.js"></script>
+    @vite(['resources/js/stars.js'])
 </x-app-layout>
