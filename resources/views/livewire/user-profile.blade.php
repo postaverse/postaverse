@@ -3,7 +3,7 @@
         <br>
         <img src="{{ $user->profile_photo_url }}" alt="Profile Photo" class="w-40 h-40 rounded-full">
         <br>
-        <h1 class="text-xxl font-bolder text-white">{{ $user->name }}</h1>
+        <h1 class="text-xl font-bold text-white">{{ $user->name }}</h1>
         <br>
         @if ($user->bio !== null)
         <p class="text-white">{{ $user->bio }}</p>
