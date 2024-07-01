@@ -20,6 +20,6 @@ class Profile extends Component
         return view('livewire.user-profile', [
             'user' => $user,
             'posts' => $user->posts,
-        ]);
+        ])->layout('layouts.app');
     }
 }
