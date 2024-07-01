@@ -50,3 +50,7 @@ body {
     position: relative;
     z-index: 2;
 }
+
+.hyperlink {
+    text-decoration: underline !important;
+}
