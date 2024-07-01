@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/u/{userId}', Profile::class);
+Route::get('/u/{userId}', Profile::class)->name('user-profile');
 
 Route::middleware([
     'auth:sanctum',
