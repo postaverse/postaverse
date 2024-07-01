@@ -1,6 +1,6 @@
 <div>
     <div style="text-align: center;">
-        <img src="{{ $user->profile_photo_url }}" alt="Profile Photo" class="w-10 h-10 rounded-full">
+        <img src="{{ $user->profile_photo_url }}" alt="Profile Photo" class="w-40 h-40 rounded-full">
         <span class="text-xxl font-bolder text-white">{{ $user->name }}</span>
     </div>
     <br>
