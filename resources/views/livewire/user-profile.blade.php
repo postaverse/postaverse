@@ -1,7 +1,7 @@
 <div>
-    <div>
+    <div style="text-align: center;">
         <img src="{{ $user->profile_photo_url }}" alt="Profile Photo" class="w-10 h-10 rounded-full">
-        <span>{{ $user->name }}</span>
+        <span class="text-xxl font-bolder text-white">{{ $user->name }}</span>
     </div>
     <br>
     @foreach ($posts as $post)
