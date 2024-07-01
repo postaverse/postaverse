@@ -54,3 +54,8 @@ body {
 .hyperlink {
     text-decoration: underline !important;
 }
+
+.bio-padding {
+    padding-left: 25px;
+    padding-right: 25px;
+}

@@ -6,7 +6,7 @@
         <h1 class="text-xl font-bold text-white">{{ $user->name }}</h1>
         <br>
         @if ($user->bio !== null)
-        <p class="text-white">{{ $user->bio }}</p>
+        <p class="text-white bio-padding">{{ $user->bio }}</p>
         @endif
     </div>
     <br>
