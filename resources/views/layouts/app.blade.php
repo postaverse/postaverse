@@ -20,7 +20,7 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="header">
+    <div class="bg-gray-800 shadow header">
         <x-banner />
     </div>
 
