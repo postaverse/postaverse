@@ -15,7 +15,7 @@ class Settings extends Controller
      */
     public function show(Request $request)
     {
-        return view('settings.show', [
+        return view('profile.show', [
             'request' => $request,
             'user' => $request->user(),
         ]);
