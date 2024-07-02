@@ -33,10 +33,14 @@ class Profile extends Component
 
     public function render()
     {
-        // Assuming you have a 'handle' column in your users table
-        $user = User::where('handle', $this->userHandle)->firstOrFail();
+        // Join the users table with the handles table to find the user by handle
+        $user = User::join('handles', 'users.id', '=', 'handles.user_id')
+                    ->where('handles.handle', $this->userHandle)
+                    ->select('users.*') // Select only columns from the users table
+                    ->firstOrFail();
+    
         $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(20);
-
+    
         return view('livewire.user-profile', [
             'user' => $user,
             'posts' => $posts,
