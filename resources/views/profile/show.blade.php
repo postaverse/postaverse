@@ -59,4 +59,7 @@
             @endif
         </div>
     </div>
+    <div class="stars"></div>
+    @vite
+    (['resources/js/stars.js'])
 </x-app-layout>
