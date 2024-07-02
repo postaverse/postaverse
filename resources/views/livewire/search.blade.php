@@ -14,6 +14,7 @@
             </div>
         </div>
         @else
+        <h1 class="text-xl font-bold text-white">Users</h1>
         @foreach ($users as $user)
         <div class="w-full mb-6">
             <div wire:key="{{ $user->id }}" class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
@@ -38,6 +39,9 @@
             </div>
         </div>
         @else
+        <h1 class="text-xl font-bold text-white">
+            Posts
+        </h1>
         @foreach ($posts as $post)
         <div class="w-full mb-6">
             <div wire:key="{{ $post->id }}" class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
