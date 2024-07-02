@@ -13,7 +13,7 @@ Route::get('/', function () {
     }
 });
 
-Route::get('/u/{userId}', Profile::class)->name('user-profile');
+Route::get('/@{userHandle}', Profile::class)->name('user-profile');
 
 
 Route::middleware([
