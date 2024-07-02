@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Livewire;
 
 use Illuminate\Http\Request;
@@ -9,18 +8,24 @@ use Livewire\Component;
 
 class Search extends Component
 {
-    public function index(Request $request)
+    public $query = '';
+
+    public function mount(Request $request)
     {
-        $query = $request->input('query');
+        $this->query = $request->input('query', '');
+    }
+
+    public function render()
+    {
         // Search users
-        $users = User::where('name', 'LIKE', "%{$query}%")->get();
+        $users = User::where('name', 'LIKE', "%{$this->query}%")->get();
         // Search posts
-        $posts = Post::where('title', 'LIKE', "%{$query}%")
-                     ->orWhere('content', 'LIKE', "%{$query}%")
+        $posts = Post::where('title', 'LIKE', "%{$this->query}%")
+                     ->orWhere('content', 'LIKE', "%{$this->query}%")
                      ->get();
         // Combine users and posts into one collection if needed
         $searchResults = $users->concat($posts);
-        // Alternatively, you can pass users and posts separately if they need to be handled differently in the view
-        return view('search.results', compact('searchResults'));
+
+        return view('livewire.search', compact('searchResults'));
     }
 }
