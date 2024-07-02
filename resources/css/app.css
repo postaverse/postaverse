@@ -62,5 +62,5 @@ body {
 
 .drdo {
     display: relative;
-    z-index: 1000 !important;
+    z-index: 3;
 }
