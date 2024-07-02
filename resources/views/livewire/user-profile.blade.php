@@ -33,6 +33,15 @@
         @endif
     </div>
     <br>
+    @if ($posts->isEmpty())
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+        <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+            <h1 class="text-xl font-bold text-white">
+                No posts found.
+            </h1>
+        </div>
+    </div>
+    @else
     @foreach ($posts as $post)
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 main">
         <div wire:key="{{ $post->id }}" class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
