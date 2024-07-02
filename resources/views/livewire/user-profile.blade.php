@@ -54,7 +54,4 @@
         </div>
     </div>
     @endforeach
-    <br>
-    <div id="stars" class="stars"></div>
-    @vite(['resources/js/stars.js'])
 </div>

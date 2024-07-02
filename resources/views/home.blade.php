@@ -9,8 +9,4 @@
         <livewire:create-post />
         <livewire:all-posts />
     </div>
-    <div>
-        <div id="stars" class="stars"></div>
-    </div>
-    @vite(['resources/js/stars.js'])
 </x-app-layout>

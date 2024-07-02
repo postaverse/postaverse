@@ -47,6 +47,8 @@
     @stack('modals')
 
     @livewireScripts
+    <div id="stars" class="stars"></div>
+    @vite(['resources/js/stars.js'])
 </body>
 
 </html>
