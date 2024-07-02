@@ -10,6 +10,8 @@ class Feed extends Component
 {
     use WithPagination;
 
+    protected $layout = 'components.layouts.app';
+
     public function render()
     {
         $posts = Post::query()
