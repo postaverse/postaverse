@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Profile;
-use App\Http\Controllers\FollowController;
+use App\Livewire\Follow;
 use App\Livewire\Feed;
 
 Route::get('/', function () {
@@ -25,10 +25,9 @@ Route::middleware([
     Route::get('/home', function () {
         return view('home');
     })->name('home');
-    Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('user.follow');
-    Route::post('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('user.unfollow');
+    Route::post('/follow/{user}', Follow::class)->name('follow');
+    Route::delete('/unfollow/{user}', Follow::class)->name('unfollow');
+    Route::get('/feed', Feed::class)->name('feed');
 });
-
-Route::get('/feed', Feed::class)->name('feed')->middleware(['auth:sanctum', 'verified']);
 
 require __DIR__ . '/socialstream.php';
