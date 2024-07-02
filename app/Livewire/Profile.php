@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use App\Models\User;
@@ -9,42 +10,50 @@ class Profile extends Component
 {
     use WithPagination;
 
-    public $userHandle;
+    public $userId;
 
-    public $newHandle;
-
-    public function updateHandle()
+    public function mount($userId)
     {
-        $this->validate([
-            'newHandle' => ['required', 'string', 'max:255', 'unique:users,handle'],
-        ]);
-
-        $user = User::find(auth()->id());
-        $user->handle = $this->newHandle;
-        $user->save();
-
-        session()->flash('message', 'Handle updated successfully.');
-    }
-
-    public function mount($userHandle)
-    {
-        $this->userHandle = $userHandle;
-        dd();
+        $this->userId = $userId;
     }
 
     public function render()
     {
-        // Join the users table with the handles table to find the user by handle
-        $user = User::join('handles', 'users.id', '=', 'handles.user_id')
-                    ->where('handles.handle', $this->userHandle)
-                    ->select('users.*') // Select only columns from the users table
-                    ->firstOrFail();
-    
+        $user = User::find($this->userId);
+
+        // Correctly apply pagination on the query builder
         $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(20);
     
         return view('livewire.user-profile', [
             'user' => $user,
             'posts' => $posts,
         ])->layout('layouts.app');
+    }
+
+    public function followUser()
+    {
+        $user = User::find($this->userId);
+        if (!$user) {
+            return;
+        }
+
+        $currentUser = auth()->user();
+        $currentUser->follows()->attach($this->userId);
+    }
+
+    public function unfollowUser()
+    {
+        $user = User::find($this->userId);
+        if (!$user) {
+            return;
+        }
+
+        $currentUser = auth()->user();
+        $currentUser->follows()->detach($this->userId);
+    }
+
+    public function isFollowing()
+    {
+        return auth()->user()->follows()->where('following_id', $this->userId)->exists();
     }
 }
