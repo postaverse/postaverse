@@ -11,23 +11,6 @@
             @livewire('profile.update-profile-information-form')
 
             <x-section-border />
-            @php
-            public $newHandle;
-
-            public function updateHandle()
-            {
-            $this->validate([
-            'newHandle' => ['required', 'string', 'max:255', 'unique:users,handle'],
-            ]);
-
-            $user = User::find(auth()->id());
-            $user->handle = $newHandle;
-            $user->save();
-
-            session()->flash('message', 'Handle updated successfully.');
-            }
-            @endphp
-
             <form wire:submit.prevent="updateHandle">
                 <input type="text" wire:model="newHandle" placeholder="Enter new handle">
                 @error('newHandle') <span class="error">{{ $message }}</span> @enderror

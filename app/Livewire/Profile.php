@@ -11,6 +11,21 @@ class Profile extends Component
 
     public $userHandle;
 
+    public $newHandle;
+
+    public function updateHandle()
+    {
+        $this->validate([
+            'newHandle' => ['required', 'string', 'max:255', 'unique:users,handle'],
+        ]);
+
+        $user = User::find(auth()->id());
+        $user->handle = $this->newHandle;
+        $user->save();
+
+        session()->flash('message', 'Handle updated successfully.');
+    }
+
     public function mount($userHandle)
     {
         $this->userHandle = $userHandle;
