@@ -2,7 +2,7 @@
     <br>
     <x-slot name="header" class="header">
         <h2 class="font-semibold text-xl text-gray-200 leading-tight">
-            {{ __('Home') }}
+            {{ __('Profile') }}
         </h2>
     </x-slot>
     <div class="flex flex-col items-center justify-center main">
