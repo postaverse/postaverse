@@ -21,11 +21,11 @@
                 </div>
             </div>
 
-            <div class="hidden sm:flex sm:items-center sm:ms-6 drdo">
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                 <div class="ms-3 relative">
-                    <x-dropdown align="right" width="60" class="dd">
+                    <x-dropdown align="right" width="60">
                         <x-slot name="trigger">
                             <span class="inline-flex rounded-md">
                                 <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-400 bg-gray-800 hover:text-gray-300 focus:outline-none dark:focus:bg-gray-700 :active:bg-gray-700 transition ease-in-out duration-150">
@@ -75,7 +75,7 @@
                 @endif
 
                 <!-- Settings Dropdown -->
-                <div class="ms-3 relative drdo">
+                <div class="ms-3 relative">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -154,7 +154,7 @@
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600 drdo">
+        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="flex items-center px-4">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                 <div class="shrink-0 me-3">
@@ -168,7 +168,7 @@
                 </div>
             </div>
 
-            <div class="mt-3 space-y-1 drdo">
+            <div class="mt-3 space-y-1">
                 <!-- Account Management -->
                 <x-responsive-nav-link href="{{ url('/u/' . Auth::user()->id) }}">
                     {{ __('Profile') }}
