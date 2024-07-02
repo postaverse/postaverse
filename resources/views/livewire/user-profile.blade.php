@@ -8,6 +8,12 @@
         @if ($user->bio !== null)
         <p class="text-white max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">{{ $user->bio }}</p>
         @endif
+        <br>
+        <div class="flex items-center space-x-4">
+            <h2 class="text-lg font-bold text-white">Followers: {{ $user->followers->count() }}</h2>
+            <h2 class="text-lg font-bold text-white">Following: {{ $user->following->count() }}</h2>
+        </div>
+        <br>
         @if (auth()->check() && $user->id !== auth()->id())
         @if ($this->isFollowing())
         <button wire:click="unfollowUser" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
