@@ -25,7 +25,7 @@
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                 <div class="ms-3 relative">
-                    <x-dropdown align="right" width="60" style="z-index: 9999;">
+                    <x-dropdown align="right" width="60" class="dd">
                         <x-slot name="trigger">
                             <span class="inline-flex rounded-md">
                                 <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-400 bg-gray-800 hover:text-gray-300 focus:outline-none dark:focus:bg-gray-700 :active:bg-gray-700 transition ease-in-out duration-150">
