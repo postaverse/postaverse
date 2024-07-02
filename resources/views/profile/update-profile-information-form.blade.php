@@ -88,6 +88,20 @@
             <x-textarea id="bio" class="mt-1 block w-full" wire:model="state.bio" />
             <x-input-error for="bio" class="mt-2" />
         </div>
+
+        <!-- Handle -->
+        <!--
+                    <form wire:submit.prevent="updateHandle">
+                <input type="text" wire:model="newHandle" placeholder="Enter new handle">
+                @error('newHandle') <span class="error">{{ $message }}</span> @enderror
+                <button type="submit">Update Handle</button>
+            </form>
+        -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="handle" value="{{ __('Handle') }}" />
+            <x-input id="handle" type="text" class="mt-1 block w-full" wire:model="state.handle" required autocomplete="handle" />
+            <x-input-error for="handle" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="actions">

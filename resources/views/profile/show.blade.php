@@ -11,13 +11,6 @@
             @livewire('profile.update-profile-information-form')
 
             <x-section-border />
-            <form wire:submit.prevent="updateHandle">
-                <input type="text" wire:model="newHandle" placeholder="Enter new handle">
-                @error('newHandle') <span class="error">{{ $message }}</span> @enderror
-                <button type="submit">Update Handle</button>
-            </form>
-
-            <x-section-border />
             @endif
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()) && ! is_null($user->getAuthPassword()))
