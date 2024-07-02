@@ -29,6 +29,7 @@ class Profile extends Component
     public function mount($userHandle)
     {
         $this->userHandle = $userHandle;
+        dd();
     }
 
     public function render()
