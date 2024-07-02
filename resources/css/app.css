@@ -44,6 +44,8 @@ body {
 .main {
     position: relative;
     z-index: 2;
+    padding-top: 0;
+    margin-top: 48px;
 }
 
 .header {
