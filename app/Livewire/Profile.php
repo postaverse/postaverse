@@ -54,6 +54,6 @@ class Profile extends Component
 
     public function isFollowing()
     {
-        return auth()->user()->follows()->where('following_user_id', $this->userId)->exists();
+        return auth()->user()->follows()->where('following_id', $this->userId)->exists();
     }
 }
