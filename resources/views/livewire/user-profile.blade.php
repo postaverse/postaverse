@@ -8,6 +8,17 @@
         @if ($user->bio !== null)
         <p class="text-white max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">{{ $user->bio }}</p>
         @endif
+        @if (auth()->check() && $user->id !== auth()->id())
+        @if ($this->isFollowing())
+        <button wire:click="unfollowUser" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            Unfollow
+        </button>
+        @else
+        <button wire:click="followUser" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Follow
+        </button>
+        @endif
+        @endif
     </div>
     <br>
     @foreach ($posts as $post)

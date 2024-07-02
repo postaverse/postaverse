@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use App\Models\User;
@@ -27,5 +28,32 @@ class Profile extends Component
             'user' => $user,
             'posts' => $posts,
         ])->layout('layouts.app');
+    }
+
+    public function followUser()
+    {
+        $user = User::find($this->userId);
+        if (!$user) {
+            return;
+        }
+
+        $currentUser = auth()->user();
+        $currentUser->follows()->attach($this->userId);
+    }
+
+    public function unfollowUser()
+    {
+        $user = User::find($this->userId);
+        if (!$user) {
+            return;
+        }
+
+        $currentUser = auth()->user();
+        $currentUser->follows()->detach($this->userId);
+    }
+
+    public function isFollowing()
+    {
+        return auth()->user()->follows()->where('following_user_id', $this->userId)->exists();
     }
 }
