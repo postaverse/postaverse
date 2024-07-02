@@ -29,7 +29,9 @@
             </div>
         </div>
         @endforeach
-        {{ $users->links() }}
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+            {{ $users->links() }}
+        </div>
         @endif
         @if ($posts->isEmpty())
         <div class="w-full mb-6">
@@ -63,7 +65,9 @@
             </div>
         </div>
         @endforeach
-        {{ $posts->links() }}
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+            {{ $posts->links() }}
+        </div>
         @endif
     </div>
 </div>
