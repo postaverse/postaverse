@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\Profile;
 use App\Livewire\Follow;
 use App\Livewire\Feed;
-use Laravel\Jetstream\Http\Livewire\UserProfile;
+use App\Livewire\Settings;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -15,7 +15,6 @@ Route::get('/', function () {
 });
 
 Route::get('/u/{userId}', Profile::class)->name('user-profile');
-Route::get('/settings', UserProfile::class)->name('profile.show')->middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']);
 
 Route::middleware([
     'auth:sanctum',
@@ -29,6 +28,7 @@ Route::middleware([
     Route::post('/follow/{user}', Follow::class)->name('follow');
     Route::delete('/unfollow/{user}', Follow::class)->name('unfollow');
     Route::get('/feed', Feed::class)->name('feed');
+    Route::get('/settings', [Settings::class, 'show'])->name('profile.show');
 });
 
 require __DIR__ . '/socialstream.php';
