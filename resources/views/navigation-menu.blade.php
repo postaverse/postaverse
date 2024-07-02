@@ -19,7 +19,7 @@
                         {{ __('Feed') }}
                     </x-nav-link>
                     <!-- Search Bar -->
-                    <div class="ml-4 relative mt-10">
+                    <div class="ml-4 relative mt-5">
                         <form action="{{ route('search') }}" method="GET">
                             <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
                             <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 mt-2 mr-4">
