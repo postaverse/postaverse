@@ -26,6 +26,6 @@ class Search extends Component
         // Combine users and posts into one collection if needed
         $searchResults = $users->concat($posts);
 
-        return view('livewire.search', compact('searchResults'));
+        return view('livewire.search', compact('searchResults'))->layout('layouts.app');
     }
 }
