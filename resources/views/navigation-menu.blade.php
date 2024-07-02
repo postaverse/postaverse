@@ -154,7 +154,7 @@
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
+        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600 drdo">
             <div class="flex items-center px-4">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                 <div class="shrink-0 me-3">
@@ -168,7 +168,7 @@
                 </div>
             </div>
 
-            <div class="mt-3 space-y-1">
+            <div class="mt-3 space-y-1 drdo">
                 <!-- Account Management -->
                 <x-responsive-nav-link href="{{ url('/u/' . Auth::user()->id) }}">
                     {{ __('Profile') }}
