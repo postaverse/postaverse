@@ -23,9 +23,7 @@ class Search extends Component
         $posts = Post::where('title', 'LIKE', "%{$this->query}%")
                      ->orWhere('content', 'LIKE', "%{$this->query}%")
                      ->get();
-        // Combine users and posts into one collection if needed
-        $searchResults = $users->concat($posts);
 
-        return view('livewire.search', compact('searchResults'))->layout('layouts.app');
+        return view('livewire.search', compact('users', 'posts'))->layout('layouts.app');
     }
 }
