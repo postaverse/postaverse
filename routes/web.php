@@ -5,6 +5,7 @@ use App\Livewire\Profile;
 use App\Livewire\Follow;
 use App\Livewire\Feed;
 use App\Livewire\Settings;
+use App\Livewire\Search;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -15,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/u/{userId}', Profile::class)->name('user-profile');
+Route::get('/search', Search::class)->name('search');
 
 Route::middleware([
     'auth:sanctum',
