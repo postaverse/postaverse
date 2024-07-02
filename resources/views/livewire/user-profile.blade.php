@@ -1,4 +1,10 @@
 <div>
+    <br>
+    <x-slot name="header" class="header">
+        <h2 class="font-semibold text-xl text-gray-200 leading-tight">
+            {{ __('Home') }}
+        </h2>
+    </x-slot>
     <div class="flex flex-col items-center justify-center main">
         <br>
         <img src="{{ $user->profile_photo_url }}" alt="Profile Photo" class="w-40 h-40 rounded-full">
