@@ -27,7 +27,7 @@
 
             <div>
                 <a
-                    href="{{ route('profile.show') }}"
+                    href="{{ route('settings.show') }}"
                     class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                     {{ __('Edit Profile') }}</a>

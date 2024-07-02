@@ -100,7 +100,7 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Settings') }}
                             </div>
-                            <x-dropdown-link href="{{ route('profile.show') }}">
+                            <x-dropdown-link href="{{ route('settings.show') }}">
                                 {{ __('Account') }}
                             </x-dropdown-link>
 
@@ -169,7 +169,7 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Settings -->
-                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                <x-responsive-nav-link href="{{ route('settings.show') }}" :active="request()->routeIs('settings.show')">
                     {{ __('Settings') }}
                 </x-responsive-nav-link>
 

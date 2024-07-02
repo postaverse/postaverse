@@ -28,7 +28,7 @@ Route::middleware([
     Route::post('/follow/{user}', Follow::class)->name('follow');
     Route::delete('/unfollow/{user}', Follow::class)->name('unfollow');
     Route::get('/feed', Feed::class)->name('feed');
-    Route::get('/settings', [Settings::class, 'show'])->name('profile.show');
+    Route::get('/settings', [Settings::class, 'show'])->name('settings.show');
 });
 
 require __DIR__ . '/socialstream.php';
