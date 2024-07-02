@@ -19,13 +19,11 @@
                         {{ __('Feed') }}
                     </x-nav-link>
                     <!-- Search Bar -->
-                    <div class="ml-4 relative">
+                    <div class="ml-4 relative mt-10">
                         <form action="{{ route('search') }}" method="GET">
                             <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
                             <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 mt-2 mr-4">
-                                <svg class="text-gray-400 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M12.905 14.32a1 1 0 01-.707-.293l-3.137-3.137a1 1 0 01-.293-.707V10a6 6 0 1112 0 6 6 0 01-6 6 1 1 0 010-2zm-6-4a4 4 0 108 0 4 4 0 00-8 0z" />
-                                </svg>
+                                
                             </button>
                         </form>
                     </div>
@@ -162,13 +160,11 @@
                 {{ __('Feed') }}
             </x-responsive-nav-link>
             <!-- Search Bar -->
-            <div class="ml-4 relative">
+            <div class="ml-4 relative mt-5">
                 <form action="{{ route('search') }}" method="GET">
                     <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
                     <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 mt-2 mr-4">
-                        <svg class="text-gray-400 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                            <path d="M12.905 14.32a1 1 0 01-.707-.293l-3.137-3.137a1 1 0 01-.293-.707V10a6 6 0 1112 0 6 6 0 01-6 6 1 1 0 010-2zm-6-4a4 4 0 108 0 4 4 0 00-8 0z" />
-                        </svg>
+                        
                     </button>
                 </form>
             </div>
