@@ -5,10 +5,15 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
 use Livewire\Component;
+use Livewire\WithPagination; // Import the WithPagination trait
 
 class Search extends Component
 {
+    use WithPagination; // Use the trait in your component
+
     public $query = '';
+
+    protected $paginationTheme = 'bootstrap'; // Optional: specify the pagination theme
 
     public function mount(Request $request)
     {
@@ -17,12 +22,12 @@ class Search extends Component
 
     public function render()
     {
-        // Search users
-        $users = User::where('name', 'LIKE', "%{$this->query}%")->get();
-        // Search posts
+        // Search users with pagination
+        $users = User::where('name', 'LIKE', "%{$this->query}%")->paginate(5); // Adjust the number per page as needed
+        // Search posts with pagination
         $posts = Post::where('title', 'LIKE', "%{$this->query}%")
                      ->orWhere('content', 'LIKE', "%{$this->query}%")
-                     ->get();
+                     ->paginate(5); // Adjust the number per page as needed
 
         return view('livewire.search', compact('users', 'posts'))->layout('layouts.app');
     }
