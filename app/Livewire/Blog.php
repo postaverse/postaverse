@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Post;
+use App\Models\Blogs;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,7 +12,7 @@ class Blog extends Component
 
     public function render()
     {
-        $blogPosts = Post::with('user')->orderByDesc('created_at')->paginate(10);
+        $blogPosts = Blogs::with('user')->orderByDesc('created_at')->paginate(10);
 
         return view('livewire.blog', compact('blogPosts'))->layout('layouts.app');
     }
