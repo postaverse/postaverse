@@ -20,10 +20,13 @@ class AllPosts extends Component
 
     public function render()
     {
-        return view('livewire.all-posts', [
-            'posts' => Post::query()
-                ->orderByDesc('id')
-                ->paginate(20),
-        ]);
+        $posts = Post::query()->orderByDesc('id')->paginate(20);
+
+        foreach ($posts as $post) {
+            $post->hasProfanity = $post->hasProfanity();
+        }
+        $profanityOption = 'hide_clickable';
+
+        return view('livewire.all-posts', compact('posts', 'profanityOption'))->layout('layouts.app');
     }
 }

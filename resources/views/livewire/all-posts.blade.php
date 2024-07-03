@@ -16,7 +16,14 @@
                 <h3 class="text-base font-bold text-white">
                     {{ $post->created_at->diffForHumans() }}
                 </h3>
-                <p class="text-white">{{ $post->content }}</p>
+                @if($profanityOption == 'hide_clickable' && $post->hasProfanity)
+                    <p class="text-white cursor-pointer" onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to reveal.</p>
+                    <p class="text-white" style="display:none;">{{ $post->content }}</p>
+                @elseif($profanityOption == 'hide' && $post->hasProfanity)
+                    <p class="text-white">Content hidden due to profanity.</p>
+                @else
+                    <p class="text-white">{{ $post->content }}</p>
+                @endif
 
                 @if ($post->user_id == auth()->user()->id)
                     <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">
