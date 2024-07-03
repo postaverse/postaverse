@@ -14,6 +14,6 @@ class Blog extends Component
     {
         $blogPosts = Blogs::with('user')->orderByDesc('created_at')->paginate(10);
 
-        return view('livewire.blog', compact('blogPosts'))->layout('layouts.app');
+        return view('livewire.blogs', compact('blogPosts'))->layout('layouts.app');
     }
 }
