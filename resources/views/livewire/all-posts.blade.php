@@ -17,7 +17,7 @@
                     {{ $post->created_at->diffForHumans() }}
                 </h3>
                 @if($profanityOption == 'hide_clickable' && $post->hasProfanity)
-                    <p class="text-white cursor-pointer" onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to reveal.</p>
+                    <p class="text-white cursor-pointer hyperlink" onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to reveal.</p>
                     <p class="text-white" style="display:none;">{{ $post->content }}</p>
                 @elseif($profanityOption == 'hide' && $post->hasProfanity)
                     <p class="text-white">Content hidden due to profanity.</p>
