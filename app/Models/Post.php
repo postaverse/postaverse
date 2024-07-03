@@ -15,8 +15,13 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function hasProfanity()
+    public function hasProfanity($handlingOption = 'show')
     {
+        // If the option is to show all content, no need to check for profanity
+        if ($handlingOption === 'show') {
+            return false;
+        }
+
         // Path to the text file containing profane words and phrases
         $filePath = base_path('resources/blocked.txt'); // Adjust the path as necessary
 
@@ -31,6 +36,8 @@ class Post extends Model
                 return true; // Found a profane word or phrase in the content
             }
         }
+
+        // No profanity found, or the handling option does not require checking
         return false;
     }
 }

@@ -45,7 +45,7 @@
                     <div class="text-white">{{ $post->content }}</div>
                 @endif
             @else
-                <div>{{ $post->content }}</div>
+                <div class="text-white">{{ $post->content }}</div>
             @endif
             {{-- Profanity check integration ends here --}}
             @if ($post->user_id == auth()->user()->id)
