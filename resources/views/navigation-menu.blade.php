@@ -155,11 +155,13 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Home') }}
+            <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('dashboard')" class="flex items-center space-x-2">
+                <img src="{{ asset('images/home.png') }}" alt="Home" class="w-10 h-10 rounded-full">
+                <span>{{ __('Home') }}</span>
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')">
-                {{ __('Feed') }}
+            <x-responsive-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')" class="flex items-center space-x-2">
+                <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10 rounded-full">
+                <span>{{ __('Feed') }}</span>
             </x-responsive-nav-link>
             <!-- Search Bar -->
             <div class="ml-4 relative mt-5">
