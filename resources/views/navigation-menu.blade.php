@@ -12,18 +12,20 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Home') }}
+                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="flex flex-col items-center space-y-1">
+                        <img src="{{ asset('images/home.png') }}" alt="Home" class="w-10 h-10 rounded-full">
+                        <span>{{ __('Home') }}</span>
                     </x-nav-link>
-                    <x-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')">
-                        {{ __('Feed') }}
+                    <x-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')" class="flex flex-col items-center space-y-1">
+                        <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10 rounded-full">
+                        <span>{{ __('Feed') }}</span>
                     </x-nav-link>
                     <!-- Search Bar -->
                     <div class="ml-4 relative mt-2.5">
                         <form action="{{ route('search') }}" method="GET">
                             <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
                             <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 mt-2 mr-4">
-                                
+
                             </button>
                         </form>
                     </div>
@@ -164,7 +166,7 @@
                 <form action="{{ route('search') }}" method="GET">
                     <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
                     <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 mt-2 mr-4">
-                        
+
                     </button>
                 </form>
             </div>
