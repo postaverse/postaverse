@@ -29,7 +29,7 @@
             </div>
         </div>
         @endforeach
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 bg-gray-800">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
             {{ $users->links() }}
         </div>
         @endif
@@ -65,7 +65,7 @@
             </div>
         </div>
         @endforeach
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 bg-gray-800">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
             {{ $posts->links() }}
         </div>
         @endif

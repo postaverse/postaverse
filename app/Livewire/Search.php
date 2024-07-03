@@ -13,8 +13,6 @@ class Search extends Component
 
     public $query = '';
 
-    protected $paginationTheme = 'bootstrap'; // Optional: specify the pagination theme
-
     public function mount(Request $request)
     {
         $this->query = $request->input('query', '');
