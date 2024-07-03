@@ -12,7 +12,9 @@
             </div>
             @if($profanityOption == 'hide_clickable' && $post->hasProfanity)
             <h1 class="text-xl font-bold text-white hyperlink">
-                Content hidden due to profanity. Click to reveal.
+                <a href="#" onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">
+                    Content hidden due to profanity. Click to reveal.
+                </a>
             </h1>
             <h1 class="text-xl font-bold text-white" style="display:none;">
                 {{ $post->title }}
