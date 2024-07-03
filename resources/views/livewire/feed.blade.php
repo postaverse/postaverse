@@ -35,14 +35,14 @@
             {{-- Profanity check integration starts here --}}
             @if ($post->hasProfanity)
                 @if ($profanityOption === 'hide_clickable')
-                    <div>
-                        Content hidden due to profanity. <a href="#" onclick="this.previousElementSibling.style.display='block'; this.style.display='none'">Click to show.</a>
+                    <div class="text-white">
+                        <a class="hyperlink" href="#" onclick="this.previousElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to show.</a>
                         <div style="display: none;">{{ $post->content }}</div>
                     </div>
                 @elseif ($profanityOption === 'hide')
-                    <div>Content hidden due to profanity.</div>
+                    <div class="text-white">Content hidden due to profanity.</div>
                 @else
-                    <div>{{ $post->content }}</div>
+                    <div class="text-white">{{ $post->content }}</div>
                 @endif
             @else
                 <div>{{ $post->content }}</div>
