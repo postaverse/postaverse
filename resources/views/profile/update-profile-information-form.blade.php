@@ -86,6 +86,7 @@
         </div>
 
         <!-- Profanity Detection Type -->
+        <!--
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
             <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
                 <h2 class="text-lg font-bold text-white mb-4">Profanity Handling Options</h2>
@@ -105,6 +106,7 @@
                 </form>
             </div>
         </div>
+        -->
     </x-slot>
 
     <x-slot name="actions">
