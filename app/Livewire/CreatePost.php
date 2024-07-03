@@ -8,22 +8,35 @@ use Livewire\Component;
 
 class CreatePost extends Component
 {
-    #[Validate('required', 'max:100')]
     public string $title = '';
-
-    #[Validate('required', 'max:500')]
     public string $content = '';
+
+    // Computed property for title character count
+    public function getTitleCountProperty()
+    {
+        return strlen($this->title);
+    }
+
+    // Computed property for content character count
+    public function getContentCountProperty()
+    {
+        return strlen($this->content);
+    }
 
     public function submit()
     {
-        $this->validate();
+        $this->validate([
+            'title' => 'required|max:100',
+            'content' => 'required|max:500',
+        ]);
 
         /** @var User $authUser */
         $authUser = auth()->user();
 
-        $authUser->posts()->create(
-            $this->only(['title', 'content'])
-        );
+        $authUser->posts()->create([
+            'title' => $this->title,
+            'content' => $this->content,
+        ]);
 
         return $this->redirect('/home');
     }
