@@ -8,10 +8,10 @@ use Livewire\Component;
 
 class CreatePost extends Component
 {
-    #[Validate('required')]
+    #[Validate('required', 'max:100')]
     public string $title = '';
 
-    #[Validate('required')]
+    #[Validate('required', 'max:500')]
     public string $content = '';
 
     public function submit()
