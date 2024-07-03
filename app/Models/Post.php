@@ -15,7 +15,7 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function hasProfanity($handlingOption = 'show')
+    public function hasProfanity($handlingOption = 'hide_clickable')
     {
         // If the option is to show all content, no need to check for profanity
         if ($handlingOption === 'show') {
