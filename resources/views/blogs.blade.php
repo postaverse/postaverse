@@ -6,9 +6,7 @@
     </x-slot>
 
     <div class="py-12 main">
-        @if(auth()->user())
         <livewire:create-blog-post />
-        @endif
         <livewire:blog />
     </div>
 </x-app-layout>
