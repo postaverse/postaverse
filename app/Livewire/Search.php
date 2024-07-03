@@ -21,10 +21,11 @@ class Search extends Component
     public function render()
     {
         // Search users with pagination
-        $users = User::where('name', 'LIKE', "%{$this->query}%")->paginate(5); // Adjust the number per page as needed
+        $users = User::where('name', 'LIKE', "%{$this->query}%")->orderByDesc('id')->paginate(5); // Adjust the number per page as needed
         // Search posts with pagination
         $posts = Post::where('title', 'LIKE', "%{$this->query}%")
                      ->orWhere('content', 'LIKE', "%{$this->query}%")
+                     ->orderByDesc('id')
                      ->paginate(5); // Adjust the number per page as needed
 
         return view('livewire.search', compact('users', 'posts'))->layout('layouts.app');
