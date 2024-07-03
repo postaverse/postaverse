@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use App\Models\Post;
@@ -20,6 +21,10 @@ class Feed extends Component
             ->select('posts.*') // Ensure only columns from the posts table are selected
             ->paginate(20);
 
-        return view('livewire.feed', compact('posts'))->layout('layouts.app');
+        foreach ($posts as $post) {
+            $post->hasProfanity = $post->hasProfanity();
+        }
+
+        return view('livewire.feed', compact('posts', 'profanityOption'))->layout('layouts.app');
     }
 }
