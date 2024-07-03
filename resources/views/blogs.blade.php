@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12 main">
-        @if(auth()->user() && auth()->user()->email === 'zapalew+ptest@gmail.com')
+        @if(auth()->user())
         <livewire:create-blog-post />
         @endif
         <livewire:blog />
