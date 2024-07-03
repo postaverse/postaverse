@@ -21,22 +21,24 @@ class Post extends Model
         if ($handlingOption === 'show') {
             return false;
         }
-
+    
         // Path to the text file containing profane words and phrases
         $filePath = base_path('resources/blocked.txt'); // Adjust the path as necessary
-
+    
         // Read the file lines into an array, trimming whitespace and skipping empty lines
         $profaneWordsPhrases = array_filter(array_map('trim', file($filePath)));
-
-        // Check for profane words
-        $contentWords = preg_split('/\s+/', strtolower($this->content)); // Split content into words based on whitespace and convert to lowercase
+    
+        // Convert the content to lowercase for case-insensitive comparison
+        $content = strtolower($this->content);
+    
         foreach ($profaneWordsPhrases as $wordPhrase) {
-            $wordPhrase = strtolower($wordPhrase); // Convert to lowercase for case-insensitive comparison
-            if (strpos($this->content, $wordPhrase) !== false) {
-                return true; // Found a profane word or phrase in the content
+            // Prepare the word or phrase for a whole word match in a case-insensitive manner
+            $pattern = '/\b' . preg_quote($wordPhrase, '/') . '\b/i';
+            if (preg_match($pattern, $content)) {
+                return true; // Found a profane word or phrase as a whole word in the content
             }
         }
-
+    
         // No profanity found, or the handling option does not require checking
         return false;
     }
