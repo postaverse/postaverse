@@ -16,7 +16,7 @@
                         <img src="{{ asset('images/home.png') }}" alt="Home" class="w-10 h-10 rounded-full">
                         <span>{{ __('Home') }}</span>
                     </x-nav-link>
-                    <x-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')" class="flex flex-col items-center space-y-1">
+                    <x-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')" class="flex flex-col items-center space-y-0.5">
                         <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10 rounded-full">
                         <span>{{ __('Feed') }}</span>
                     </x-nav-link>
