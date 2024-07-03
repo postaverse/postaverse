@@ -36,7 +36,7 @@
             @if ($post->hasProfanity)
                 @if ($profanityOption === 'hide_clickable')
                     <div class="text-white">
-                        <a class="hyperlink" href="#" onclick="this.previousElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to show.</a>
+                        <a class="hyperlink" href="#" onclick="event.preventDefault(); this.previousElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to show.</a>
                         <div style="display: none;">{{ $post->content }}</div>
                     </div>
                 @elseif ($profanityOption === 'hide')

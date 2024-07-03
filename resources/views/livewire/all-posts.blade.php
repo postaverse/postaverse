@@ -11,7 +11,7 @@
                 </h2>
             </div>
             @if($profanityOption == 'hide_clickable' && $post->hasProfanity)
-            <a href="#" onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">
+            <a href="#" onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
                 <h1 class="text-xl font-bold text-white hyperlink">
                     Content hidden due to profanity. Click to reveal.
                 </h1>
