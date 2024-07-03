@@ -12,7 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="flex flex-col items-center space-y-1">
+                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="flex flex-col items-center space-y-0.5">
                         <img src="{{ asset('images/home.png') }}" alt="Home" class="w-10 h-10 rounded-full">
                         <span>{{ __('Home') }}</span>
                     </x-nav-link>
