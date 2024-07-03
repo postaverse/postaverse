@@ -6,6 +6,8 @@ use App\Livewire\Follow;
 use App\Livewire\Feed;
 use App\Livewire\Settings;
 use App\Livewire\Search;
+use App\Livewire\Blog;
+use App\Livewire\CreateBlogPost;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -17,6 +19,7 @@ Route::get('/', function () {
 
 Route::get('/u/{userId}', Profile::class)->name('user-profile');
 Route::get('/search', Search::class)->name('search');
+Route::get('/blog', Blog::class)->name('blog');
 
 Route::middleware([
     'auth:sanctum',
@@ -31,6 +34,7 @@ Route::middleware([
     Route::delete('/unfollow/{user}', Follow::class)->name('unfollow');
     Route::get('/feed', Feed::class)->name('feed');
     Route::get('/settings', [Settings::class, 'show'])->name('settings.show');
+    Route::post('/create-blog-post', [CreateBlogPost::class, 'createBlogPost'])->name('create-blog-post');
 });
 
 require __DIR__ . '/socialstream.php';
