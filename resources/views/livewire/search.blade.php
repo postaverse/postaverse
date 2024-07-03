@@ -29,10 +29,13 @@
             </div>
         </div>
         @endforeach
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
             {{ $users->links() }}
         </div>
         @endif
+    </div>
+    <div class="flex flex-col items-start justify-start main px-6 lg:px-8">
         @if ($posts->isEmpty())
         <div class="w-full mb-6">
             <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
@@ -65,9 +68,10 @@
             </div>
         </div>
         @endforeach
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-            {{ $posts->links() }}
-        </div>
-        @endif
     </div>
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+        {{ $posts->links() }}
+    </div>
+    @endif
+</div>
 </div>
