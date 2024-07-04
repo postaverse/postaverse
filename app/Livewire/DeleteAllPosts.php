@@ -10,6 +10,6 @@ class deleteAllPosts extends Component
     public function deleteAllPosts()
     {
         Post::query()->delete();
-        return redirect()->route('home');
+        return view('livewire.home')->layout('layouts.app');
     }
 }
