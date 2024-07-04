@@ -33,11 +33,11 @@
             </h3>
             @if($profanityOption == 'hide_clickable' && $post->hasProfanity)
             <p class="text-white cursor-pointer hyperlink" onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to reveal.</p>
-            <p class="text-white" style="display:none;">{{ $post->content }}</p>
+            <p class="text-white" style="display:none;">{!! nl2br(e($post->content)) !!}</p>
             @elseif($profanityOption == 'hide' && $post->hasProfanity)
             <p class="text-red-500">Content hidden due to profanity.</p>
             @else
-            <p class="text-white">{{ $post->content }}</p>
+            <p class="text-white">{!! nl2br(e($post->content)) !!}</p>
             @endif
 
             @if ($post->user_id == auth()->user()->id)
