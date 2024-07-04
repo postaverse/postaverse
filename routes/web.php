@@ -7,16 +7,7 @@ use App\Livewire\Feed;
 use App\Livewire\Settings;
 use App\Livewire\Search;
 use App\Livewire\Blog;
-use App\Livewire\CreateBlogPost;
-use Livewire\Component;
-
-class deleteAllPosts extends Component
-{
-    public function deleteAllPosts()
-    {
-        Post::query()->delete();
-    }
-}
+use App\Livewire\deleteAllPosts;
 
 Route::get('/', function () {
     if (auth()->check()) {
