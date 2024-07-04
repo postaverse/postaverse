@@ -22,7 +22,7 @@ class Feed extends Component
         foreach ($posts as $post) {
             $post->hasProfanity = $post->hasProfanity();
         }
-        $profanityOption = 'hide_clickable'; // Define $profanityOption with a default value or fetch from user settings
+        $profanityOption = 'hide'; // Define $profanityOption with a default value or fetch from user settings
         return view('livewire.feed', compact('posts', 'profanityOption'))->layout('layouts.app');
     }
 }

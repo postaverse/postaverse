@@ -25,7 +25,7 @@ class AllPosts extends Component
         foreach ($posts as $post) {
             $post->hasProfanity = $post->hasProfanity();
         }
-        $profanityOption = 'hide_clickable';
+        $profanityOption = 'hide';
 
         return view('livewire.all-posts', compact('posts', 'profanityOption'))->layout('layouts.app');
     }
