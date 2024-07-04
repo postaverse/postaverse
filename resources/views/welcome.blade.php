@@ -1,11 +1,12 @@
 <x-guest-layout>
     <div>
         <br>
-        <x-slot name="header" class="header">
-            <h2 class="font-semibold text-xl text-gray-200 leading-tight">
-                {{ __('Welcome') }}
-            </h2>
-        </x-slot>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+                <h1 class="text-xl font-bold text-white">
+                    <a href="{{ route('login') }}" class="hyperlink">Login</a> or <a href="{{ route('register') }}" class="hyperlink">Register</a> to get started!
+                </h1>
+            </div>
         <br>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
             <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
