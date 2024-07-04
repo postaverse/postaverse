@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "erusev/parsedown": "^1.7",
         "joelbutcher/socialstream": "^6.0",
         "laravel/framework": "^11.0",
         "laravel/jetstream": "^5.1",

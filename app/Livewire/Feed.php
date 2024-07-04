@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Parsedown;
 
 class Feed extends Component
 {
@@ -23,6 +24,7 @@ class Feed extends Component
             $post->hasProfanity = $post->hasProfanity();
         }
         $profanityOption = 'hide'; // Define $profanityOption with a default value or fetch from user settings
-        return view('livewire.feed', compact('posts', 'profanityOption'))->layout('layouts.app');
+        $parsedown = new Parsedown();
+        return view('livewire.feed', compact('posts', 'profanityOption', 'parsedown'))->layout('layouts.app');
     }
 }

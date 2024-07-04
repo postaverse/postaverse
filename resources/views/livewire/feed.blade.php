@@ -27,7 +27,7 @@
                 </h2>
             </div>
             <h1 class="text-xl font-bold text-white">
-                {{ $post->title }}
+            {!! $parsedown->text(e($post->title)) !!}
             </h1>
             <h3 class="text-base font-bold text-white">
                 {{ $post->created_at->diffForHumans() }}
@@ -37,15 +37,15 @@
                 @if ($profanityOption === 'hide_clickable')
                     <div class="text-white">
                         <a class="hyperlink text-red-500" href="#" onclick="event.preventDefault(); this.previousElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to show.</a>
-                        <div style="display: none;">{{ $post->content }}</div>
+                        <div style="display: none;">{!! $parsedown->text(e($post->content)) !!}</div>
                     </div>
                 @elseif ($profanityOption === 'hide')
                     <div class="text-red-500">Content hidden due to profanity.</div>
                 @else
-                    <div class="text-white">{{ $post->content }}</div>
+                    <div class="text-white">{!! $parsedown->text(e($post->content)) !!}</div>
                 @endif
             @else
-                <div class="text-white">{{ $post->content }}</div>
+                <div class="text-white">{!! $parsedown->text(e($post->content)) !!}</div>
             @endif
             {{-- Profanity check integration ends here --}}
             @if ($post->user_id == auth()->user()->id)

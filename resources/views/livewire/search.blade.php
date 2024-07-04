@@ -6,7 +6,7 @@
     </x-slot>
     <div class="flex flex-col items-start justify-start main px-6 lg:px-8">
         @if ($insult)
-        <div class="bg-red-500 text-white p-4 rounded-lg mb-6">
+        <div class="bg-gray-500 text-white p-4 rounded-lg mb-6">
             <h1 class="text-xl font-bold">
                 {{ $insult }}
             </h1>
@@ -70,7 +70,7 @@
                     </h1>
                 </a>
                 <h1 class="text-xl font-bold text-white" style="display:none;">
-                    {{ $post->title }}
+                    {!! $parsedown->text(e($post->title)) !!}
                 </h1>
                 @elseif($profanityOption == 'hide' && $post->hasProfanity)
                 <h1 class="text-xl font-bold text-red-500">
@@ -78,7 +78,7 @@
                 </h1>
                 @else
                 <h1 class="text-xl font-bold text-white">
-                    {{ $post->title }}
+                    {!! $parsedown->text(e($post->title)) !!}
                 </h1>
                 @endif
                 <h3 class="text-base font-bold text-white">
@@ -86,11 +86,11 @@
                 </h3>
                 @if($profanityOption == 'hide_clickable' && $post->hasProfanity)
                 <p class="text-white cursor-pointer hyperlink" onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to reveal.</p>
-                <p class="text-white" style="display:none;">{{ $post->content }}</p>
+                <p class="text-white" style="display:none;">{!! $parsedown->text(e($post->content)) !!}</p>
                 @elseif($profanityOption == 'hide' && $post->hasProfanity)
                 <p class="text-red-500">Content hidden due to profanity.</p>
                 @else
-                <p class="text-white">{{ $post->content }}</p>
+                <p class="text-white">{!! $parsedown->text(e($post->content)) !!}</p>
                 @endif
             </div>
         </div>

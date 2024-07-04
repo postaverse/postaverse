@@ -22,6 +22,10 @@ body {
     }
 }
 
+p {
+    color: white;
+}
+
 .stars {
     position: fixed;
     width: 100%;

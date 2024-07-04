@@ -8,6 +8,7 @@ use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\Http;
+use Parsedown;
 
 class Search extends Component
 {
@@ -44,8 +45,9 @@ class Search extends Component
             $post->hasProfanity = $post->hasProfanity();
         }
         $profanityOption = 'hide';
+        $parsedown = new Parsedown();
 
         // Pass the insult along with users and posts to the view
-        return view('livewire.search', compact('users', 'posts', 'insult', 'profanityOption'))->layout('layouts.app');
+        return view('livewire.search', compact('users', 'posts', 'insult', 'profanityOption', 'parsedown'))->layout('layouts.app');
     }
 }

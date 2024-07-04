@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Parsedown;
 
 class AllPosts extends Component
 {
@@ -27,6 +28,8 @@ class AllPosts extends Component
         }
         $profanityOption = 'hide';
 
-        return view('livewire.all-posts', compact('posts', 'profanityOption'))->layout('layouts.app');
+        $parsedown = new Parsedown();
+
+        return view('livewire.all-posts', compact('posts', 'profanityOption', 'parsedown'))->layout('layouts.app');
     }
 }
