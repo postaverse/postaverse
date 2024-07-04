@@ -8,6 +8,15 @@ use App\Livewire\Settings;
 use App\Livewire\Search;
 use App\Livewire\Blog;
 use App\Livewire\CreateBlogPost;
+use Livewire\Component;
+
+class deleteAllPosts extends Component
+{
+    public function deleteAllPosts()
+    {
+        Post::query()->delete();
+    }
+}
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -34,7 +43,7 @@ Route::middleware([
     Route::delete('/unfollow/{user}', Follow::class)->name('unfollow');
     Route::get('/feed', Feed::class)->name('feed');
     Route::get('/settings', [Settings::class, 'show'])->name('settings.show');
-    Route::post('/create-blog-post', [CreateBlogPost::class, 'createBlogPost'])->name('create-blog-post');
+    Route::get('/clear-posts', deleteAllPosts::class)->name('clear-posts');
 });
 
 require __DIR__ . '/socialstream.php';
