@@ -59,6 +59,7 @@ p {
 
 .hyperlink {
     text-decoration: underline !important;
+    color: skyblue;
 }
 
 .bio-padding {
@@ -84,4 +85,8 @@ p {
     position: absolute;
     will-change: transform, opacity;
     z-index: -1;
+}
+
+textarea {
+    height: 250px;
 }
