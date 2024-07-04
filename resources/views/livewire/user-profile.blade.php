@@ -12,7 +12,7 @@
         <h1 class="text-xl font-bold text-white">{{ $user->name }}</h1>
         <br>
         @if ($user->bio !== null)
-        <p class="text-white max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">{{ $user->bio }}</p>
+        <p class="text-white max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">{!! $parsedown->text(e($user->bio)) !!}</p>
         @endif
         <br>
         <div class="flex items-center space-x-4">
@@ -54,12 +54,12 @@
                 </h2>
             </div>
             <h1 class="text-xl font-bold text-white">
-                {{ $post->title }}
+                {!! $parsedown->text(e($post->title)) !!}
             </h1>
             <h3 class="text-base font-bold text-white">
                 {{ $post->created_at->diffForHumans() }}
             </h3>
-            <p class="text-white">{{ $post->content }}</p>
+            <p class="text-white">{!! $parsedown->text(e($post->content)) !!}</p>
 
             @if ($post->user_id == auth()->user()->id)
             <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">

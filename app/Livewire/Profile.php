@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Parsedown;
 
 class Profile extends Component
 {
@@ -20,6 +21,11 @@ class Profile extends Component
     public function render()
     {
         $user = User::find($this->userId);
+        if (!$user) {
+            return;
+        }
+
+        $parsedown = new Parsedown();
 
         // Correctly apply pagination on the query builder
         $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(20);
@@ -27,6 +33,7 @@ class Profile extends Component
         return view('livewire.user-profile', [
             'user' => $user,
             'posts' => $posts,
+            'parsedown' => $parsedown,
         ])->layout('layouts.app');
     }
 
