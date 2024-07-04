@@ -49,6 +49,7 @@
 
     @livewireScripts
     <div id="stars" class="stars"></div>
+    <div id="confetti-container"></div>
     @vite(['resources/js/stars.js'])
 </body>
 

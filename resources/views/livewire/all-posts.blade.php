@@ -12,7 +12,7 @@
             </div>
             @if($profanityOption == 'hide_clickable' && $post->hasProfanity)
             <a href="#" onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
-                <h1 class="text-xl font-bold text-white hyperlink">
+                <h1 class="text-xl font-bold text-red-500 hyperlink">
                     Content hidden due to profanity. Click to reveal.
                 </h1>
             </a>
@@ -20,7 +20,7 @@
                 {{ $post->title }}
             </h1>
             @elseif($profanityOption == 'hide' && $post->hasProfanity)
-            <h1 class="text-xl font-bold text-white">
+            <h1 class="text-xl font-bold text-red-500">
                 Content hidden due to profanity.
             </h1>
             @else
@@ -35,7 +35,7 @@
             <p class="text-white cursor-pointer hyperlink" onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to reveal.</p>
             <p class="text-white" style="display:none;">{{ $post->content }}</p>
             @elseif($profanityOption == 'hide' && $post->hasProfanity)
-            <p class="text-white">Content hidden due to profanity.</p>
+            <p class="text-red-500">Content hidden due to profanity.</p>
             @else
             <p class="text-white">{{ $post->content }}</p>
             @endif

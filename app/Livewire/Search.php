@@ -1,15 +1,17 @@
 <?php
+
 namespace App\Livewire;
 
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Post;
 use Livewire\Component;
-use Livewire\WithPagination; // Import the WithPagination trait
+use Livewire\WithPagination;
+use Illuminate\Support\Facades\Http;
 
 class Search extends Component
 {
-    use WithPagination; // Use the trait in your component
+    use WithPagination;
 
     public $query = '';
 
@@ -20,14 +22,30 @@ class Search extends Component
 
     public function render()
     {
-        // Search users with pagination
-        $users = User::where('name', 'LIKE', "%{$this->query}%")->orderByDesc('id')->paginate(5); // Adjust the number per page as needed
-        // Search posts with pagination
-        $posts = Post::where('title', 'LIKE', "%{$this->query}%")
-                     ->orWhere('content', 'LIKE', "%{$this->query}%")
-                     ->orderByDesc('id')
-                     ->paginate(5); // Adjust the number per page as needed
+        $insult = ''; // Initialize an empty insult string
 
-        return view('livewire.search', compact('users', 'posts'))->layout('layouts.app');
+        if ($this->query === '??ramsay??') {
+            $response = Http::get('https://api.zanderlewis.dev/ramsay_insult.php');
+
+            if ($response->successful()) {
+                $data = $response->json();
+                $insult = $data['insult']; // Store the insult from the API response
+            }
+        }
+
+        // Regular search logic
+        $users = User::where('name', 'LIKE', "%{$this->query}%")->orderByDesc('id')->paginate(5);
+        $posts = Post::where('title', 'LIKE', "%{$this->query}%")
+            ->orWhere('content', 'LIKE', "%{$this->query}%")
+            ->orderByDesc('id')
+            ->paginate(5);
+
+        foreach ($posts as $post) {
+            $post->hasProfanity = $post->hasProfanity();
+        }
+        $profanityOption = 'hide';
+
+        // Pass the insult along with users and posts to the view
+        return view('livewire.search', compact('users', 'posts', 'insult', 'profanityOption'))->layout('layouts.app');
     }
 }

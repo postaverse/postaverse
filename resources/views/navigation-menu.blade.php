@@ -6,18 +6,18 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('home') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                        <img src="{{ asset('images/wordlogo.png') }}" class="block h-10 w-auto" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="flex flex-col items-center space-y-0.5">
-                        <img src="{{ asset('images/home.png') }}" alt="Home" class="w-10 h-10 rounded-full">
+                    <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="flex flex-col items-center">
+                        <img src="{{ asset('images/home.png') }}" alt="Home" class="w-9 h-9">
                         <span>{{ __('Home') }}</span>
                     </x-nav-link>
-                    <x-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')" class="flex flex-col items-center space-y-0.5">
-                        <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10 rounded-full">
+                    <x-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')" class="flex flex-col items-center">
+                        <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-9 h-9">
                         <span>{{ __('Feed') }}</span>
                     </x-nav-link>
                     <!-- Search Bar -->
@@ -156,15 +156,15 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('dashboard')" class="flex items-center space-x-2">
-                <img src="{{ asset('images/home.png') }}" alt="Home" class="w-10 h-10 rounded-full">
+                <img src="{{ asset('images/home.png') }}" alt="Home" class="w-10 h-10">
                 <span>{{ __('Home') }}</span>
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')" class="flex items-center space-x-2">
-                <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10 rounded-full">
+                <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10">
                 <span>{{ __('Feed') }}</span>
             </x-responsive-nav-link>
             <!-- Search Bar -->
-            <div class="ml-4 relative mt-5">
+            <div class="ml-4 relative mt-5 mr-2">
                 <form action="{{ route('search') }}" method="GET">
                     <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
                     <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 mt-2 mr-4">
