@@ -1,45 +1,29 @@
 <x-guest-layout>
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-        <div class="relative min-h-screen flex flex-col items-center justify-start">
-            <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-                <header class="grid grid-cols-2 items-center gap-2 py-10">
-                    <div class="flex lg:col-start-1">
-                        Postaverse
-                    </div>
-                    @if (Route::has('login'))
-                        <nav class="-mx-3 flex flex-1 justify-end">
-                            @auth
-                                <a
-                                    href="{{ route('home') }}"
-                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                >
-                                    Home
-                                </a>
-                            @else
-                                <a
-                                    href="{{ route('login') }}"
-                                    class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                >
-                                    Log in
-                                </a>
-
-                                @if (Route::has('register'))
-                                    <a
-                                        href="{{ route('register') }}"
-                                        class="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                    >
-                                        Register
-                                    </a>
-                                @endif
-                            @endauth
-                        </nav>
-                    @endif
-                </header>
-
-                <main class="mt-6">
-                    Welcome!
-                </main>
+    <div>
+        <br>
+        <x-slot name="header" class="header">
+            <h2 class="font-semibold text-xl text-gray-200 leading-tight">
+                {{ __('Welcome') }}
+            </h2>
+        </x-slot>
+        <br>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+                <h1 class="text-xl font-bold text-white">
+                    Welcome to Postaverse!
+                </h1>
+                <h2 class="text-lg font-bold text-white">
+                    Postaverse is a social media platform where you can share your thoughts and connect with others. We use no algorithms, so you can enjoy a chronological feed which is strictly based on the people you follow.
+                </h2>
+                <h3 class="text-base font-bold text-white">
+                    Postaverse was started by <a href="https://zanderlewis.dev" class="hyperlink">Zander Lewis</a> and <a href="https://tristonpenn.com" class="hyperlink">Triston Penn</a> as a replacement to social media platforms that use algorithms to control what you see.
+                </h3>
+                <h2 class="text-base font-bold text-white">
+                    How it got started:
+                </h2>
+                <h3 class="text-base font-bold text-white">
+                    In mid-December of 2023, Zander was finishing up CS50x and learned how to create websites in Python. Postaverse launched January 4, 2024, and was created from the ground up. Postaverse was taken down in mid-February due to an upcoming issue with hosting. Postaverse was relaunched in a development phase on July 1, 2024, becoming v2. V2 uses the PHP programming language and uses Laravel as the framework.
+                </h3>
             </div>
         </div>
-    </div>
 </x-guest-layout>
