@@ -14,7 +14,6 @@ class AllPosts extends Component
     public function delete(int $postId)
     {
         Post::query()
-            ->where('user_id', auth()->id())
             ->where('id', $postId)
             ->delete();
     }
