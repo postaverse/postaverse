@@ -54,7 +54,7 @@
                 </h2>
             </div>
             <h1 class="text-xl font-bold text-white">
-                {!! $parsedown->text(e($post->title)) !!}
+            {{ $post->title }}
             </h1>
             <h3 class="text-base font-bold text-white">
                 {{ $post->created_at->diffForHumans() }}

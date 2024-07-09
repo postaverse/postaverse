@@ -17,7 +17,7 @@
                 </h1>
             </a>
             <h1 class="text-xl font-bold text-white" style="display:none;">
-                {!! $parsedown->text(e($post->title)) !!}
+                {{ $post->title }}
             </h1>
             @elseif($profanityOption == 'hide' && $post->hasProfanity)
             <h1 class="text-xl font-bold text-red-500">
@@ -25,7 +25,7 @@
             </h1>
             @else
             <h1 class="text-xl font-bold text-white">
-                {!! $parsedown->text(e($post->title)) !!}
+            {{ $post->title }}
             </h1>
             @endif
             <h3 class="text-base font-bold text-white">
