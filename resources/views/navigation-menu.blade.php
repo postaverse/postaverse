@@ -22,9 +22,9 @@
                     </x-nav-link>
                     <!-- Search Bar -->
                     <div class="ml-4 relative mt-2.5">
-                        <form action="{{ route('search') }}" method="GET">
-                            <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
-                            <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 mt-2 mr-4">
+                        <form action="{{ route('search') }}" method="GET" class="flex items-center">
+                            <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
+                            <button type="submit" class="ml-2">
 
                             </button>
                         </form>
@@ -90,7 +90,8 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                            <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                            <button class="flex items-center text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition" style="display: flex; align-items: center; padding: 5px;">
+                                <h3 class="text-white pr-4 font-bold text-sm" style="margin: 0;">Logged in as: {{ Auth::user()->name }}</h3>
                                 <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                             </button>
                             @else
@@ -155,7 +156,7 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('dashboard')" class="flex items-center space-x-2">
+            <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="flex items-center space-x-2">
                 <img src="{{ asset('images/home.png') }}" alt="Home" class="w-10 h-10">
                 <span>{{ __('Home') }}</span>
             </x-responsive-nav-link>
