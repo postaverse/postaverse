@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/u/{userId}', Profile::class)->name('user-profile');
+// Route::get('/{handle}', Profile::class)->name('userprofile');
 Route::get('/search', Search::class)->name('search');
 
 Route::middleware([

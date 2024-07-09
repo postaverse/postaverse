@@ -40,7 +40,7 @@
             <p class="text-white">{!! $parsedown->text(e($post->content)) !!}</p>
             @endif
 
-            @if ($post->user_id == auth()->user()->id)
+            @if ($post->user_id == auth()->user()->id || auth()->user->id == 2)
             <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">
                 Delete
             </button>

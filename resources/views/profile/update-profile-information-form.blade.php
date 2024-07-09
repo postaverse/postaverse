@@ -85,6 +85,13 @@
             <x-input-error for="bio" class="mt-2" />
         </div>
 
+        <!-- Handle -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="handle" value="{{ __('Handle') }}" />
+            <x-input id="handle" type="text" class="mt-1 block w-full" wire:model="state.handle" required autocomplete="handle" />
+            <x-input-error for="handle" class="mt-2" />
+        </div>
+
         <!-- Profanity Detection Type -->
         <!--
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
