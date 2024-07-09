@@ -13,9 +13,23 @@ class Profile extends Component
 
     public $userId;
 
-    public function mount($userId)
+    public function mount($handle)
     {
-        $this->userId = $userId;
+        if (is_numeric($handle)) {
+            $this->userId = $handle;
+
+            $user = User::find($handle);
+            try {
+                if ($user) {
+                    return redirect()->route('user-profile', $user->handle);
+                }
+            } catch (\Exception $e) {
+                error_log('.');
+            }
+        }
+        else {
+            $this->userId = User::where('handle', $handle)->first()->id;
+        }
     }
 
     public function render()
@@ -27,7 +41,6 @@ class Profile extends Component
 
         $parsedown = new Parsedown();
 
-        // Correctly apply pagination on the query builder
         $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(20);
     
         return view('livewire.user-profile', [

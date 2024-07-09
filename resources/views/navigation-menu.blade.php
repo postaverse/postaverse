@@ -116,7 +116,7 @@
                                 {{ __('Account') }}
                             </x-dropdown-link>
 
-                            <x-dropdown-link href="{{ url('/u/' . Auth::user()->id) }}">
+                            <x-dropdown-link href="{{ url('/@' . Auth::user()->id) }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
@@ -196,7 +196,7 @@
                     {{ __('Settings') }}
                 </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ url('/u/' . Auth::user()->id) }}">
+                <x-responsive-nav-link href="{{ url('/@' . Auth::user()->id) }}">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
