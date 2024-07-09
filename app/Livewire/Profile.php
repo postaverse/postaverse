@@ -22,7 +22,7 @@ class Profile extends Component
     {
         $user = User::find($this->userId);
         if (!$user) {
-            return;
+            return abort(404, 'User not found');
         }
 
         $parsedown = new Parsedown();
