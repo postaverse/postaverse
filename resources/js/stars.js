@@ -27,6 +27,10 @@ document.addEventListener('DOMContentLoaded', function () {
         star.style.animationDelay = `-${delay}s`;
     });
     function createConfetti(id, count) {
+        const nope = true;
+        if (nope) {
+            return;
+        }
         for (let i = 0; i < count; i++) {
             let confettiPiece = document.createElement('div');
             confettiPiece.className = 'confetti';
