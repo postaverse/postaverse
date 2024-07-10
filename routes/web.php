@@ -6,6 +6,7 @@ use App\Livewire\Follow;
 use App\Livewire\Feed;
 use App\Livewire\Settings;
 use App\Livewire\Search;
+use App\Livewire\AdminDashboard;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -17,6 +18,8 @@ Route::get('/', function () {
 
 Route::get('/@{handle}', Profile::class)->name('user-profile');
 Route::get('/search', Search::class)->name('search');
+
+Route::get('/admin', AdminDashboard::class)->name('admin');
 
 Route::middleware([
     'auth:sanctum',

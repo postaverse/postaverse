@@ -169,8 +169,7 @@
             <!-- Search Bar -->
             <div class="ml-4 relative mt-5 mr-2">
                 <form action="{{ route('search') }}" method="GET">
-                    <img src="{{ asset('images/search.png') }}" alt="Search" class="absolute left-2 top-1/2 transform -translate-y-1/2 w-5 h-5">
-                    <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-4 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
+                    <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
                     <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 mt-2 mr-4">
 
                     </button>
