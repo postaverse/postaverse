@@ -16,7 +16,7 @@
                     Characters: <span x-text="content.length"></span> / 500
                 </div>
                 @error('content') <span class="error text-red-500">{{ $message }}</span> @enderror
-                <p class="text-sm text-gray-600"><a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">Markdown supported.</a></p>
+                <p class="text-sm text-gray-600"><a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">Click here for the Markdown guide.</a></p>
             </div>
             <x-button type="submit">{{ __('Submit') }}</x-button>
         </form>
