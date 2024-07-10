@@ -44,7 +44,7 @@ class Search extends Component
         foreach ($posts as $post) {
             $post->hasProfanity = $post->hasProfanity();
         }
-        $profanityOption = 'hide';
+        $profanityOption = auth()->user()->profanity_block_type;
         $parsedown = new Parsedown();
 
         // Pass the insult along with users and posts to the view

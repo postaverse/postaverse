@@ -93,27 +93,24 @@
         </div>
 
         <!-- Profanity Detection Type -->
-        <!--
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
-                <h2 class="text-lg font-bold text-white mb-4">Profanity Handling Options</h2>
-                <form>
-                    <div class="flex items-center mb-4">
-                        <input type="radio" id="hide_clickable" name="profanityOption" wire:model="profanityHandlingOption" value="hide_clickable" class="mr-2">
-                        <label for="hide_clickable" class="text-white">Hide with clickable reveal</label>
-                    </div>
-                    <div class="flex items-center mb-4">
-                        <input type="radio" id="hide" name="profanityOption" wire:model="profanityHandlingOption" value="hide" class="mr-2">
-                        <label for="hide" class="text-white">Hide completely</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input type="radio" id="show" name="profanityOption" wire:model="profanityHandlingOption" value="show" class="mr-2">
-                        <label for="show" class="text-white">Show content</label>
-                    </div>
-                </form>
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="profanityOption" value="{{ __('Profanity Handling Options') }}" />
+            <div class="mt-1 block w-full">
+                <div class="flex items-center mb-2">
+                    <input type="radio" id="hide_clickable" name="profanityOption" wire:model="state.profanity_block_type" value="hide_clickable" class="mr-2">
+                    <label for="hide_clickable" class="text-white">Hide with clickable reveal</label>
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="radio" id="hide" name="profanityOption" wire:model="state.profanity_block_type" value="hide" class="mr-2">
+                    <label for="hide" class="text-white">Hide completely</label>
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="radio" id="show" name="profanityOption" wire:model="state.profanity_block_type" value="show" class="mr-2">
+                    <label for="show" class="text-white">Show content</label>
+                </div>
             </div>
+            <x-input-error for="profanity_block_type" class="mt-2" />
         </div>
-        -->
     </x-slot>
 
     <x-slot name="actions">

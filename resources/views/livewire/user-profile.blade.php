@@ -59,7 +59,7 @@
             <h3 class="text-base font-bold text-white">
                 {{ $post->created_at->diffForHumans() }}
             </h3>
-            <p class="text-white">{!! $parsedown->text(e($post->content)) !!}</p>
+            <p class="text-white bio-img">{!! $parsedown->text(e($post->content)) !!}</p>
 
             @if ($post->user_id == auth()->user()->id)
             <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">

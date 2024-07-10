@@ -25,7 +25,7 @@ class AllPosts extends Component
         foreach ($posts as $post) {
             $post->hasProfanity = $post->hasProfanity();
         }
-        $profanityOption = 'hide';
+        $profanityOption = auth()->user()->profanity_block_type;
 
         $parsedown = new Parsedown();
 
