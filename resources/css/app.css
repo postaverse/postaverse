@@ -98,3 +98,8 @@ h1 {
 a {
     color: skyblue;
 }
+
+img {
+    /* Set a max width for images */
+    max-width: 250px;
+}
