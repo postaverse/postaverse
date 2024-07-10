@@ -69,9 +69,9 @@
                         Content hidden due to profanity. Click to reveal.
                     </h1>
                 </a>
-                <h1 class="text-xl font-bold text-white" style="display:none;">
+                <div class="text-xl font-bold text-white" style="display:none;">
                 {{ $post->title }}
-                </h1>
+                </div>
                 @elseif($profanityOption == 'hide' && $post->hasProfanity)
                 <h1 class="text-xl font-bold text-red-500">
                     Content hidden due to profanity.
@@ -86,7 +86,7 @@
                 </h3>
                 @if($profanityOption == 'hide_clickable' && $post->hasProfanity)
                 <p class="text-white cursor-pointer hyperlink" onclick="this.nextElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to reveal.</p>
-                <p class="text-white" style="display:none;">{!! $parsedown->text(e($post->content)) !!}</p>
+                <div class="text-white" style="display:none;">{!! $parsedown->text(e($post->content)) !!}</div>
                 @elseif($profanityOption == 'hide' && $post->hasProfanity)
                 <p class="text-red-500">Content hidden due to profanity.</p>
                 @else
