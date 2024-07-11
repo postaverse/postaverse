@@ -9,13 +9,13 @@ class AdminDashboard extends Component
 {
     public function admins()
     {
-        // Get all admins where the column in the `users` table in the database is `true` (`1`)
-        return User::where('is_admin', true)->get();
+        // Get all admins where the column in the `users` table in the database is 1 or more.
+        return User::where('admin_rank', '>=', 1)->get();
     }
 
     public function render()
     {
-        if (auth()->user()->is_admin) {
+        if (auth()->user()->admin_rank >= 1) {
             return view('livewire.admin-dashboard', [
                 'admins' => $this->admins(),
             ])->layout('layouts.app');

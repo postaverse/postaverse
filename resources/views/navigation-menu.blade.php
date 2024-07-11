@@ -20,7 +20,7 @@
                         <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-9 h-9">
                         <span>{{ __('Feed') }}</span>
                     </x-nav-link>
-                    @if (auth()->user()->is_admin)
+                    @if (auth()->user()->admin_rank >= 1)
                     <x-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')" class="flex flex-col items-center">
                         <img src="{{ asset('images/admin.png') }}" alt="Admin" class="w-9 h-9">
                         <span>{{ __('Admin') }}</span>
@@ -172,7 +172,7 @@
                 <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10">
                 <span>{{ __('Feed') }}</span>
             </x-responsive-nav-link>
-            @if (auth()->user()->is_admin)
+            @if (auth()->user()->admin_rank >= 1)
             <x-responsive-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')" class="flex items-center space-x-2">
                 <img src="{{ asset('images/admin.png') }}" alt="Admin" class="w-10 h-10">
                 <span>{{ __('Admin') }}</span>
