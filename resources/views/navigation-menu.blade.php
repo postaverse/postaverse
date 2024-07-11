@@ -20,6 +20,12 @@
                         <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-9 h-9">
                         <span>{{ __('Feed') }}</span>
                     </x-nav-link>
+                    @if (auth()->user()->is_admin)
+                    <x-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')" class="flex flex-col items-center">
+                        <img src="{{ asset('images/admin.png') }}" alt="Admin" class="w-9 h-9">
+                        <span>{{ __('Admin') }}</span>
+                    </x-nav-link>
+                    @endif
                     <!-- Search Bar -->
                     <div class="relative mt-2.5">
                         <form action="{{ route('search') }}" method="GET" class="flex items-center">
