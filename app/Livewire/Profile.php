@@ -46,6 +46,7 @@ class Profile extends Component
         return view('livewire.user-profile', [
             'user' => $user,
             'posts' => $posts,
+            'badges' => $user->badges,
             'parsedown' => $parsedown,
         ])->layout('layouts.app');
     }

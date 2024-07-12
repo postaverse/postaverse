@@ -9,7 +9,7 @@
         <br>
         <img src="{{ $user->profile_photo_url }}" alt="Profile Photo" class="w-40 h-40 rounded-full">
         <br>
-        <h1 class="text-xl font-bold text-white">{{ $user->name }}</h1>
+        <h1 class="text-3xl font-bold text-white">{{ $user->name }}</h1>
         <br>
         @if ($user->bio !== null)
         <p class="text-white max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">{!! $parsedown->text(e($user->bio)) !!}</p>
@@ -31,6 +31,16 @@
         </button>
         @endif
         @endif
+        <br>
+        <h2 class="text-2xl font-bold text-white pb-2">Badges:</h2>
+        <div class="flex items-center space-x-4">
+            @foreach ($user->badges as $badge)
+            <div class="text-center">
+                <img style="max-width: 64px;" src="{{ asset('images/badges/' . $badge->icon) }}" alt="{{ $badge->name }}" title="{{ $badge->name }}">
+                <div class="text-white">{{ ucfirst($badge->name) }}</div>
+            </div>
+            @endforeach
+        </div>
     </div>
     <br>
     @if ($posts->isEmpty())
@@ -54,7 +64,7 @@
                 </h2>
             </div>
             <h1 class="text-xl font-bold text-white">
-            {{ $post->title }}
+                {{ $post->title }}
             </h1>
             <h3 class="text-base font-bold text-white">
                 {{ $post->created_at->diffForHumans() }}
