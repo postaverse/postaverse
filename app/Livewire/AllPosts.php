@@ -37,12 +37,12 @@ class AllPosts extends Component
         // select count(*) from posts where user_id = $user->id
         $postCount = Post::query()->where('user_id', $user->id)->count();
         if ($postCount >= 10) {
-            if ($postCount >= 50) {
+            if ($postCount >= 50 && !$user->badges->contains(3)) {
                 $this->giveBadge($user->id, 3);
             }
-            if ($postCount >= 100) {
+            if ($postCount >= 100 && !$user->badges->contains(4)) {
                 $this->giveBadge($user->id, 4);
-            } else {
+            } elseif (!$user->badges->contains(2)) {
                 $this->giveBadge($user->id, 2);
             }
         }

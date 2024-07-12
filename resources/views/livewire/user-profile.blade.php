@@ -32,7 +32,8 @@
         @endif
         @endif
         <br>
-        <h2 class="text-2xl font-bold text-white pb-2">Badges:</h2>
+        @if ($user->badges->isNotEmpty())
+        <h2 class="text-2xl font-bold text-white pb-2">Patches:</h2>
         <div class="flex items-center space-x-4">
             @foreach ($user->badges as $badge)
             <div class="text-center">
@@ -41,6 +42,7 @@
             </div>
             @endforeach
         </div>
+        @endif
     </div>
     <br>
     @if ($posts->isEmpty())
