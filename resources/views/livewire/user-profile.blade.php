@@ -36,7 +36,7 @@
         <h2 class="text-2xl font-bold text-white pb-2">Patches:</h2>
         <div class="flex items-center space-x-4">
             @foreach ($user->badges as $badge)
-            <div class="text-center">
+            <div class="text-center pr-5">
                 <img style="max-width: 64px;" src="{{ asset('images/badges/' . $badge->icon) }}" alt="{{ $badge->name }}" title="{{ $badge->name }}">
                 <div class="text-white">{{ ucfirst($badge->name) }}</div>
             </div>
