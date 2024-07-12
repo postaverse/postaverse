@@ -12,7 +12,7 @@
         <h1 class="text-3xl font-bold text-white">{{ $user->name }}</h1>
         <br>
         @if ($user->bio !== null)
-        <p class="text-white max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">{!! $parsedown->text(e($user->bio)) !!}</p>
+        <div class="text-white max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">{!! $parsedown->text(e($user->bio)) !!}</div>
         @endif
         <br>
         <div class="flex items-center space-x-4">
