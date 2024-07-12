@@ -26,7 +26,7 @@ class AdminDashboard extends Component
 
     public function render()
     {
-        if (!auth()-user()->badges->contains(1)) {
+        if (!auth()->user()->badges->contains(1)) {
             $this->giveBadge(auth()->user()->id, 1);
         }
 
