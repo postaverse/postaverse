@@ -30,7 +30,7 @@
                     <div class="relative mt-2.5">
                         <form action="{{ route('search') }}" method="GET" class="flex items-center">
                             <!-- Image in search bar -->
-                            <img src="{{ asset('images/search.png') }}" alt="Search" class="h-10 w-10 mr-1">
+                            <!-- <img src="{{ asset('images/search.png') }}" alt="Search" class="h-10 w-10 mr-1"> -->
                             <input type="text" name="query" placeholder="Search posts/users..." class="bg-gray-800 text-white rounded-md py-2 pl-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" autocomplete="off">
                             <button type="submit" class="ml-2">
 
