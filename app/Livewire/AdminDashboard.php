@@ -26,7 +26,9 @@ class AdminDashboard extends Component
 
     public function render()
     {
-        $this->giveBadge(auth()->user()->id, 1);
+        if (!auth()-user()->badges->contains(1)) {
+            $this->giveBadge(auth()->user()->id, 1);
+        }
 
         if (auth()->user()->admin_rank >= 1) {
             return view('livewire.admin-dashboard', [
