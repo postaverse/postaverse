@@ -19,6 +19,11 @@
                 <p class="text-sm text-gray-600"><a href="https://www.markdownguide.org/cheat-sheet/" target="_blank">Click here for the Markdown guide.</a></p>
             </div>
             <x-button type="submit">{{ __('Submit') }}</x-button>
+            @if($errors->has('rateLimit'))
+            <div class="error text-red-500">
+                {{ $errors->first('rateLimit') }}
+            </div>
+            @endif
         </form>
     </div>
 </div>

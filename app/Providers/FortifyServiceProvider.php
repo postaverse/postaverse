@@ -42,5 +42,12 @@ class FortifyServiceProvider extends ServiceProvider
         RateLimiter::for('two-factor', function (Request $request) {
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
+
+        RateLimiter::for('post-submission', function (Request $request) {
+            // Define the throttle key based on the user's ID or IP address if the user is not authenticated
+            $throttleKey = $request->user() ? $request->user()->getKey() : $request->ip();
+            // Allow up to 10 posts per hour
+            return Limit::perHour(10)->by($throttleKey);
+        });
     }
 }

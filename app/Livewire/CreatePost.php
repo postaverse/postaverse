@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\User;
-use Livewire\Attributes\Validate;
+use Illuminate\Cache\RateLimiter;
 use Livewire\Component;
 
 class CreatePost extends Component
@@ -25,6 +25,16 @@ class CreatePost extends Component
 
     public function submit()
     {
+        // Check if the user has exceeded their rate limit for post submissions
+        $rateLimiter = app('Illuminate\Cache\RateLimiter');
+
+        // Check if the user has exceeded their rate limit for post submissions
+        $rateLimitKey = 'post-submission:' . auth()->id();
+        if (!$rateLimiter->remaining($rateLimitKey, 10)) {
+            $this->addError('rateLimit', 'You have reached the post submission limit. Please try again later.');
+            return;
+        }
+
         $this->validate([
             'title' => 'required|max:100',
             'content' => 'required|max:500',
@@ -37,6 +47,9 @@ class CreatePost extends Component
             'title' => $this->title,
             'content' => $this->content,
         ]);
+
+        // Increment the rate limiting counter
+        $rateLimiter->hit($rateLimitKey, 3600); // 3600 seconds = 1 hour
 
         return $this->redirect('/home');
     }
