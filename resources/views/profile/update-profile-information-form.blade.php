@@ -48,11 +48,18 @@
         </div>
         @endif
 
-        <!-- Name -->
+        <!-- Display Name -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="name" value="{{ __('Name') }}" />
+            <x-label for="name" value="{{ __('Display Name') }}" />
             <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" required autocomplete="name" />
             <x-input-error for="name" class="mt-2" />
+        </div>
+
+        <!-- Handle (Username) -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="handle" value="{{ __('Username') }}" />
+            <x-input id="handle" type="text" class="mt-1 block w-full" wire:model="state.handle" required autocomplete="handle" />
+            <x-input-error for="handle" class="mt-2" />
         </div>
 
         <!-- Email -->
@@ -83,13 +90,6 @@
             <x-label for="bio" value="{{ __('Bio') }}" />
             <x-textarea id="bio" class="mt-1 block w-full" wire:model="state.bio" />
             <x-input-error for="bio" class="mt-2" />
-        </div>
-
-        <!-- Handle -->
-        <div class="col-span-6 sm:col-span-4">
-            <x-label for="handle" value="{{ __('Handle') }}" />
-            <x-input id="handle" type="text" class="mt-1 block w-full" wire:model="state.handle" required autocomplete="handle" />
-            <x-input-error for="handle" class="mt-2" />
         </div>
 
         <!-- Profanity Detection Type -->
