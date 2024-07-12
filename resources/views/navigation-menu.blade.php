@@ -120,12 +120,12 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Settings') }}
                             </div>
-                            <x-dropdown-link href="{{ route('settings.show') }}">
-                                {{ __('Account') }}
-                            </x-dropdown-link>
-
                             <x-dropdown-link href="{{ url('/@' . Auth::user()->id) }}">
                                 {{ __('Profile') }}
+                            </x-dropdown-link>
+                            
+                            <x-dropdown-link href="{{ route('settings.show') }}">
+                                {{ __('Account') }}
                             </x-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -206,12 +206,12 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Settings -->
-                <x-responsive-nav-link href="{{ route('settings.show') }}" :active="request()->routeIs('settings.show')">
-                    {{ __('Settings') }}
+                <x-responsive-nav-link href="{{ url('/@' . Auth::user()->id) }}" :active="request()->url() == url('/@' . Auth::user()->handle)">
+                    {{ __('Profile') }}
                 </x-responsive-nav-link>
 
-                <x-responsive-nav-link href="{{ url('/@' . Auth::user()->id) }}">
-                    {{ __('Profile') }}
+                <x-responsive-nav-link href="{{ route('settings.show') }}" :active="request()->routeIs('settings.show')">
+                    {{ __('Settings') }}
                 </x-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
