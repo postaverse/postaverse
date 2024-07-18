@@ -10,6 +10,12 @@
                     </a>
                 </div>
 
+                <!-- Meteor Image and Count -->
+                <div class="pl-5 flex items-center shrink-0">
+                    <img src="{{ asset('images/meteor.png') }}" alt="Meteor" class="w-10 h-10">
+                    <span class="text-white text-lg font-bold pl-2">{{ auth()->user()->meteorQuantity->quantity}}</span>
+                </div>
+
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="flex flex-col items-center">
