@@ -27,27 +27,43 @@
                 </h2>
             </div>
             <h1 class="text-xl font-bold text-white">
-            {{ $post->title }}
+                {{ $post->title }}
             </h1>
             <h3 class="text-base font-bold text-white">
                 {{ $post->created_at->diffForHumans() }}
             </h3>
             {{-- Profanity check integration starts here --}}
             @if ($post->hasProfanity)
-                @if ($profanityOption === 'hide_clickable')
-                    <div class="text-white">
-                        <a class="hyperlink text-red-500" href="#" onclick="event.preventDefault(); this.previousElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to show.</a>
-                        <div style="display: none;">{!! $parsedown->text(e($post->content)) !!}</div>
-                    </div>
-                @elseif ($profanityOption === 'hide')
-                    <div class="text-red-500">Content hidden due to profanity.</div>
-                @else
-                    <div class="text-white">{!! $parsedown->text(e($post->content)) !!}</div>
-                @endif
+            @if ($profanityOption === 'hide_clickable')
+            <div class="text-white">
+                <a class="hyperlink text-red-500" href="#" onclick="event.preventDefault(); this.previousElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to show.</a>
+                <div style="display: none;">{!! $parsedown->text(e($post->content)) !!}</div>
+            </div>
+            @elseif ($profanityOption === 'hide')
+            <div class="text-red-500">Content hidden due to profanity.</div>
             @else
-                <div class="text-white">{!! $parsedown->text(e($post->content)) !!}</div>
+            <div class="text-white">{!! $parsedown->text(e($post->content)) !!}</div>
+            @endif
+            @else
+            <div class="text-white">{!! $parsedown->text(e($post->content)) !!}</div>
             @endif
             {{-- Profanity check integration ends here --}}
+
+            <hr>
+
+            <button wire:click="likePost({{ $post->id }})" class="text-white">
+                @if ($post->likes->contains('user_id', auth()->id()))
+                Unlike
+                @else
+                Like
+                @endif
+            </button>
+            <br>
+            <span class="text-white">{{ $post->likes->count() }} likes</span>
+            <br>
+
+            <hr>
+
             @if ($post->user_id == auth()->user()->id)
             <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">
                 Delete

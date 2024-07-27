@@ -7,11 +7,27 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\User;
 use App\Models\Badge;
+use App\Models\Like;
 use Parsedown;
 
 class AllPosts extends Component
 {
     use WithPagination;
+
+    public function likePost($postId)
+    {
+        $user = auth()->user();
+        $like = Like::where('post_id', $postId)->where('user_id', $user->id)->first();
+
+        if ($like) {
+            $like->delete();
+        } else {
+            Like::create([
+                'post_id' => $postId,
+                'user_id' => $user->id,
+            ]);
+        }
+    }
 
     public function delete(int $postId)
     {
