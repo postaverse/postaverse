@@ -63,6 +63,17 @@ class AllPosts extends Component
             }
         }
 
+        // If less than these, remove the badges
+        if ($postCount < 10 && $user->badges->contains(2)) {
+            $user->badges()->detach(2);
+        }
+        if ($postCount < 50 && $user->badges->contains(3)) {
+            $user->badges()->detach(3);
+        }
+        if ($postCount < 100 && $user->badges->contains(4)) {
+            $user->badges()->detach(4);
+        }
+
         $posts = Post::query()->orderByDesc('id')->paginate(20);
 
         foreach ($posts as $post) {
