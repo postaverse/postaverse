@@ -68,6 +68,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'meteors_last_redeemed_at' => 'datetime',
         ];
     }
 
@@ -114,5 +115,32 @@ class User extends Authenticatable
     public function badges()
     {
         return $this->belongsToMany(Badge::class);
+    }
+
+    public function meteors()
+    {
+        return $this->hasMany(Meteor::class);
+    }
+
+    public function meteorQuantity()
+    {
+        // Must return relationship instance
+        return $this->hasOne(Meteor::class)->select('quantity')->withDefault(['quantity' => 0]);
+    }
+
+    public function addMeteors(int $quantity)
+    {
+        $meteor = $this->meteors()->first(); // Attempt to retrieve the user's existing Meteor record
+    
+        if ($meteor) {
+            // If a Meteor record exists, update the quantity
+            $meteor->quantity += $quantity;
+            $meteor->save();
+        } else {
+            // If no Meteor record exists, create a new one with the specified quantity
+            $this->meteors()->create([
+                'quantity' => $quantity,
+            ]);
+        }
     }
 }
