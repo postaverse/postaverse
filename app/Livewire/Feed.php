@@ -39,7 +39,8 @@ class Feed extends Component
             ->leftJoin('followers', 'posts.user_id', '=', 'followers.following_id')
             ->where(function ($query) use ($userId, $likedPostIds) {
                 $query->where('followers.follower_id', $userId)
-                    ->orWhereIn('posts.id', $likedPostIds);
+                    ->orWhereIn('posts.id', $likedPostIds)
+                    ->orWhere('posts.user_id', $userId); // Include the current user's own posts
             })
             ->orderByDesc('posts.created_at')
             ->select('posts.*') // Ensure only columns from the posts table are selected
