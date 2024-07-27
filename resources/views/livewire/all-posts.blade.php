@@ -45,13 +45,13 @@
 
             <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
                 @if (!$post->likes->contains('user_id', auth()->id()))
-                <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="20" height="20" class="p-1">
+                <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="40" height="40" class="p-1">
                 @else
-                <img src="{{ asset('images/liked.png') }}" alt="Like" width="20" height="20" class="p-1">
+                <img src="{{ asset('images/liked.png') }}" alt="Like" width="40" height="40" class="p-1">
                 @endif
             </button>
             <br>
-            <span class="text-white" id="likeCount">{{ $post->likes->count() }} likes</span>
+            <span class="text-white" id="likeCount-{{ $post->id }}">{{ $post->likes->count() }} likes</span>
             <br>
 
             <hr>
@@ -70,17 +70,19 @@
     </div>
 
     <script>
-        // Update likes count and button text when clicked
-        button = document.getElementById('likeButton');
-        countText = button.getElementById('likeCount');
-        button.addEventListener('click', function() {
-            if (button.innerHTML.includes('Unlike')) {
-                button.innerHTML = '<img src="{{ asset(\'images/liked.png\') }}" alt="Like" width="20" height="20">';
-                countText.innerHTML = parseInt(countText.innerHTML) - 1 + ' likes';
-            } else {
-                button.innerHTML = '<img src="{{ asset(\'images/unliked.png\') }}" alt="Unlike" width="20" height="20">';
-                countText.innerHTML = parseInt(countText.innerHTML) + 1 + ' likes';
-            }
+        document.querySelectorAll('.likeButton').forEach(button => {
+            const postId = button.dataset.postId;
+            const countText = document.getElementById(`likeCount-${postId}`);
+            
+            button.addEventListener('click', function() {
+                if (button.innerHTML.includes('unliked.png')) {
+                    button.innerHTML = '<img src="{{ asset("images/liked.png") }}" alt="Like" width="20" height="20">';
+                    countText.innerHTML = parseInt(countText.innerHTML) - 1 + ' likes';
+                } else {
+                    button.innerHTML = '<img src="{{ asset("images/unliked.png") }}" alt="Unlike" width="20" height="20">';
+                    countText.innerHTML = parseInt(countText.innerHTML) + 1 + ' likes';
+                }
+            });
         });
     </script>
 </div>
