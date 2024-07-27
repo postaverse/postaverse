@@ -41,6 +41,21 @@
             <p class="text-white">{!! $parsedown->text(e($post->content)) !!}</p>
             @endif
 
+            <hr>
+
+            <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
+                @if ($post->likes->contains('user_id', auth()->id()))
+                Unlike
+                @else
+                Like
+                @endif
+            </button>
+            <br>
+            <span class="text-white" id="likeCount">{{ $post->likes->count() }} likes</span>
+            <br>
+
+            <hr>
+
             @if ($post->user_id == auth()->user()->id || auth()->user()->admin_rank >= 3)
             <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">
                 Delete
@@ -53,4 +68,19 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
         {{ $posts->links() }}
     </div>
+
+    <script>
+        // Update likes count and button text when clicked
+        button = document.getElementById('likeButton');
+        countText = button.getElementById('likeCount');
+        button.addEventListener('click', function() {
+            if (button.innerText === 'Like') {
+                button.innerText = 'Unlike';
+                button.nextElementSibling.innerText = parseInt(button.nextElementSibling.innerText) + 1 + ' likes';
+            } else {
+                button.innerText = 'Like';
+                button.nextElementSibling.innerText = parseInt(button.nextElementSibling.innerText) - 1 + ' likes';
+            }
+        });
+    </script>
 </div>
