@@ -43,6 +43,7 @@ class Feed extends Component
             })
             ->orderByDesc('posts.created_at')
             ->select('posts.*') // Ensure only columns from the posts table are selected
+            ->disticnt()
             ->paginate(20);
 
         foreach ($posts as $post) {
