@@ -11,6 +11,12 @@
         <br>
         <h1 class="text-3xl font-bold text-white">{{ $user->name }}</h1>
         <br>
+        <!-- User Meteor Count -->
+        <div class="pl-5 flex items-center shrink-0">
+            <img src="{{ asset('images/meteor.png') }}" alt="Meteor" class="w-10 h-10">
+            <span class="text-white text-lg font-bold pl-2">{{ $user->meteorQuantity->quantity }}</span>
+        </div>
+        <br>
         @if ($user->bio !== null)
         <div class="text-white max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">{!! $parsedown->text(e($user->bio)) !!}</div>
         @endif
