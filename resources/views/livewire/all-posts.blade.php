@@ -44,10 +44,10 @@
             <hr>
 
             <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
-                @if ($post->likes->contains('user_id', auth()->id()))
-                Unlike
+                @if (!$post->likes->contains('user_id', auth()->id()))
+                <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="20" height="20" class="p-1">
                 @else
-                Like
+                <img src="{{ asset('images/liked.png') }}" alt="Like" width="20" height="20" class="p-1">
                 @endif
             </button>
             <br>
@@ -74,13 +74,12 @@
         button = document.getElementById('likeButton');
         countText = button.getElementById('likeCount');
         button.addEventListener('click', function() {
-            if (button.innerText === 'Like') {
-                button.innerText = 'Unlike';
-                button.nextElementSibling.innerText = parseInt(button.nextElementSibling.innerText) + 1 + ' likes';
+            if (button.innerHTML.includes('Unlike')) {
+                button.innerHTML = '<img src="{{ asset(\'images/liked.png\') }}" alt="Like" width="20" height="20">';
+                countText.innerHTML = parseInt(countText.innerHTML) - 1 + ' likes';
             } else {
-                button.innerText = 'Like';
-                button.nextElementSibling.innerText = parseInt(button.nextElementSibling.innerText) - 1 + ' likes';
+                button.innerHTML = '<img src="{{ asset(\'images/unliked.png\') }}" alt="Unlike" width="20" height="20">';
+                countText.innerHTML = parseInt(countText.innerHTML) + 1 + ' likes';
             }
-        });
     </script>
 </div>
