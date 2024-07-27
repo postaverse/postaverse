@@ -81,5 +81,6 @@
                 button.innerHTML = '<img src="{{ asset(\'images/unliked.png\') }}" alt="Unlike" width="20" height="20">';
                 countText.innerHTML = parseInt(countText.innerHTML) + 1 + ' likes';
             }
+        });
     </script>
 </div>
