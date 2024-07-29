@@ -82,6 +82,11 @@ class User extends Authenticatable
             : $this->getPhotoUrl();
     }
 
+    public function sites()
+    {
+        return $this->hasMany(Site::class);
+    }
+
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
@@ -131,7 +136,7 @@ class User extends Authenticatable
     public function addMeteors(int $quantity)
     {
         $meteor = $this->meteors()->first(); // Attempt to retrieve the user's existing Meteor record
-    
+
         if ($meteor) {
             // If a Meteor record exists, update the quantity
             $meteor->quantity += $quantity;
