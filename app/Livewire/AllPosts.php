@@ -66,7 +66,7 @@ class AllPosts extends Component
         }
 
         $site = Site::where('user_id', $user->id)->first();
-        if ($site) {
+        if ($site && !$user->badges->contains(5)) {
             $this->giveBadge($user->id, 5); // Assuming badge_id = 5 for site association
         }
 
