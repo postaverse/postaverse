@@ -12,7 +12,7 @@
 
                 <!-- Meteor Image and Count -->
                 <div class="pl-5 flex items-center shrink-0">
-                    <img src="{{ asset('images/meteor.png') }}" alt="Meteor" class="w-10 h-10">
+                    <img src="{{ asset('images/meteor.png') }}" alt="Meteor" class="w-8 h-8">
                     <span class="text-white text-lg font-bold pl-2">{{ auth()->user()->meteorQuantity->quantity }}</span>
                 </div>
 
