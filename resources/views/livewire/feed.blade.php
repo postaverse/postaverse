@@ -53,9 +53,9 @@
 
             <button wire:click="likePost({{ $post->id }})" class="text-white">
                 @if (!$post->likes->contains('user_id', auth()->id()))
-                <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="40" height="40" class="p-1">
+                <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="35" height="35" class="p-1">
                 @else
-                <img src="{{ asset('images/liked.png') }}" alt="Like" width="40" height="40" class="p-1">
+                <img src="{{ asset('images/liked.png') }}" alt="Like" width="35" height="35" class="p-1">
                 @endif
             </button>
             <br>
