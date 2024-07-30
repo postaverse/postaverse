@@ -11,6 +11,8 @@
         <br>
         <h1 class="text-3xl font-bold text-white">{{ $user->name }}</h1>
         <br>
+        <h2 class="text-xl font-bold text-white">{!! $site !!}</h2>
+        <br>
         <!-- User Meteor Count -->
         <div class="pl-5 flex items-center shrink-0">
             <img src="{{ asset('images/meteor.png') }}" alt="Meteor" class="w-10 h-10">

@@ -8,6 +8,8 @@ use Livewire\WithPagination;
 use App\Models\User;
 use App\Models\Badge;
 use App\Models\Like;
+use App\Models\Site;
+use Illuminate\Support\Facades\Auth;
 use Parsedown;
 
 class AllPosts extends Component
@@ -61,6 +63,11 @@ class AllPosts extends Component
             } elseif (!$user->badges->contains(2)) {
                 $this->giveBadge($user->id, 2);
             }
+        }
+
+        $site = Site::where('user_id', $user->id)->first();
+        if ($site) {
+            $this->giveBadge($user->id, 5); // Assuming badge_id = 5 for site association
         }
 
         // If less than these, remove the badges

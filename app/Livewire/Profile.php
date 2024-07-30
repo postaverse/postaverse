@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Models\Site;
 use Parsedown;
 
 class Profile extends Component
@@ -42,12 +43,30 @@ class Profile extends Component
         $parsedown = new Parsedown();
 
         $posts = $user->posts()->orderBy('created_at', 'desc')->paginate(20);
+
+        // Check if the user has a verified website, then display as a link
+        $site = Site::where('user_id', $user->id)->first();
+
+        // If the user has a verified website, display it as a link
+        if ($site && $site->is_verified) {
+            $user->website = $site->domain;
+        }
+
+        $website = "";
+
+        // Convert to an <a> tag
+        if (isset($user->website)) {
+            // Strip http(s):// from the URL
+            $user->website = preg_replace('/^https?:\/\//', '', $user->website);
+            $website = '<a href="https://' . $user->website . '" target="_blank">' . $user->website . '</a>';
+        }
     
         return view('livewire.user-profile', [
             'user' => $user,
             'posts' => $posts,
             'badges' => $user->badges,
             'parsedown' => $parsedown,
+            'site' => $website,
         ])->layout('layouts.app');
     }
 
