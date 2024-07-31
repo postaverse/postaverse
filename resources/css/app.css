@@ -125,7 +125,8 @@ hr {
     opacity: 0.25;
 }
 
-/* SHOP effects */
+/* Glitch effect - SHOP */
+
 .glitch {
     color: white;
     position: relative;
@@ -327,54 +328,4 @@ hr {
     overflow: hidden;
     clip: rect(0, 900px, 0, 0);
     animation: noise-anim-2 3s infinite linear alternate-reverse;
-}
-
-.wave {
-    position: relative;
-    white-space: nowrap; /* Prevents text from wrapping onto new lines */
-}
-
-.wave h2 {
-    color: #fff;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    white-space: nowrap; /* Prevents text from wrapping onto new lines */
-}
-
-.wave h2:nth-child(1) {
-    color: red;
-    white-space: nowrap; /* Prevents text from wrapping onto new lines */
-}
-
-.wave h2:nth-child(2) {
-    color: #03a9f4;
-    animation: animate 4s ease-in-out infinite;
-    white-space: nowrap; /* Prevents text from wrapping onto new lines */
-}
-
-@keyframes animate {
-    0%,
-    100% {
-        clip-path: polygon(0% 45%,
-                16% 44%,
-                33% 50%,
-                54% 60%,
-                70% 61%,
-                84% 59%,
-                100% 52%,
-                100% 100%,
-                0% 100%);
-    }
-
-    50% {
-        clip-path: polygon(0% 60%,
-                15% 65%,
-                34% 66%,
-                51% 62%,
-                67% 50%,
-                84% 45%,
-                100% 46%,
-                100% 100%,
-                0% 100%);
-    }
 }
