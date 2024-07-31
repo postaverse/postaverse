@@ -24,12 +24,12 @@ class ShopTextThemes extends Component
             // Deduct the meteor quantity using the Meteor model
             Meteor::where('user_id', $user->id)->decrement('quantity', $theme->meteorPrice);
             $user->textThemes()->attach($theme);
-            session()->flash('message', 'Text theme purchased successfully!');
+            session()->flash('message-' . $themeId, 'Text theme purchased successfully!');
         } elseif ($user->textThemes->contains($theme)) {
-            session()->flash('error', 'You already own this text theme!');
+            session()->flash('error-' . $themeId, 'You already own this text theme!');
         }
         else {
-            session()->flash('error', 'You do not have enough meteors to purchase this text theme!');
+            session()->flash('error-' . $themeId, 'You do not have enough meteors to purchase this text theme!');
         }
     }
 

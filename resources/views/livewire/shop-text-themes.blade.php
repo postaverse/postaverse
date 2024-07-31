@@ -16,11 +16,11 @@
             @else
             <h2 class="text-2xl font-semibold mb-2 {{ $theme->class_name }}" data-text="{{ $theme->theme_name }}">{{ $theme->theme_name }}</h2>
             @endif
-            @if (session()->has('message'))
+            @if (session()->has('message-{{ $theme->id }}'))
             <div class="text-green-500">
                 {{ session('message') }}
             </div>
-            @elseif (session()->has('error'))
+            @elseif (session()->has('error-{{ $theme->id }}'))
             <div class="text-red-500">
                 {{ session('error') }}
             </div>
