@@ -378,11 +378,6 @@ hr {
     }
 }
 
-.txt {
-    display: flex;
-    align-self: center;
-}
-
-.fracture {
+.flipped {
     transform: rotate(180deg);
 }
