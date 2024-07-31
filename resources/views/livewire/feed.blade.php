@@ -25,6 +25,9 @@
                         {{ $post->user->name }}
                     </a>
                 </h2>
+                @if ($post->user->isSiteVerified())
+                <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20" height="20">
+                @endif
             </div>
             <h1 class="text-xl font-bold text-white">
                 {{ $post->title }}

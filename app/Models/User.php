@@ -161,4 +161,9 @@ class User extends Authenticatable
     {
         return $this->textThemes->contains($themeId);
     }
+
+    public function isSiteVerified()
+    {
+        return $this->sites->contains('is_verified', true);
+    }
 }

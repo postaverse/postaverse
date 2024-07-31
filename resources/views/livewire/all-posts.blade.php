@@ -9,6 +9,9 @@
                         {{ $post->user->name }}
                     </a>
                 </h2>
+                @if ($post->user->isSiteVerified())
+                <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20" height="20">
+                @endif
             </div>
             @if($profanityOption == 'hide_clickable' && $post->hasProfanity)
             <a href="#" onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
