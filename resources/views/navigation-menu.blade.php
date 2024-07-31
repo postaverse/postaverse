@@ -18,14 +18,22 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <!-- Home Link -->
                     <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="flex flex-col items-center">
                         <img src="{{ asset('images/home.png') }}" alt="Home" class="w-9 h-9">
                         <span>{{ __('Home') }}</span>
                     </x-nav-link>
+                    <!-- Feed Link -->
                     <x-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')" class="flex flex-col items-center">
                         <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-9 h-9">
                         <span>{{ __('Feed') }}</span>
                     </x-nav-link>
+                    <!-- Shop Link -->
+                    <x-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')" class="flex flex-col items-center">
+                        <img src="{{ asset('images/shop.png') }}" alt="Shop" class="w-9 h-9">
+                        <span>{{ __('Shop') }}</span>
+                    </x-nav-link>
+                    <!-- Admin Link -->
                     @if (auth()->user()->admin_rank >= 1)
                     <x-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')" class="flex flex-col items-center">
                         <img src="{{ asset('images/admin.png') }}" alt="Admin" class="w-9 h-9">
@@ -170,14 +178,22 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
+            <!-- Home Link -->
             <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="flex items-center space-x-2">
                 <img src="{{ asset('images/home.png') }}" alt="Home" class="w-10 h-10">
                 <span>{{ __('Home') }}</span>
             </x-responsive-nav-link>
+            <!-- Feed Link -->
             <x-responsive-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')" class="flex items-center space-x-2">
                 <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10">
                 <span>{{ __('Feed') }}</span>
             </x-responsive-nav-link>
+            <!-- Shop Link -->
+            <x-responsive-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')" class="flex items-center space-x-2">
+                <img src="{{ asset('images/shop.png') }}" alt="Shop" class="w-10 h-10">
+                <span>{{ __('Shop') }}</span>
+            </x-responsive-nav-link>
+            <!-- Admin Link -->
             @if (auth()->user()->admin_rank >= 1)
             <x-responsive-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')" class="flex items-center space-x-2">
                 <img src="{{ asset('images/admin.png') }}" alt="Admin" class="w-10 h-10">

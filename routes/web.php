@@ -35,7 +35,7 @@ Route::middleware([
     Route::delete('/unfollow/{user}', Follow::class)->name('unfollow');
     Route::get('/feed', Feed::class)->name('feed');
     Route::get('/settings', [Settings::class, 'show'])->name('settings.show');
-    Route::get('/shop/text-themes', ShopTextThemes::class)->name('shop.text-themes');
+    Route::get('/shop', ShopTextThemes::class)->name('shop');
 });
 
 require __DIR__ . '/socialstream.php';
