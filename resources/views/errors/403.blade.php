@@ -21,9 +21,39 @@
                 max-width: 100%;
                 height: auto;
             }
+            .stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.star {
+    width: 2px;
+    height: 2px;
+    background: white;
+    position: absolute;
+    animation: twinkle 1s infinite;
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
         </style>
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        <script src="{{ asset('js/stars.js') }}"></script>
     </head>
     <body class="antialiased">
         <div class="flex items-center justify-center min-h-screen bg-black dark:bg-black">
@@ -34,5 +64,36 @@
             </div>
         </div>
     </body>
-    
+    <div id="stars" class="stars"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+    function createStars(id, count) {
+        for (let i = 0; i < count; i++) {
+            let star = document.createElement('div');
+            star.className = 'star';
+            star.style.top = Math.random() * window.innerHeight + 'px';
+            star.style.left = Math.random() * window.innerWidth + 'px';
+            let size = Math.random() * 3; // Change this value to adjust the range of sizes
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.transform = `rotate(${Math.random() * 360}deg)`;
+            document.getElementById(id).appendChild(star);
+        }
+    }
+
+    createStars('stars', 400);
+
+    const stars = document.querySelectorAll('.star');
+
+    stars.forEach(star => {
+        // Random duration between 0.5s and 2.5s
+        const duration = Math.random() * 2 + 0.5;
+        // Random delay up to 5s
+        const delay = Math.random() * 5;
+
+        star.style.animationDuration = `${duration}s`;
+        star.style.animationDelay = `-${delay}s`;
+    });
+});
+    </script>
 </html>
