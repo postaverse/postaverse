@@ -9,7 +9,7 @@ class TextTheme extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['theme_name', 'meteorPrice'];
+    protected $fillable = ['theme_name', 'meteorPrice', 'equipped'];
 
     public function users()
     {

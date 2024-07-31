@@ -151,7 +151,7 @@ class User extends Authenticatable
 
     public function textThemes()
     {
-        return $this->belongsToMany(TextTheme::class, 'text_theme_user');
+        return $this->belongsToMany(TextTheme::class, 'text_theme_user')->withPivot('equipped');
     }
 
     public function hasTextTheme($themeId)
