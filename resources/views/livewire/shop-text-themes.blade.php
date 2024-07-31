@@ -9,9 +9,9 @@
                 <h2 class="text-2xl font-semibold mb-2 pl-10">{{ $theme->theme_name }}</h2>
                 <h2 class="text-2xl font-semibold mb-2 pl-10">{{ $theme->theme_name }}</h2>
             </div>
-            @elseif ($theme->theme_name == 'fractured')
+            @elseif ($theme->theme_name == 'flipped')
             <div class="txt">
-                <h1 data-text="{{ $theme->theme_name }}" class="fracture text-2xl mb-2">{{ $theme->theme_name }}</h1>
+                <h1 data-text="{{ $theme->theme_name }}" class="flipped text-2xl mb-2">{{ $theme->theme_name }}</h1>
             </div>
             @else
             <h2 class="text-2xl font-semibold mb-2 {{ $theme->class_name }}" data-text="{{ $theme->theme_name }}">{{ $theme->theme_name }}</h2>
