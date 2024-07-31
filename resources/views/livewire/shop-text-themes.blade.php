@@ -4,7 +4,14 @@
         @foreach($themes as $theme)
 
         <li class="bg-gray-800 shadow-md rounded-lg p-6">
+            @if ($theme->theme_name == 'wave')
+            <div class="wave pb-3">
+                <h2 class="text-2xl font-semibold mb-2 pl-10">{{ $theme->theme_name }}</h2>
+                <h2 class="text-2xl font-semibold mb-2 pl-10">{{ $theme->theme_name }}</h2>
+            </div>
+            @else
             <h2 class="text-2xl font-semibold mb-2 {{ $theme->class_name }}" data-text="{{ $theme->theme_name }}">{{ $theme->theme_name }}</h2>
+            @endif
             @if (session()->has('message'))
             <div class="text-green-500">
                 {{ session('message') }}
