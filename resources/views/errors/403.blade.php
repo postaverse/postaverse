@@ -15,12 +15,19 @@
                 font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
             }
         </style>
+        <style>
+            img {
+                /* Ignore overflowing. does not push page. */
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
     </head>
     <body class="antialiased">
         <div class="flex items-center justify-center min-h-screen bg-gray-900 dark:bg-gray-900">
             <div class="mx-auto sm:px-6 lg:px-8">
                 <a href="{{ route('home') }}" class="text-white text-3xl font-bold">
-                    <img src="{{ asset('images/error/403.png') }}" alt="404" class="mx-auto">
+                    <img src="{{ asset('images/error/403.png') }}" alt="403" class="mx-auto" width="500">
                 </a>
             </div>
         </div>
