@@ -9,17 +9,23 @@
         <br>
         <img src="{{ $user->profile_photo_url }}" alt="Profile Photo" class="w-40 h-40 rounded-full">
         <br>
-        <div class="flex items-center">
+        <div class="relative w-full px-4">
             @php
             $glitchTheme = $user->textThemes->firstWhere('theme_name', 'glitch');
-            // dd($user->textThemes, $glitchTheme);
+            $waveTheme = $user->textThemes->firstWhere('theme_name', 'wave');
             @endphp
             @if ($glitchTheme && $glitchTheme->pivot->equipped == 1)
-            <h1 class="glitch text-3xl font-bold text-white" data-text="{{ $user->name }}">{{ $user->name }}</h1>
+            <h1 class="glitch text-3xl font-bold text-white text-center" data-text="{{ $user->name }}">{{ $user->name }}</h1>
+            @elseif ($waveTheme && $waveTheme->pivot->equipped == 1)
+            <div class="relative flex justify-center items-center w-full">
+                <div class="wave">
+                    <h2 class="text-5xl font-bold">{{ $user->name }}</h2>
+                    <h2 class="text-5xl font-bold">{{ $user->name }}</h2>
+                </div>
+            </div>
             @else
-            <h1 class="text-3xl font-bold text-white">{{ $user->name }}</h1>
+            <h1 class="text-3xl font-bold text-white text-center">{{ $user->name }}</h1>
             @endif
-            <p class="text-gray-600 ml-4">({{ $user->id }})</p>
         </div>
         <br>
         <h2 class="text-xl font-bold text-white">{!! $site !!}</h2>
@@ -37,6 +43,7 @@
         <div class="flex items-center space-x-4">
             <h2 class="text-lg font-bold text-white">Followers: {{ $user->followers->count() }}</h2>
             <h2 class="text-lg font-bold text-white">Following: {{ $user->following->count() }}</h2>
+            <p class="text-gray-600 ml-4">({{ $user->id }})</p>
         </div>
         <br>
         @if (auth()->check() && $user->id !== auth()->id())
