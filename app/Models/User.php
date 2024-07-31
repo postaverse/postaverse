@@ -77,6 +77,9 @@ class User extends Authenticatable
      */
     public function profilePhotoUrl(): Attribute
     {
+        if ($this->profile_photo_path === null) {
+            return Attribute::get(fn () => 'https://gravatar.com/avatar/'.md5(strtolower($this->email)).'?s=200&d=mp&d=' . urlencode('https://ui-avatars.com/api/'.urlencode($this->name).'?size=200&name='.urlencode($this->name)));
+        }
         return filter_var($this->profile_photo_path, FILTER_VALIDATE_URL)
             ? Attribute::get(fn () => $this->profile_photo_path)
             : $this->getPhotoUrl();
