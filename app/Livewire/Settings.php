@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Livewire;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\TextThemeUser;
 
 class Settings extends Controller
 {
@@ -15,9 +16,11 @@ class Settings extends Controller
      */
     public function show(Request $request)
     {
+        $user = Auth::user();
+
         return view('profile.show', [
             'request' => $request,
-            'user' => $request->user(),
+            'user' => $user,
         ]);
     }
 }

@@ -67,6 +67,7 @@ class Profile extends Component
             'badges' => $user->badges,
             'parsedown' => $parsedown,
             'site' => $website,
+            'textThemes' => $user->textThemes,
         ])->layout('layouts.app');
     }
 

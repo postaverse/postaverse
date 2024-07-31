@@ -7,6 +7,7 @@ use App\Livewire\Feed;
 use App\Livewire\Settings;
 use App\Livewire\Search;
 use App\Livewire\AdminDashboard;
+use App\Livewire\ShopTextThemes;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -34,6 +35,7 @@ Route::middleware([
     Route::delete('/unfollow/{user}', Follow::class)->name('unfollow');
     Route::get('/feed', Feed::class)->name('feed');
     Route::get('/settings', [Settings::class, 'show'])->name('settings.show');
+    Route::get('/shop/text-themes', ShopTextThemes::class)->name('shop.text-themes');
 });
 
 require __DIR__ . '/socialstream.php';

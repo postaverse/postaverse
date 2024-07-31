@@ -148,4 +148,14 @@ class User extends Authenticatable
             ]);
         }
     }
+
+    public function textThemes()
+    {
+        return $this->belongsToMany(TextTheme::class, 'text_theme_user');
+    }
+
+    public function hasTextTheme($themeId)
+    {
+        return $this->textThemes->contains($themeId);
+    }
 }

@@ -10,7 +10,11 @@
         <img src="{{ $user->profile_photo_url }}" alt="Profile Photo" class="w-40 h-40 rounded-full">
         <br>
         <div class="flex items-center">
+            @if ($textThemes->contains('theme_name', 'glitch'))
+            <h1 class="glitch text-3xl font-bold text-white" data-text="{{ $user->name }}">{{ $user->name }}</h1>
+            @else
             <h1 class="text-3xl font-bold text-white">{{ $user->name }}</h1>
+            @endif
             <p class="text-gray-600 ml-4">({{ $user->id }})</p>
         </div>
         <br>
