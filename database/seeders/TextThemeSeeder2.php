@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\TextTheme;
 
 class TextThemeSeeder2 extends Seeder
 {
@@ -12,6 +12,13 @@ class TextThemeSeeder2 extends Seeder
      */
     public function run(): void
     {
-        //
+        // Create some text themes
+        $themes = [
+            ['theme_name' => 'flipped', 'meteorPrice' => 15, 'class_name' => 'flipped'],
+        ];
+
+        foreach ($themes as $theme) {
+            TextTheme::create($theme);
+        }
     }
 }

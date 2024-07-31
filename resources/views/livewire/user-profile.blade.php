@@ -13,6 +13,7 @@
             @php
             $glitchTheme = $user->textThemes->firstWhere('theme_name', 'glitch');
             $waveTheme = $user->textThemes->firstWhere('theme_name', 'wave');
+            $flippedTheme = $user->textThemes->firstWhere('theme_name', 'flipped');
             // dd($user->textThemes, $glitchTheme);
             @endphp
             @if ($glitchTheme && $glitchTheme->pivot->equipped == 1)
@@ -22,6 +23,8 @@
                 <h2 class="text-5xl font-bold">{{ $user->name }}</h2>
                 <h2 class="text-5xl font-bold">{{ $user->name }}</h2>
             </div>
+            @elseif ($flippedTheme && $flippedTheme->pivot->equipped == 1)
+            <h1 class="flipped text-3xl font-bold text-white">{{ $user->name }}</h1>
             @else
             <h1 class="text-3xl font-bold text-white">{{ $user->name }}</h1>
             @endif
