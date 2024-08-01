@@ -7,7 +7,7 @@ return [
     'middleware' => ['web'],
     'prompt' => 'Or Login Via',
     'providers' => [
-        // Providers::github(),
+        Providers::github(),
     ],
     'features' => [
         // Features::generateMissingEmails(),
@@ -24,7 +24,7 @@ return [
         'register' => '/home',
         'login-failed' => '/login',
         'registration-failed' => '/register',
-        'provider-linked' => '/user/profile',
-        'provider-link-failed' => '/user/profile',
+        'provider-linked' => '/settings',
+        'provider-link-failed' => '/settings',
     ]
 ];

@@ -9,6 +9,10 @@ use App\Livewire\Search;
 use App\Livewire\AdminDashboard;
 use App\Livewire\ShopTextThemes;
 use App\Livewire\Blogs;
+use App\Http\Controllers\Auth\SocialstreamController;
+
+Route::get('auth/{provider}', [SocialstreamController::class, 'redirectToProvider']);
+Route::get('auth/{provider}/callback', [SocialstreamController::class, 'handleProviderCallback']);
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -24,8 +28,7 @@ Route::get('/welcome', function () {
 Route::get('/@{handle}', Profile::class)->name('user-profile');
 Route::get('/search', Search::class)->name('search');
 
-Route::get('/admin', AdminDashboard::class)->name('admin');
-Route::get('/blogs', Blogs::class)->name('blogs');
+Route::get('/blog', Blogs::class)->name('blogs');
 
 Route::middleware([
     'auth:sanctum',
@@ -36,6 +39,7 @@ Route::middleware([
     Route::get('/home', function () {
         return redirect()->route('home');
     });
+    Route::get('/admin', AdminDashboard::class)->name('admin');
     Route::post('/follow/{user}', Follow::class)->name('follow');
     Route::delete('/unfollow/{user}', Follow::class)->name('unfollow');
     Route::get('/feed', Feed::class)->name('feed');
