@@ -36,7 +36,7 @@
                     <!-- Blogs Link -->
                     <x-nav-link href="{{ route('blogs') }}" :active="request()->routeIs('blogs')" class="flex flex-col items-center">
                         <img src="{{ asset('images/blog.png') }}" alt="Blogs" class="w-9 h-9">
-                        <span>{{ __('Blogs') }}</span>
+                        <span>{{ __('Blog') }}</span>
                     </x-nav-link>
                     <!-- Admin Link -->
                     @if (auth()->user()->admin_rank >= 1)
@@ -201,7 +201,7 @@
             <!-- Blogs Link -->
             <x-responsive-nav-link href="{{ route('blogs') }}" :active="request()->routeIs('blogs')" class="flex items-center space-x-2">
                 <img src="{{ asset('images/blog.png') }}" alt="Blogs" class="w-10 h-10">
-                <span>{{ __('Blogs') }}</span>
+                <span>{{ __('Blog') }}</span>
             </x-responsive-nav-link>
             <!-- Admin Link -->
             @if (auth()->user()->admin_rank >= 1)
