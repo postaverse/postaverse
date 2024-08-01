@@ -342,11 +342,11 @@ hr {
 }
 
 .wave h2:nth-child(1) {
-    color: red;
+    color: #03a9f4;
 }
 
 .wave h2:nth-child(2) {
-    color: #03a9f4;
+    color: #efbf24;
     animation: animate 4s ease-in-out infinite;
 }
 
