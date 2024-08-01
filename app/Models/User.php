@@ -166,4 +166,9 @@ class User extends Authenticatable
     {
         return $this->sites->contains('is_verified', true);
     }
+
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
 }

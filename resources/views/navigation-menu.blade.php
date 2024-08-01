@@ -33,6 +33,11 @@
                         <img src="{{ asset('images/shop.png') }}" alt="Shop" class="w-9 h-9">
                         <span>{{ __('Shop') }}</span>
                     </x-nav-link>
+                    <!-- Blogs Link -->
+                    <x-nav-link href="{{ route('blogs') }}" :active="request()->routeIs('blogs')" class="flex flex-col items-center">
+                        <img src="{{ asset('images/blog.png') }}" alt="Blogs" class="w-9 h-9">
+                        <span>{{ __('Blogs') }}</span>
+                    </x-nav-link>
                     <!-- Admin Link -->
                     @if (auth()->user()->admin_rank >= 1)
                     <x-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')" class="flex flex-col items-center">
@@ -192,6 +197,11 @@
             <x-responsive-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')" class="flex items-center space-x-2">
                 <img src="{{ asset('images/shop.png') }}" alt="Shop" class="w-10 h-10">
                 <span>{{ __('Shop') }}</span>
+            </x-responsive-nav-link>
+            <!-- Blogs Link -->
+            <x-responsive-nav-link href="{{ route('blogs') }}" :active="request()->routeIs('blogs')" class="flex items-center space-x-2">
+                <img src="{{ asset('images/blog.png') }}" alt="Blogs" class="w-10 h-10">
+                <span>{{ __('Blogs') }}</span>
             </x-responsive-nav-link>
             <!-- Admin Link -->
             @if (auth()->user()->admin_rank >= 1)

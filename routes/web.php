@@ -8,6 +8,7 @@ use App\Livewire\Settings;
 use App\Livewire\Search;
 use App\Livewire\AdminDashboard;
 use App\Livewire\ShopTextThemes;
+use App\Livewire\Blogs;
 
 Route::get('/', function () {
     if (auth()->check()) {
@@ -21,6 +22,7 @@ Route::get('/@{handle}', Profile::class)->name('user-profile');
 Route::get('/search', Search::class)->name('search');
 
 Route::get('/admin', AdminDashboard::class)->name('admin');
+Route::get('/blogs', Blogs::class)->name('blogs');
 
 Route::middleware([
     'auth:sanctum',
