@@ -12,6 +12,7 @@ use JoelButcher\Socialstream\SetsProfilePhotoFromUrl;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Http;
 
 class User extends Authenticatable
 {
@@ -83,6 +84,23 @@ class User extends Authenticatable
         return filter_var($this->profile_photo_path, FILTER_VALIDATE_URL)
             ? Attribute::get(fn () => $this->profile_photo_path)
             : $this->getPhotoUrl();
+    }
+
+    /**
+     * Get the user's bio.
+     */
+    public function bio(): string
+    {
+        if ($this->attributes['bio'] === null || $this->attributes['bio'] === '') {
+            $response = Http::get('https://gravatar.com/'.md5(strtolower($this->email)).'.json');
+            if ($response->successful()) {
+                $data = $response->json();
+                $aboutMe = $data['entry'][0]['aboutMe'] ?? '';
+                return $aboutMe;
+            }
+            return '';
+        }
+        return $this->attributes['bio'];
     }
 
     public function sites()

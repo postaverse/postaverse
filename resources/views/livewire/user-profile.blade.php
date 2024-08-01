@@ -39,7 +39,7 @@
         </div>
         <br>
         @if ($user->bio !== null)
-        <div class="text-white max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">{!! $parsedown->text(e($user->bio)) !!}</div>
+        <div class="text-white max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">{!! $parsedown->text(e($user->bio())) !!}</div>
         @endif
         <br>
         <div class="flex items-center space-x-4">
