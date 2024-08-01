@@ -1,4 +1,11 @@
 <div class="container mx-auto p-4">
+    <x-slot name="header">
+        <div class="header" style="display: flex; align-items: center; justify-content: space-between;">
+            <h2 class="font-semibold text-xl text-gray-200 leading-tight">
+                {{ __('Shop') }}
+            </h2>
+        </div>
+    </x-slot>
     <h1 class="text-4xl font-bold mb-6 text-center">Shop Text Themes</h1>
     <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach($themes as $theme)
