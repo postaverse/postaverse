@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use JoelButcher\Socialstream\ConnectedAccount;
 
 class SocialstreamController extends Controller
 {
@@ -18,14 +19,25 @@ class SocialstreamController extends Controller
     {
         $user = Socialite::driver($provider)->user();
 
-        // Find or create the user
         $authUser = User::firstOrCreate(
             ['email' => $user->getEmail()],
             ['name' => $user->getName(), 'provider_id' => $user->getId()]
         );
 
-        // Create the connected account
-        $authUser->createConnectedAccount($provider, $user);
+        // Create or update the connected account
+        ConnectedAccount::updateOrCreate(
+            [
+                'user_id' => $authUser->id,
+                'provider_name' => $provider,
+            ],
+            [
+                'provider_id' => $user->getId(),
+                'token' => $user->token,
+                'token_secret' => $user->tokenSecret ?? null,
+                'refresh_token' => $user->refreshToken ?? null,
+                'expires_in' => $user->expiresIn ?? null,
+            ]
+        );
 
         Auth::login($authUser, true);
 
