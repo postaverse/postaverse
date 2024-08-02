@@ -13,7 +13,7 @@ return [
         Features::generateMissingEmails(),
         Features::createAccountOnFirstLogin(),
         // Features::globalLogin(),
-        // Features::authExistingUnlinkedUsers(),
+        Features::authExistingUnlinkedUsers(),
         Features::rememberSession(),
         Features::providerAvatars(),
         Features::refreshOAuthTokens(),
