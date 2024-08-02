@@ -28,7 +28,7 @@ class SocialstreamController extends Controller
         ConnectedAccount::updateOrCreate(
             [
                 'user_id' => $authUser->id,
-                'provider_name' => $provider,
+                'provider' => $provider,
             ],
             [
                 'provider_id' => $user->getId(),
