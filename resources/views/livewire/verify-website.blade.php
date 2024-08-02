@@ -41,6 +41,14 @@
             </p>
         </div>
         @endif
+        @if($site && $site->is_verified)
+        <!-- Option to remove site -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-danger-button wire:click="removeSite" wire:loading.attr="disabled" wire:target="removeSite">
+                {{ __('Remove Site') }}
+            </x-danger-button>
+        </div>
+        @endif
     </x-slot>
 
     <x-slot name="actions">

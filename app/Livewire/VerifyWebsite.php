@@ -44,6 +44,18 @@ class VerifyWebsite extends Component
         }
     }
 
+    public function removeSite()
+    {
+        $this->site->delete();
+        Log::info('Site removed', ['site' => $this->site]);
+        $this->site = new Site([
+            'user_id' => Auth::id(),
+            'domain' => $this->domain,
+            'is_verified' => false,
+        ]);
+        $this->isVerified = false;
+    }
+
     public function verify()
     {
         // Retrieve the verification code from the session
