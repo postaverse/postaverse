@@ -33,10 +33,12 @@ class SocialstreamController extends Controller
         }
         else {
             // Create a new user and connect the account
-            $u = User::create([
+            User::create([
                 'name' => $user->getName(),
                 'email' => $user->getEmail(),
             ]);
+
+            $u = User::where('email', $user->getEmail())->first();
 
             ConnectedAccount::create([
                 'user_id' => $u->id,
