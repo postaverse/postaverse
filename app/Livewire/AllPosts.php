@@ -53,32 +53,34 @@ class AllPosts extends Component
         // If 10 posts, give cadet badge (badge_id = 2)
         $user = auth()->user();
         // select count(*) from posts where user_id = $user->id
-        $postCount = Post::query()->where('user_id', $user->id)->count();
-        if ($postCount >= 10) {
-            if ($postCount >= 50 && !$user->badges->contains(3)) {
-                $this->giveBadge($user->id, 3);
+        if ($user) {
+            $postCount = Post::query()->where('user_id', $user->id)->count();
+            if ($postCount >= 10) {
+                if ($postCount >= 50 && !$user->badges->contains(3)) {
+                    $this->giveBadge($user->id, 3);
+                }
+                if ($postCount >= 100 && !$user->badges->contains(4)) {
+                    $this->giveBadge($user->id, 4);
+                } elseif (!$user->badges->contains(2)) {
+                    $this->giveBadge($user->id, 2);
+                }
             }
-            if ($postCount >= 100 && !$user->badges->contains(4)) {
-                $this->giveBadge($user->id, 4);
-            } elseif (!$user->badges->contains(2)) {
-                $this->giveBadge($user->id, 2);
+
+            $site = Site::where('user_id', $user->id)->first();
+            if ($site && !$user->badges->contains(5)) {
+                $this->giveBadge($user->id, 5); // Assuming badge_id = 5 for site association
             }
-        }
 
-        $site = Site::where('user_id', $user->id)->first();
-        if ($site && !$user->badges->contains(5)) {
-            $this->giveBadge($user->id, 5); // Assuming badge_id = 5 for site association
-        }
-
-        // If less than these, remove the badges
-        if ($postCount < 10 && $user->badges->contains(2)) {
-            $user->badges()->detach(2);
-        }
-        if ($postCount < 50 && $user->badges->contains(3)) {
-            $user->badges()->detach(3);
-        }
-        if ($postCount < 100 && $user->badges->contains(4)) {
-            $user->badges()->detach(4);
+            // If less than these, remove the badges
+            if ($postCount < 10 && $user->badges->contains(2)) {
+                $user->badges()->detach(2);
+            }
+            if ($postCount < 50 && $user->badges->contains(3)) {
+                $user->badges()->detach(3);
+            }
+            if ($postCount < 100 && $user->badges->contains(4)) {
+                $user->badges()->detach(4);
+            }
         }
 
         $posts = Post::query()->orderByDesc('id')->paginate(20);
@@ -86,10 +88,13 @@ class AllPosts extends Component
         foreach ($posts as $post) {
             $post->hasProfanity = $post->hasProfanity();
         }
-        $profanityOption = auth()->user()->profanity_block_type;
 
         $parsedown = new Parsedown();
 
-        return view('livewire.all-posts', compact('posts', 'profanityOption', 'parsedown'))->layout('layouts.app');
+        if ($user) {
+            $profanityOption = $user->profanity_block_type;
+            return view('livewire.all-posts', compact('posts', 'profanityOption', 'parsedown'))->layout('layouts.app');
+        }
+        return view('livewire.all-posts', compact('posts', 'parsedown'))->layout('layouts.app');
     }
 }
