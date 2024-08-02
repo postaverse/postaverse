@@ -24,21 +24,6 @@ class SocialstreamController extends Controller
             ['name' => $user->getName(), 'provider_id' => $user->getId()]
         );
 
-        // Create or update the connected account
-        ConnectedAccount::updateOrCreate(
-            [
-                'user_id' => $authUser->id,
-                'provider' => $provider,
-                'provider_id' => $user->getId(),
-            ],
-            [
-                'token' => $user->token,
-                'secret' => $user->tokenSecret ?? null,
-                'refresh_token' => $user->refreshToken ?? null,
-                'expires_at' => $user->expiresIn ?? null,
-            ]
-        );
-
         Auth::login($authUser, true);
 
         return redirect()->intended('/home');
