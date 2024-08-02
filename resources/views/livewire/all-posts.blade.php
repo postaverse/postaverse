@@ -13,6 +13,7 @@
                 <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20" height="20">
                 @endif
             </div>
+            @if (auth()-user())
             @if($profanityOption == 'hide_clickable' && $post->hasProfanity)
             <a href="#" onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
                 <h1 class="text-xl font-bold text-red-500 hyperlink">
@@ -43,9 +44,17 @@
             @else
             <p class="text-white">{!! $parsedown->text(e($post->content)) !!}</p>
             @endif
-
+            @else
+            <h1 class="text-xl font-bold text-white">
+                {{ $post->title }}
+            </h1>
+            <h3 class="text-base font-bold text-white">
+                {{ $post->created_at->diffForHumans() }}
+            </h3>
+            <p class="text-white">{!! $parsedown->text(e($post->content)) !!}</p>
+            @endif
             <hr>
-
+            @if (auth()-user())
             <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
                 @if (!$post->likes->contains('user_id', auth()->id()))
                 <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="35" height="35" class="p-1">
@@ -53,6 +62,7 @@
                 <img src="{{ asset('images/liked.png') }}" alt="Like" width="35" height="35" class="p-1">
                 @endif
             </button>
+            @endif
             <br>
             <span class="text-white" id="likeCount-{{ $post->id }}">{{ $post->likes->count() }} likes</span>
             <br>

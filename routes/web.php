@@ -30,15 +30,17 @@ Route::get('/search', Search::class)->name('search');
 
 Route::get('/blog', Blogs::class)->name('blogs');
 
+Route::get('/home', function () {
+    return redirect()->route('home');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
 
-    Route::get('/home', function () {
-        return redirect()->route('home');
-    });
+
     Route::get('/admin', AdminDashboard::class)->name('admin');
     Route::post('/follow/{user}', Follow::class)->name('follow');
     Route::delete('/unfollow/{user}', Follow::class)->name('unfollow');
