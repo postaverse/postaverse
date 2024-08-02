@@ -12,7 +12,7 @@ return [
     'features' => [
         Features::generateMissingEmails(),
         Features::createAccountOnFirstLogin(),
-        // Features::globalLogin(),
+        Features::globalLogin(),
         Features::authExistingUnlinkedUsers(),
         Features::rememberSession(),
         Features::providerAvatars(),
