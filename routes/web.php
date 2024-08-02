@@ -31,6 +31,9 @@ Route::get('/search', Search::class)->name('search');
 Route::get('/blog', Blogs::class)->name('blogs');
 
 Route::get('/home', function () {
+    if (auth()->check()) {
+        return view('home');
+    }
     return redirect()->route('home');
 });
 
