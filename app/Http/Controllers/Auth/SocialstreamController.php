@@ -34,6 +34,11 @@ class SocialstreamController extends Controller
                 Auth::login($u, true);
                 return redirect()->intended('/home');
             }
+            else {
+                // Create a new connected account
+                $createConnectedAccount = new CreateConnectedAccount();
+                $createConnectedAccount->create($u, $provider, $user);
+            }
         }
         else {
             // Create a new user and connect the account
