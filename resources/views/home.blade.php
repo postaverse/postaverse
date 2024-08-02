@@ -4,7 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-200 leading-tight">
                 {{ __('Home') }}
             </h2>
+            @if (auth()->user())
             <livewire:redeem-meteors />
+            @endif
         </div>
     </x-slot>
 
