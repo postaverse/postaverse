@@ -19,12 +19,33 @@ class SocialstreamController extends Controller
     {
         $user = Socialite::driver($provider)->user();
 
-        $authUser = User::firstOrCreate(
-            ['email' => $user->getEmail()],
-            ['name' => $user->getName(), 'provider_id' => $user->getId()]
-        );
+        // Check if the user already exists
+        $u = User::where('email', $user->getEmail())->first();
 
-        Auth::login($authUser, true);
+        if ($u) {
+            // Check if the user has already connected the account
+            $connectedAccount = ConnectedAccount::where('provider_id', $user->getId())->first();
+
+            if ($connectedAccount) {
+                Auth::login($u, true);
+                return redirect()->intended('/home');
+            }
+        }
+        else {
+            // Create a new user and connect the account
+            $u = User::create([
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+            ]);
+
+            ConnectedAccount::create([
+                'user_id' => $u->id,
+                'provider_id' => $user->getId(),
+                'provider_name' => $provider,
+            ]);
+        }
+
+        Auth::login($u, true);
 
         return redirect()->intended('/home');
     }
