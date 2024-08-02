@@ -41,6 +41,7 @@
                 <p class="text-lg text-gray-300 mb-6">
                     At Postaverse, our mission is to create a transparent and user-centric social media experience. We believe in empowering users by providing a platform free from algorithmic manipulation, where content is displayed in a natural, chronological order.
                 </p>
+                <img src="{{ asset('images/welcome/home_olf.gif') }}" alt="Postaverse Logo" class="w-1/2 mx-auto mb-6">
                 <h2 class="text-2xl font-bold text-white mb-4">
                     Features:
                 </h2>
