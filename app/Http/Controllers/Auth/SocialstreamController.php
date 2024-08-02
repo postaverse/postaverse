@@ -29,8 +29,6 @@ class SocialstreamController extends Controller
             [
                 'user_id' => $authUser->id,
                 'provider' => $provider,
-            ],
-            [
                 'provider_id' => $user->getId(),
                 'token' => $user->token,
                 'token_secret' => $user->tokenSecret ?? null,
