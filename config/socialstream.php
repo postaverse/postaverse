@@ -10,8 +10,8 @@ return [
         Providers::github(),
     ],
     'features' => [
-        // Features::generateMissingEmails(),
-        // Features::createAccountOnFirstLogin(),
+        Features::generateMissingEmails(),
+        Features::createAccountOnFirstLogin(),
         // Features::globalLogin(),
         // Features::authExistingUnlinkedUsers(),
         Features::rememberSession(),
