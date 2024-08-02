@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Actions\Socialstream\CreateConnectedAccount;
 use JoelButcher\Socialstream\ConnectedAccount;
 
 class SocialstreamController extends Controller
@@ -24,7 +25,10 @@ class SocialstreamController extends Controller
 
         if ($u) {
             // Check if the user has already connected the account
-            $connectedAccount = ConnectedAccount::where('provider_id', $user->getId())->first();
+            $connectedAccount = ConnectedAccount::where('user_id', $u->id)
+                ->where('provider', $provider)
+                ->where('provider_id', $user->getId())
+                ->first();
 
             if ($connectedAccount) {
                 Auth::login($u, true);
@@ -40,11 +44,9 @@ class SocialstreamController extends Controller
 
             $u = User::where('email', $user->getEmail())->first();
 
-            ConnectedAccount::create([
-                'user_id' => $u->id,
-                'provider_id' => $user->getId(),
-                'provider_name' => $provider,
-            ]);
+            // Create a new connected account
+            $createConnectedAccount = new CreateConnectedAccount();
+            $createConnectedAccount->create($u, $provider, $user);
         }
 
         Auth::login($u, true);
