@@ -21,7 +21,7 @@ return [
     'home' => '/home',
     'redirects' => [
         'login' => '/home',
-        'register' => '/home',
+        'register' => '/settings',
         'login-failed' => '/login',
         'registration-failed' => '/register',
         'provider-linked' => '/settings',
