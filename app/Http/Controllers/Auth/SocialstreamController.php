@@ -24,6 +24,9 @@ class SocialstreamController extends Controller
             ['name' => $user->getName(), 'provider_id' => $user->getId()]
         );
 
+        // Create the connected account
+        $authUser->createConnectedAccount($provider, $user);
+
         Auth::login($authUser, true);
 
         return redirect()->intended('/home');
