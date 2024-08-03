@@ -116,10 +116,12 @@
                         </a>
                     </div>
 
-                    @if ($post->user_id == auth()->user()->id)
-                        <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">
-                            Delete
-                        </button>
+                    @if (auth()->check())
+                        @if ($post->user_id == auth()->user()->id)
+                            <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">
+                                Delete
+                            </button>
+                        @endif
                     @endif
                 </div>
             </div>
