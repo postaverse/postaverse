@@ -25,7 +25,7 @@
                 <h3 class="text-base font-bold text-white">
                     {{ $post->created_at->diffForHumans() }}
                 </h3>
-                <p class="text-white bio-img">{!! $parsedown->text(e($post->content)) !!}</p>
+                <p class="text-white bio-img">{!! $postContent !!}</p>
 
                 @if (auth()->user())
                 @if ($post->user_id == auth()->user()->id)
@@ -99,7 +99,7 @@
                                 <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" class="w-6 h-6">
                                 @endif
                             </div>
-                            <p class="text-white">{!! $parsedown->text(e($comment->content)) !!}</p>
+                            <p class="text-white">{!! $comment->content !!}</p>
                             <h3 class="text-base font-bold text-white">
                                 {{ $comment->created_at->diffForHumans() }}
                             </h3>
@@ -129,3 +129,4 @@
             });
         </script>
     </div>
+</div>

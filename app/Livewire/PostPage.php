@@ -61,13 +61,29 @@ class PostPage extends Component
         $this->comments = $this->user->comments()->where('post_id', $this->post->id)->get();
     }
 
+    private function convertMentionsToLinks($text)
+    {
+        return preg_replace_callback('/@{(\w+)\/(\d+)}/', function ($matches) {
+            $username = $matches[1];
+            $userId = $matches[2];
+            return "<a href='" . route('user-profile', $userId) . "'>@{$username}</a>";
+        }, $text);
+    }
+
     public function render()
     {
         $parsedown = new Parsedown();
+        $postContent = $this->convertMentionsToLinks($parsedown->text(e($this->post->content)));
+        $comments = $this->comments->map(function ($comment) use ($parsedown) {
+            $comment->content = $this->convertMentionsToLinks($parsedown->text(e($comment->content)));
+            return $comment;
+        });
+
         return view('livewire.post-page', [
             'post' => $this->post,
             'parsedown' => $parsedown,
-            'comments' => $this->comments,
+            'postContent' => $postContent,
+            'comments' => $comments,
         ])->layout('layouts.app');
     }
 }
