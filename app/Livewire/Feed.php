@@ -6,6 +6,7 @@ use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Like;
+use App\Models\Blog;
 use Parsedown;
 
 class Feed extends Component
@@ -46,6 +47,21 @@ class Feed extends Component
             ->select('posts.*') // Ensure only columns from the posts table are selected
             ->distinct()
             ->paginate(20);
+
+        // Add blog posts to the collection
+        $blogPosts = Blog::query()
+            ->leftJoin('followers', 'blogs.user_id', '=', 'followers.following_id')
+            ->where(function ($query) use ($userId) {
+                $query->where('followers.follower_id', $userId)
+                    ->orWhere('blogs.user_id', $userId); // Include the current user's own blog posts
+            })
+            ->orderByDesc('blogs.created_at')
+            ->select('blogs.id', 'blogs.title', 'blogs.created_at', 'blogs.user_id', 'blogs.slug', 'blogs.image')
+            ->distinct()
+            ->get();
+        
+        // Merge the blog posts with the posts collection
+        $posts = $posts->merge($blogPosts)->sortByDesc('created_at');
 
         foreach ($posts as $post) {
             $post->hasProfanity = $post->hasProfanity();
