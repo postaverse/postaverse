@@ -45,13 +45,12 @@ class Feed extends Component
             })
             ->orderByDesc('posts.created_at')
             ->select('posts.*') // Ensure only columns from the posts table are selected
-            ->distinct()
-            ->paginate(20);
+            ->distinct();
 
         // Add blog posts to the collection
         $blogPosts = Blog::query()->orderByDesc('created_at')->get();
 
-        $posts = $posts->merge($blogPosts);
+        $posts = $posts->merge($blogPosts)->sortByDesc('created_at')->paginate(20);
 
         $parsedown = new Parsedown();
 
