@@ -6,7 +6,6 @@ use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Like;
-use App\Models\Blog;
 use Parsedown;
 
 class Feed extends Component
@@ -47,14 +46,9 @@ class Feed extends Component
             ->select('posts.*') // Ensure only columns from the posts table are selected
             ->distinct();
 
-        // Add blog posts to the collection
-        $blogPosts = Blog::query()->orderByDesc('created_at')->get();
-
-        // Merge the blog posts with the user posts
-        $posts = $posts->get()->merge($blogPosts);
-
-        // Paginate the merged collection
-        $posts = $posts->paginate(20);
+        foreach ($posts as $post) {
+            $post->hasProfanity = $post->hasProfanity();
+        }
 
         $parsedown = new Parsedown();
 
