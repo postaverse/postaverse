@@ -21,16 +21,19 @@
 
                 <x-connected-account :provider="$provider" created-at="{{ $account?->created_at }}">
                     <x-slot name="action">
-                        @if (! is_null($account))
+                        @if (!is_null($account))
                             <div class="flex items-center space-x-6">
-                                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos() && ! is_null($account->avatar_path))
-                                    <button class="cursor-pointer ms-6 text-sm text-gray-400 hover:text-gray-300 focus:outline-none" wire:click="setAvatarAsProfilePhoto({{ $account->id }})">
+                                @if (Laravel\Jetstream\Jetstream::managesProfilePhotos() && !is_null($account->avatar_path))
+                                    <button
+                                        class="cursor-pointer ms-6 text-sm text-gray-400 hover:text-gray-300 focus:outline-none"
+                                        wire:click="setAvatarAsProfilePhoto({{ $account->id }})">
                                         {{ __('Use Avatar as Profile Photo') }}
                                     </button>
                                 @endif
 
-                                @if (($this->accounts->count() > 1 || ! is_null(auth()->user()->getAuthPassword())))
-                                    <x-danger-button wire:click="confirmRemoveAccount({{ $account->id }})" wire:loading.attr="disabled">
+                                @if ($this->accounts->count() > 1 || !is_null(auth()->user()->getAuthPassword()))
+                                    <x-danger-button wire:click="confirmRemoveAccount({{ $account->id }})"
+                                        wire:loading.attr="disabled">
                                         {{ __('Remove') }}
                                     </x-danger-button>
                                 @endif
@@ -55,13 +58,11 @@
             <x-slot name="content">
                 {{ __('Please enter your password to confirm you would like to remove this account.') }}
 
-                <div class="mt-4" x-data="{}" x-on:confirming-delete-user.window="setTimeout(() => $refs.password.focus(), 250)">
-                    <x-input type="password" class="mt-1 block w-3/4"
-                             autocomplete="current-password"
-                             placeholder="{{ __('Password') }}"
-                             x-ref="password"
-                             wire:model="password"
-                             wire:keydown.enter="removeConnectedAccount" />
+                <div class="mt-4" x-data="{}"
+                    x-on:confirming-delete-user.window="setTimeout(() => $refs.password.focus(), 250)">
+                    <x-input type="password" class="mt-1 block w-3/4" autocomplete="current-password"
+                        placeholder="{{ __('Password') }}" x-ref="password" wire:model="password"
+                        wire:keydown.enter="removeConnectedAccount" />
 
                     <x-input-error for="password" class="mt-2" />
                 </div>

@@ -21,13 +21,13 @@
                     <p>- - - - - - - - - - -</p>
                     <ul>
                         @foreach ($admins as $admin)
-                        @if ($admin->admin_rank == 1)
-                        <li>
-                            <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
-                                {{ $admin->name }}
-                            </a>
-                        </li>
-                        @endif
+                            @if ($admin->admin_rank == 1)
+                                <li>
+                                    <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
+                                        {{ $admin->name }}
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                     <!-- Rank 2 -->
@@ -35,13 +35,13 @@
                     <p>- - - - - - - - - - -</p>
                     <ul>
                         @foreach ($admins as $admin)
-                        @if ($admin->admin_rank == 2)
-                        <li>
-                            <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
-                                {{ $admin->name }}
-                            </a>
-                        </li>
-                        @endif
+                            @if ($admin->admin_rank == 2)
+                                <li>
+                                    <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
+                                        {{ $admin->name }}
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                     <!-- Rank 3 -->
@@ -49,13 +49,13 @@
                     <p>- - - - - - - - - - -</p>
                     <ul>
                         @foreach ($admins as $admin)
-                        @if ($admin->admin_rank == 3)
-                        <li>
-                            <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
-                                {{ $admin->name }}
-                            </a>
-                        </li>
-                        @endif
+                            @if ($admin->admin_rank == 3)
+                                <li>
+                                    <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
+                                        {{ $admin->name }}
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                     <!-- Rank 4 -->
@@ -63,13 +63,13 @@
                     <p>- - - - - - - - - - -</p>
                     <ul>
                         @foreach ($admins as $admin)
-                        @if ($admin->admin_rank == 4)
-                        <li>
-                            <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
-                                {{ $admin->name }}
-                            </a>
-                        </li>
-                        @endif
+                            @if ($admin->admin_rank == 4)
+                                <li>
+                                    <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
+                                        {{ $admin->name }}
+                                    </a>
+                                </li>
+                            @endif
                         @endforeach
                     </ul>
                 </ul>

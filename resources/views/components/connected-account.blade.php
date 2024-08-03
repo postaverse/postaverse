@@ -10,7 +10,7 @@
                     {{ __($provider['name']) }}
                 </div>
 
-                @if (! empty($createdAt))
+                @if (!empty($createdAt))
                     <div class="text-xs text-gray-500">
                         {{ __('Connected :createdAt', ['createdAt' => $createdAt]) }}
                     </div>
@@ -27,9 +27,9 @@
         </div>
     </div>
 
-    @error($provider['id'].'_connect_error')
-    <div class="text-sm font-semibold text-red-500 px-3 mt-2">
-        {{ $message }}
-    </div>
+    @error($provider['id'] . '_connect_error')
+        <div class="text-sm font-semibold text-red-500 px-3 mt-2">
+            {{ $message }}
+        </div>
     @enderror
 </div>

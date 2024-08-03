@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\User;
+use App\Models\Notification;
 
 class PostPage extends Component
 {
@@ -44,6 +45,14 @@ class PostPage extends Component
         }
     }
 
+    private function getMentionedUsers($text)
+    {
+        $mention = preg_match_all('/@(\w+)/', $text, $matches);
+        // Handle or ID
+        $users = User::whereIn('handle', $matches[1])->orWhereIn('id', $matches[1])->get();
+        return $users;
+    }
+
     public function submit()
     {
         $this->validate([
@@ -56,15 +65,24 @@ class PostPage extends Component
             'user_id' => $this->user->id,
         ]);
 
-        // Clear the textarea
-        $this->content = '';
-
         $this->comments = Comment::where('post_id', $this->post->id)->orderBy('created_at', 'desc')->get();
+
+        // Notify people mentioned in the comment
+        
+        $mentionedUsers = $this->getMentionedUsers($this->content);
+
+        foreach ($mentionedUsers as $mentionedUser) {
+            Notification::create([
+                'user_id' => $mentionedUser->id,
+                'message' => $this->user->name . ' mentioned you in a comment',
+                'link' => route('post', ['postId' => $this->post->id]),
+            ]);
+        }
     }
 
     private function convertMentionsToLinks($text)
     {
-        return preg_replace_callback('/@(\w+)/', function ($matches) {
+        $mention = preg_replace_callback('/@(\w+)/', function ($matches) {
             $u = $matches[1];
             $user = User::where('handle', $u)->first();
             if ($user) {
@@ -78,6 +96,7 @@ class PostPage extends Component
                 }
             }
         }, $text);
+        return $mention;
     }
 
     public function render()

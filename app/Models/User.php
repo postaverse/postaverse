@@ -123,6 +123,11 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     public function followers()
     {
         return $this->belongsToMany(User::class, 'followers', 'following_id', 'follower_id');
