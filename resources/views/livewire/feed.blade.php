@@ -44,6 +44,7 @@
             </div>
             @if (auth()->user())
             <div class="flex items-center space-x-4 pt-3 pb-3">
+                @if ($post->likes)
                 <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
                     @if (!$post->likes->contains('user_id', auth()->id()))
                     <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="35" height="35" class="p-1">
@@ -51,6 +52,7 @@
                     <img src="{{ asset('images/liked.png') }}" alt="Like" width="35" height="35" class="p-1">
                     @endif
                 </button>
+                @endif
                 <div class="flex -space-x-4">
                     @foreach ($post->likes->take(5) as $like)
                     <a href="{{ route('user-profile', $like->user->id) }}" class="hyperlink">
