@@ -10,6 +10,7 @@ use App\Livewire\AdminDashboard;
 use App\Livewire\ShopTextThemes;
 use App\Livewire\Blogs;
 use App\Http\Controllers\Auth\SocialstreamController;
+use App\Livewire\PostPage;
 
 Route::get('auth/{provider}', [SocialstreamController::class, 'redirectToProvider']);
 Route::get('auth/{provider}/callback', [SocialstreamController::class, 'handleProviderCallback']);
@@ -29,6 +30,8 @@ Route::get('/@{handle}', Profile::class)->name('user-profile');
 Route::get('/search', Search::class)->name('search');
 
 Route::get('/blog', Blogs::class)->name('blogs');
+
+Route::get('/post/{postId}', PostPage::class)->name('post');
 
 Route::get('/home', function () {
     if (!auth()->check()) {

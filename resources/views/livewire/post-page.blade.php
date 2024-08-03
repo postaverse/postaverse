@@ -1,0 +1,83 @@
+<div>
+    <br>
+    <x-slot name="header" class="header">
+        <h2 class="font-semibold text-xl text-gray-200 leading-tight">
+            {{ __('Post') }}
+        </h2>
+    </x-slot>
+    <div class="flex flex-col items-center justify-center main">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 main w-full">
+            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+                <div class="flex items-center space-x-4">
+                    <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->name }}'s profile photo" class="w-10 h-10 rounded-full">
+                    <h2 class="text-lg font-bold text-white">
+                        <a href="{{ route('user-profile', $post->user->id) }}" class="hyperlink">
+                            {{ $post->user->name }}
+                        </a>
+                    </h2>
+                    @if ($post->user->isSiteVerified())
+                    <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20" height="20">
+                    @endif
+                </div>
+                <h1 class="text-xl font-bold text-white">
+                    {{ $post->title }}
+                </h1>
+                <h3 class="text-base font-bold text-white">
+                    {{ $post->created_at->diffForHumans() }}
+                </h3>
+                <p class="text-white bio-img">{!! $parsedown->text(e($post->content)) !!}</p>
+
+                @if (auth()->user())
+                @if ($post->user_id == auth()->user()->id)
+                <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">
+                    Delete
+                </button>
+                @endif
+                @endif
+            </div>
+        </div>
+        <br>
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 main w-full">
+            <h2 class="text-2xl font-bold text-white pb-2 pl-2">Comments</h2>
+            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+                @if (auth()->user())
+                <div class="pb-3">
+                    <form wire:submit.prevent="submit" class="max-w-7xl w-full">
+                        <div class="mb-4 max-w-7xl w-full">
+                            <x-label for="comment" value="{{ __('Comment') }}" />
+                            <textarea id="comment" class="w-full p-2 rounded bg-gray-700 text-white" wire:model="content" placeholder="Write your comment here..."></textarea>
+                            @error('content') <span class="error text-red-500">{{ $message }}</span> @enderror
+                        </div>
+                        <x-button type="submit" class="bg-green-600"><img src="{{ asset('images/blastoff.png') }}" alt="Submit" width="35" height="35" class="p-1 pr-2">{{ __('Post') }}</x-button>
+                    </form>
+                </div>
+                @endif
+                <div>
+                    @if ($comments)
+                    @foreach ($comments as $comment)
+                    <div class="bg-gray-700 p-2 rounded mt-2">
+                        <div class="flex space-x-4">
+                            <img src="{{ $comment->user->profile_photo_url }}" alt="{{ $comment->user->name }}'s profile photo" class="w-8 h-8 rounded-full">
+                            <h2 class="text-lg font-bold text-white">
+                                <a href="{{ route('user-profile', $comment->user->id) }}" class="hyperlink">
+                                    {{ $comment->user->name }}
+                                </a>
+                            </h2>
+                            @if ($comment->user->isSiteVerified())
+                            <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20" height="20">
+                            @endif
+                        </div>
+                        <p class="text-white">{!! $parsedown->text(e($comment->content)) !!}</p>
+                        <h3 class="text-base font-bold text-white">
+                            {{ $comment->created_at->diffForHumans() }}
+                        </h3>
+                    </div>
+                    @endforeach
+                    @else
+                    <p class="text-white">No comments yet.</p>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
