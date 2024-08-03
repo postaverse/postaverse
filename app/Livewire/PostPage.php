@@ -68,11 +68,11 @@ class PostPage extends Component
             $u = $matches[1];
             $user = User::where('handle', $u)->first();
             if ($user) {
-                return "<a href='/users/{$user->id}'>@{$u}</a>";
+                return "<a class='hyperlink' href='/@{$user->id}'>@{$u}</a>";
             } else {
                 $uid = User::where('id', $u)->first();
                 if ($uid) {
-                    return "<a href='/users/{$uid->id}'>@{$u}</a>";
+                    return "<a class='hyperlink' href='/@{$uid->id}'>@{$u}</a>";
                 } else {
                     return "@{$u}";
                 }
