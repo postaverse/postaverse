@@ -57,9 +57,8 @@
                 </a>
             </div>
             @endif
-            <hr>
             @if (auth()->user())
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-4 pt-3">
                 <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
                     @if (!$post->likes->contains('user_id', auth()->id()))
                     <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="35" height="35" class="p-1">
