@@ -45,18 +45,27 @@
 
             <hr>
 
-            <button wire:click="likePost({{ $post->id }})" class="text-white">
-                @if (!$post->likes->contains('user_id', auth()->id()))
-                <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="35" height="35" class="p-1">
-                @else
-                <img src="{{ asset('images/liked.png') }}" alt="Like" width="35" height="35" class="p-1">
-                @endif
-            </button>
-            <br>
-            <span class="text-white">{{ $post->likes->count() }} likes</span>
-            <br>
-
-            <hr>
+            @if (auth()->user())
+            <div class="flex items-center space-x-4">
+                <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
+                    @if (!$post->likes->contains('user_id', auth()->id()))
+                    <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="35" height="35" class="p-1">
+                    @else
+                    <img src="{{ asset('images/liked.png') }}" alt="Like" width="35" height="35" class="p-1">
+                    @endif
+                </button>
+                <div class="flex -space-x-4">
+                    @foreach ($post->likes->take(5) as $like)
+                    <img src="{{ $like->user->profile_photo_url }}" alt="{{ $like->user->name }}'s profile photo" class="w-10 h-10 rounded-full border-2 border-gray-800">
+                    @endforeach
+                    @if ($post->likes->count() > 5)
+                    <div class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-700 text-white border-2 border-gray-800">
+                        +{{ $post->likes->count() - 5 }}
+                    </div>
+                    @endif
+                </div>
+            </div>
+            @endif
 
             @if ($post->user_id == auth()->user()->id)
             <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">

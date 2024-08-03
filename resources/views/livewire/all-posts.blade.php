@@ -79,10 +79,6 @@
                 </div>
             </div>
             @endif
-            <br>
-
-            <hr>
-
             @if (auth()->user())
             @if ($post->user_id == auth()->user()->id || auth()->user()->admin_rank >= 3)
             <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">
