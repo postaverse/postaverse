@@ -64,7 +64,7 @@
                                 </a>
                             </h2>
                             @if ($comment->user->isSiteVerified())
-                            <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20" height="20">
+                            <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" class="w-6 h-6">
                             @endif
                         </div>
                         <p class="text-white">{!! $parsedown->text(e($comment->content)) !!}</p>
