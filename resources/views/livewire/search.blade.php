@@ -66,56 +66,42 @@
                             </h2>
                         </div>
                         @if ($profanityOption == 'hide_clickable' && $checker->hasProfanity($post->title))
-                            <div class="flex items-center justify-between">
-                                <a href="#"
-                                    onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
-                                    <h1 class="text-xl font-bold text-red-500 hyperlink">
-                                        Content hidden due to profanity. Click to reveal.
-                                    </h1>
-                                </a>
-                                <div>
-                                    <div class="text-xl font-bold text-white" style="display:none;">
-                                        {{ $post->title }}
-                                    </div>
-                                    <h3 class="text-base font-bold text-white">
-                                        {{ $post->created_at->diffForHumans() }}
-                                    </h3>
-                                </div>
-                                <a href="{{ route('post', $post->id) }}" class="text-white">
-                                    <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
-                                        height="20" style="filter: invert(1);">
-                                </a>
+                            <a href="#"
+                                onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
+                                <h1 class="text-xl font-bold text-red-500 hyperlink">
+                                    Content hidden due to profanity. Click to reveal.
+                                </h1>
+                            </a>
+                            <div class="text-xl font-bold text-white" style="display:none;">
+                                {{ $post->title }}
                             </div>
+                            <a href="{{ route('post', $post->id) }}" class="text-white">
+                                <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
+                                    height="20" style="filter: invert(1);">
+                            </a>
                         @elseif($profanityOption == 'hide' && $checker->hasProfanity($post->title))
                             <h1 class="text-xl font-bold text-red-500">
                                 Content hidden due to profanity.
                             </h1>
                         @else
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <h1 class="text-xl font-bold text-white">
-                                        {{ $post->title }}
-                                    </h1>
-                                    <h3 class="text-base font-bold text-white">
-                                        {{ $post->created_at->diffForHumans() }}
-                                    </h3>
-                                </div>
-                                <a href="{{ route('post', $post->id) }}" class="text-white">
-                                    <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
-                                        height="20" style="filter: invert(1);">
-                                </a>
-                            </div>
+                            <h1 class="text-xl font-bold text-white">
+                                {{ $post->title }}
+                            </h1>
+                        @endif
+                        <h3 class="text-base font-bold text-white">
+                            {{ $post->created_at->diffForHumans() }}
+                        </h3>
+                        <a href="{{ route('post', $post->id) }}" class="text-white">
+                                <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
+                                    height="20" style="filter: invert(1);">
+                            </a>
                         @endif
                     </div>
                 </div>
-            @endif
-        @endforeach
+            @endforeach
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+                {{ $posts->links() }}
+            </div>
+        @endif
     </div>
-</div>
-@endforeach
-<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-    {{ $posts->links() }}
-</div>
-@endif
-</div>
 </div>
