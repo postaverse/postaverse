@@ -44,7 +44,9 @@ class Feed extends Component
             })
             ->orderByDesc('posts.created_at')
             ->select('posts.*') // Ensure only columns from the posts table are selected
-            ->distinct();
+            ->distinct()
+            ->paginate(20)
+            ->get();
 
         foreach ($posts as $post) {
             $post->hasProfanity = $post->hasProfanity();
