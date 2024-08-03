@@ -66,7 +66,7 @@ class PostPage extends Component
     {
         return preg_replace_callback('/@(\w+)/', function ($matches) {
             $u = $matches[1];
-            $user = User::where('username', $u)->first();
+            $user = User::where('handle', $u)->first();
             if ($user) {
                 return "<a href='/users/{$user->id}'>@{$u}</a>";
             } else {
