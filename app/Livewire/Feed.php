@@ -50,10 +50,11 @@ class Feed extends Component
         // Add blog posts to the collection
         $blogPosts = Blog::query()->orderByDesc('created_at')->get();
 
-        $posts = $posts->merge($blogPosts)->sortByDesc('created_at');
+        // Merge the blog posts with the user posts
+        $posts = $posts->get()->merge($blogPosts);
 
         // Paginate the merged collection
-        $posts = $posts->paginate(10);
+        $posts = $posts->paginate(20);
 
         $parsedown = new Parsedown();
 
