@@ -56,7 +56,6 @@
                     <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20" height="20" style="filter: invert(1);">
                 </a>
             </div>
-            <p class="text-white">{!! $parsedown->text(e($post->content)) !!}</p>
             @endif
             <hr>
             @if (auth()->user())
