@@ -24,12 +24,14 @@
                                     Content hidden due to profanity. Click to reveal.
                                 </h1>
                             </a>
-                            <h1 class="text-xl font-bold text-white" style="display:none;">
-                                {{ $post->title }}
-                            </h1>
-                            <h3 class="text-base font-bold text-white">
-                                {{ $post->created_at->diffForHumans() }}
-                            </h3>
+                            <div>
+                                <h1 class="text-xl font-bold text-white" style="display:none;">
+                                    {{ $post->title }}
+                                </h1>
+                                <h3 class="text-base font-bold text-white">
+                                    {{ $post->created_at->diffForHumans() }}
+                                </h3>
+                            </div>
                             <a href="{{ route('post', $post->id) }}" class="text-white">
                                 <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
                                     height="20" style="filter: invert(1);">
