@@ -8,6 +8,7 @@ use Parsedown;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
 use App\Models\Like;
+use App\Models\User;
 
 class PostPage extends Component
 {
@@ -63,10 +64,19 @@ class PostPage extends Component
 
     private function convertMentionsToLinks($text)
     {
-        return preg_replace_callback('/@{(\w+)\/(\d+)}/', function ($matches) {
-            $username = $matches[1];
-            $userId = $matches[2];
-            return "<a href='" . route('user-profile', $userId) . "'>@{$username}</a>";
+        return preg_replace_callback('/@(\w+)/', function ($matches) {
+            $u = $matches[1];
+            $user = User::where('username', $u)->first();
+            if ($user) {
+                return "<a href='/users/{$user->id}'>@{$u}</a>";
+            } else {
+                $uid = User::where('id', $u)->first();
+                if ($uid) {
+                    return "<a href='/users/{$uid->id}'>@{$u}</a>";
+                } else {
+                    return "@{$u}";
+                }
+            }
         }, $text);
     }
 
