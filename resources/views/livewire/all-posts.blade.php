@@ -38,7 +38,7 @@
                     </h3>
                 </div>
                 <a href="{{ route('post', $post->id) }}" class="text-white">
-                    <img src="{{ asset('images/box-arrow.png') }}" alt="Go to post" width="20" height="20">
+                    <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20" height="20">
                 </a>
             </div>
             @endif
