@@ -73,17 +73,17 @@
                     <div class="flex items-center space-x-4 pt-3 pb-3">
                         <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
                             @if (!$post->likes->contains('user_id', auth()->id()))
-                                <img src="{{ asset('images/unliked.png') }}" alt="Like" width="20"
-                                    height="20">
+                                <img src="{{ asset('images/unliked.png') }}" alt="Like" class="w-10 h-10">
                             @else
-                                <img src="{{ asset('images/liked.png') }}" alt="Unlike" width="20"
-                                    height="20">
+                                <img src="{{ asset('images/liked.png') }}" alt="Unlike" class="w-10 h-10">
                             @endif
                         </button>
                         <div class="flex -space-x-4">
                             @foreach ($post->likes->take(5) as $like)
+                            <a href="{{ route('user-profile', $like->user->id) }}" class="hyperlink">
                                 <img src="{{ $like->user->profile_photo_url }}"
                                     alt="{{ $like->user->name }}'s profile photo" class="w-10 h-10 rounded-full border-2 border-gray-800">
+                            </a>
                             @endforeach
                             @if ($post->likes->count() > 5)
                                 <span class="text-white">+{{ $post->likes->count() - 5 }}</span>
