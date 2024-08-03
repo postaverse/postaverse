@@ -39,6 +39,7 @@
         <br>
         @if (auth()->user())
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 main w-full">
+            @if ($post->likes->count() > 0)
             <h2 class="text-2xl font-bold text-white pb-2 pl-2">Likes</h2>
             <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
                 <div class="flex items-center space-x-4">
@@ -54,6 +55,7 @@
                     </div>
                 </div>
             </div>
+            @endif
             <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
                 @if (!$post->likes->contains('user_id', auth()->id()))
                 <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="35" height="35" class="p-1">
