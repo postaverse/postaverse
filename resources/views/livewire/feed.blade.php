@@ -53,6 +53,7 @@
                     @endif
                 </button>
                 @endif
+                @if ($post->likes)
                 <div class="flex -space-x-4">
                     @foreach ($post->likes->take(5) as $like)
                     <a href="{{ route('user-profile', $like->user->id) }}" class="hyperlink">
@@ -65,6 +66,7 @@
                     </div>
                     @endif
                 </div>
+                @endif
             </div>
             @endif
 
