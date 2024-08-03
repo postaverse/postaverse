@@ -38,7 +38,7 @@ Route::get('/home', function () {
         return view('home');
     }
     return redirect()->route('home');
-})->name('unauthenticated-home');
+});
 
 Route::middleware([
     'auth:sanctum',
