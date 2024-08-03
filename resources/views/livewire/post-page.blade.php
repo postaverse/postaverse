@@ -43,7 +43,7 @@
             <h2 class="text-2xl font-bold text-white pb-2 pl-2">Likes</h2>
             <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
                 <div class="flex items-center space-x-4">
-                    <div class="flex -space-x-2">
+                    <div class="flex -space-x-4">
                         @foreach ($post->likes->take(10) as $like)
                         <img src="{{ $like->user->profile_photo_url }}" alt="{{ $like->user->name }}'s profile photo" class="w-10 h-10 rounded-full border-2 border-gray-800">
                         @endforeach
