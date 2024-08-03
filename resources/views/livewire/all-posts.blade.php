@@ -17,22 +17,24 @@
                 </div>
                 @if (auth()->user())
                     @if ($profanityOption == 'hide_clickable' && $checker->hasProfanity($post->title))
-                        <a href="#"
-                            onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
-                            <h1 class="text-xl font-bold text-red-500 hyperlink">
-                                Content hidden due to profanity. Click to reveal.
+                        <div class="flex items-center justify-between">
+                            <a href="#"
+                                onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
+                                <h1 class="text-xl font-bold text-red-500 hyperlink">
+                                    Content hidden due to profanity. Click to reveal.
+                                </h1>
+                            </a>
+                            <h1 class="text-xl font-bold text-white" style="display:none;">
+                                {{ $post->title }}
                             </h1>
-                        </a>
-                        <h1 class="text-xl font-bold text-white" style="display:none;">
-                            {{ $post->title }}
-                        </h1>
-                        <h3 class="text-base font-bold text-white">
-                            {{ $post->created_at->diffForHumans() }}
-                        </h3>
-                        <a href="{{ route('post', $post->id) }}" class="text-white">
-                            <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
-                                height="20" style="filter: invert(1);">
-                        </a>
+                            <h3 class="text-base font-bold text-white">
+                                {{ $post->created_at->diffForHumans() }}
+                            </h3>
+                            <a href="{{ route('post', $post->id) }}" class="text-white">
+                                <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
+                                    height="20" style="filter: invert(1);">
+                            </a>
+                        </div>
                     @elseif($profanityOption == 'hide' && $checker->hasProfanity($post->title))
                         <h1 class="text-xl font-bold text-red-500">
                             Content hidden due to profanity.
