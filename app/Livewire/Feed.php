@@ -50,17 +50,11 @@ class Feed extends Component
 
         // Add blog posts to the collection
         $blogPosts = Blog::query()->orderByDesc('created_at')->get();
-        
-        // Merge the blog posts with the posts collection
-        $posts = $posts->merge($blogPosts)->sortByDesc('created_at');
 
-        foreach ($posts as $post) {
-            $post->hasProfanity = $post->hasProfanity();
-        }
+        $posts = $posts->merge($blogPosts);
 
-        $profanityOption = auth()->user()->profanity_block_type;
         $parsedown = new Parsedown();
 
-        return view('livewire.feed', compact('posts', 'profanityOption', 'parsedown'))->layout('layouts.app');
+        return view('livewire.feed', compact('posts', 'parsedown'))->layout('layouts.app');
     }
 }
