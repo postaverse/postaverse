@@ -96,13 +96,19 @@
                 <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20" height="20">
                 @endif
             </div>
-            <h1 class="text-xl font-bold text-white">
-                {{ $post->title }}
-            </h1>
-            <h3 class="text-base font-bold text-white">
-                {{ $post->created_at->diffForHumans() }}
-            </h3>
-            <p class="text-white bio-img">{!! $parsedown->text(e($post->content)) !!}</p>
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-xl font-bold text-white">
+                        {{ $post->title }}
+                    </h1>
+                    <h3 class="text-base font-bold text-white">
+                        {{ $post->created_at->diffForHumans() }}
+                    </h3>
+                </div>
+                <a href="{{ route('post', $post->id) }}" class="text-white">
+                    <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20" height="20" style="filter: invert(1);">
+                </a>
+            </div>
 
             @if ($post->user_id == auth()->user()->id)
             <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">

@@ -29,28 +29,19 @@
                 <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20" height="20">
                 @endif
             </div>
-            <h1 class="text-xl font-bold text-white">
-                {{ $post->title }}
-            </h1>
-            <h3 class="text-base font-bold text-white">
-                {{ $post->created_at->diffForHumans() }}
-            </h3>
-            {{-- Profanity check integration starts here --}}
-            @if ($post->hasProfanity)
-            @if ($profanityOption === 'hide_clickable')
-            <div class="text-white">
-                <a class="hyperlink text-red-500" href="#" onclick="event.preventDefault(); this.previousElementSibling.style.display='block'; this.style.display='none'">Content hidden due to profanity. Click to show.</a>
-                <div style="display: none;">{!! $parsedown->text(e($post->content)) !!}</div>
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-xl font-bold text-white">
+                        {{ $post->title }}
+                    </h1>
+                    <h3 class="text-base font-bold text-white">
+                        {{ $post->created_at->diffForHumans() }}
+                    </h3>
+                </div>
+                <a href="{{ route('post', $post->id) }}" class="text-white">
+                    <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20" height="20" style="filter: invert(1);">
+                </a>
             </div>
-            @elseif ($profanityOption === 'hide')
-            <div class="text-red-500">Content hidden due to profanity.</div>
-            @else
-            <div class="text-white">{!! $parsedown->text(e($post->content)) !!}</div>
-            @endif
-            @else
-            <div class="text-white">{!! $parsedown->text(e($post->content)) !!}</div>
-            @endif
-            {{-- Profanity check integration ends here --}}
 
             <hr>
 
