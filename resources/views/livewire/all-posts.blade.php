@@ -16,7 +16,7 @@
                     @endif
                 </div>
                 @if (auth()->user())
-                    @if ($profanityOption == 'hide_clickable' && $post->hasProfanity)
+                    @if ($profanityOption == 'hide_clickable' && $checker->hasProfanity($post->title))
                         <a href="#"
                             onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
                             <h1 class="text-xl font-bold text-red-500 hyperlink">
@@ -26,7 +26,14 @@
                         <h1 class="text-xl font-bold text-white" style="display:none;">
                             {{ $post->title }}
                         </h1>
-                    @elseif($profanityOption == 'hide' && $post->hasProfanity)
+                        <h3 class="text-base font-bold text-white">
+                            {{ $post->created_at->diffForHumans() }}
+                        </h3>
+                        <a href="{{ route('post', $post->id) }}" class="text-white">
+                            <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
+                                height="20" style="filter: invert(1);">
+                        </a>
+                    @elseif($profanityOption == 'hide' && $checker->hasProfanity($post->title))
                         <h1 class="text-xl font-bold text-red-500">
                             Content hidden due to profanity.
                         </h1>
@@ -66,26 +73,20 @@
                     <div class="flex items-center space-x-4 pt-3 pb-3">
                         <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
                             @if (!$post->likes->contains('user_id', auth()->id()))
-                                <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="35"
-                                    height="35" class="p-1">
+                                <img src="{{ asset('images/unliked.png') }}" alt="Like" width="20"
+                                    height="20">
                             @else
-                                <img src="{{ asset('images/liked.png') }}" alt="Like" width="35" height="35"
-                                    class="p-1">
+                                <img src="{{ asset('images/liked.png') }}" alt="Unlike" width="20"
+                                    height="20">
                             @endif
                         </button>
                         <div class="flex -space-x-4">
                             @foreach ($post->likes->take(5) as $like)
-                                <a href="{{ route('user-profile', $like->user->id) }}" class="hyperlink">
-                                    <img src="{{ $like->user->profile_photo_url }}"
-                                        alt="{{ $like->user->name }}'s profile photo"
-                                        class="w-10 h-10 rounded-full border-2 border-gray-800">
-                                </a>
+                                <img src="{{ $like->user->profile_photo_url }}"
+                                    alt="{{ $like->user->name }}'s profile photo" class="w-6 h-6 rounded-full">
                             @endforeach
                             @if ($post->likes->count() > 5)
-                                <div
-                                    class="flex items-center justify-center w-10 h-10 rounded-full bg-gray-700 text-white border-2 border-gray-800">
-                                    +{{ $post->likes->count() - 5 }}
-                                </div>
+                                <span class="text-white">+{{ $post->likes->count() - 5 }}</span>
                             @endif
                         </div>
                     </div>

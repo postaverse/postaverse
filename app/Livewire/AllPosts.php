@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Badge;
 use App\Models\Like;
 use App\Models\Site;
-use Illuminate\Support\Facades\Auth;
+use App\Livewire\Profanity;
 use Parsedown;
 
 class AllPosts extends Component
@@ -85,15 +85,13 @@ class AllPosts extends Component
 
         $posts = Post::query()->orderByDesc('id')->paginate(20);
 
-        foreach ($posts as $post) {
-            $post->hasProfanity = $post->hasProfanity();
-        }
+        $checker = new Profanity();
 
         $parsedown = new Parsedown();
 
         if ($user) {
             $profanityOption = $user->profanity_block_type;
-            return view('livewire.all-posts', compact('posts', 'profanityOption', 'parsedown'))->layout('layouts.app');
+            return view('livewire.all-posts', compact('posts', 'profanityOption', 'parsedown', 'checker'))->layout('layouts.app');
         }
         return view('livewire.all-posts', compact('posts', 'parsedown'))->layout('layouts.app');
     }
