@@ -7,6 +7,7 @@ use Livewire\Component;
 use Parsedown;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
+use App\Models\Like;
 
 class PostPage extends Component
 {
@@ -25,6 +26,21 @@ class PostPage extends Component
             abort(404);
         }
         $this->comments = Comment::where('post_id', $this->post->id)->orderBy('created_at', 'desc')->get();
+    }
+
+    public function likePost($postId)
+    {
+        $user = auth()->user();
+        $like = Like::where('post_id', $postId)->where('user_id', $user->id)->first();
+
+        if ($like) {
+            $like->delete();
+        } else {
+            Like::create([
+                'post_id' => $postId,
+                'user_id' => $user->id,
+            ]);
+        }
     }
 
     public function submit()
