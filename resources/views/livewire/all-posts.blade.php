@@ -52,7 +52,7 @@
                         {{ $post->created_at->diffForHumans() }}
                     </h3>
                 </div>
-                <a href="{{ route('post.show', $post->id) }}" class="text-white">
+                <a href="{{ route('post', $post->id) }}" class="text-white">
                     <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20" height="20">
                 </a>
             </div>
