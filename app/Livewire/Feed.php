@@ -49,16 +49,7 @@ class Feed extends Component
             ->paginate(20);
 
         // Add blog posts to the collection
-        $blogPosts = Blog::query()
-            ->leftJoin('followers', 'blogs.user_id', '=', 'followers.following_id')
-            ->where(function ($query) use ($userId) {
-                $query->where('followers.follower_id', $userId)
-                    ->orWhere('blogs.user_id', $userId); // Include the current user's own blog posts
-            })
-            ->orderByDesc('blogs.created_at')
-            ->select('blogs.id', 'blogs.title', 'blogs.created_at', 'blogs.user_id', 'blogs.slug', 'blogs.image')
-            ->distinct()
-            ->get();
+        $blogPosts = Blog::query()->orderByDesc('created_at')->get();
         
         // Merge the blog posts with the posts collection
         $posts = $posts->merge($blogPosts)->sortByDesc('created_at');
