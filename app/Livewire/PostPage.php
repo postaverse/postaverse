@@ -24,7 +24,7 @@ class PostPage extends Component
         if (!$this->post) {
             abort(404);
         }
-        $this->comments = Comment::where('post_id', $this->post->id)->get();
+        $this->comments = Comment::where('post_id', $this->post->id)->orderBy('created_at', 'desc')->get();
     }
 
     public function submit()
