@@ -12,7 +12,7 @@ class PostPage extends Component
 {
     public $post;
     public $comments;
-    public $content;
+    public $content = '';
     public $user;
 
     public function mount($postId)
@@ -39,6 +39,7 @@ class PostPage extends Component
             'user_id' => $this->user->id,
         ]);
 
+        // Clear the textarea
         $this->content = '';
 
         $this->comments = $this->user->comments()->where('post_id', $this->post->id)->get();
