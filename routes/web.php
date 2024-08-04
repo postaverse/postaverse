@@ -11,7 +11,6 @@ use App\Livewire\ShopTextThemes;
 use App\Livewire\Blogs;
 use App\Http\Controllers\Auth\SocialstreamController;
 use App\Livewire\PostPage;
-use App\Models\Post;
 
 Route::get('auth/{provider}', [SocialstreamController::class, 'redirectToProvider']);
 Route::get('auth/{provider}/callback', [SocialstreamController::class, 'handleProviderCallback']);
@@ -57,6 +56,5 @@ Route::middleware([
 });
 
 // API
-Route::get('/api-post/{id}', Post::class)->name('api.post');
 
 require __DIR__ . '/socialstream.php';
