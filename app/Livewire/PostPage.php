@@ -57,6 +57,8 @@ class PostPage extends Component
     {
         $user = User::find($this->user->id);
         $user->posts()->where('id', $postId)->delete();
+
+        return redirect()->route('home');
     }
 
     public function submit()
