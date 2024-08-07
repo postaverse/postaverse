@@ -65,7 +65,7 @@ class CreatePost extends Component
         foreach ($mentionedUsers as $mentionedUser) {
             Notification::create([
                 'user_id' => $mentionedUser->id,
-                'message' => $this->user->name . ' mentioned you in a comment',
+                'message' => $this->user->name . ' mentioned you in a post',
                 'link' => route('post', ['postId' => $this->post->id]),
             ]);
         }
