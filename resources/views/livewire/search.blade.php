@@ -92,10 +92,9 @@
                             {{ $post->created_at->diffForHumans() }}
                         </h3>
                         <a href="{{ route('post', $post->id) }}" class="text-white">
-                                <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
-                                    height="20" style="filter: invert(1);">
-                            </a>
-                        @endif
+                            <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
+                                height="20" style="filter: invert(1);">
+                        </a>
                     </div>
                 </div>
             @endforeach

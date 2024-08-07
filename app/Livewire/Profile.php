@@ -33,6 +33,12 @@ class Profile extends Component
         }
     }
 
+    public function delete(int $postId)
+    {
+        $user = User::find($this->userId);
+        $user->posts()->where('id', $postId)->delete();
+    }
+
     public function render()
     {
         $user = User::find($this->userId);

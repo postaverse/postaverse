@@ -22,6 +22,12 @@ class Search extends Component
         $this->query = $request->input('query', '');
     }
 
+    public function delete(int $postId)
+    {
+        $user = User::find($this->userId);
+        $user->posts()->where('id', $postId)->delete();
+    }
+
     public function render()
     {
         $insult = ''; // Initialize an empty insult string
