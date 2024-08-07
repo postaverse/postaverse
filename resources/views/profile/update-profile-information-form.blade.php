@@ -10,12 +10,10 @@
     <x-slot name="form">
         <!-- Profile Photo -->
         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-            <div x-data="{photoName: null, photoPreview: null}" class="col-span-6 sm:col-span-4">
+            <div x-data="{ photoName: null, photoPreview: null }" class="col-span-6 sm:col-span-4">
                 <!-- Profile Photo File Input -->
-                <input type="file" id="photo" class="hidden"
-                            wire:model.live="photo"
-                            x-ref="photo"
-                            x-on:change="
+                <input type="file" id="photo" class="hidden" wire:model.live="photo" x-ref="photo"
+                    x-on:change="
                                     photoName = $refs.photo.files[0].name;
                                     const reader = new FileReader();
                                     reader.onload = (e) => {
@@ -28,13 +26,14 @@
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
-                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
+                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}"
+                        class="rounded-full h-20 w-20 object-cover">
                 </div>
 
                 <!-- New Profile Photo Preview -->
                 <div class="mt-2" x-show="photoPreview" style="display: none;">
                     <span class="block rounded-full w-20 h-20 bg-cover bg-no-repeat bg-center"
-                          x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
+                        x-bind:style="'background-image: url(\'' + photoPreview + '\');'">
                     </span>
                 </div>
 
@@ -52,30 +51,43 @@
             </div>
         @endif
 
-        <!-- Name -->
+        <!-- Display Name -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="name" value="{{ __('Name') }}" />
-            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" required autocomplete="name" />
+            <x-label for="name" value="{{ __('Display Name') }}" />
+            <x-input id="name" type="text" class="mt-1 block w-full" wire:model="state.name" required
+                autocomplete="name" />
             <x-input-error for="name" class="mt-2" />
+        </div>
+
+        <!-- Handle (Username) -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="handle" value="{{ __('Username') }}" />
+            <x-input id="handle" type="text" class="mt-1 block w-full" wire:model="state.handle" required
+                autocomplete="handle" />
+            <x-input-error for="handle" class="mt-2" />
         </div>
 
         <!-- Email -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="email" value="{{ __('Email') }}" />
-            <x-input id="email" type="email" class="mt-1 block w-full" wire:model="state.email" required autocomplete="username" />
+            <x-input id="email" type="email" class="mt-1 block w-full" wire:model="state.email" required
+                autocomplete="username" />
             <x-input-error for="email" class="mt-2" />
 
-            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) && ! $this->user->hasVerifiedEmail())
-                <p class="text-sm mt-2 dark:text-white">
+            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::emailVerification()) &&
+                    !$this->user->hasVerifiedEmail())
+                <p class="text-sm mt-2 text-white">
                     {{ __('Your email address is unverified.') }}
 
-                    <button type="button" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" wire:click.prevent="sendEmailVerification">
+                    <button type="button"
+                        class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800"
+                        wire:click.prevent="sendEmailVerification">
                         {{ __('Click here to re-send the verification email.') }}
                     </button>
                 </p>
 
                 @if ($this->verificationLinkSent)
-                    <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+                    <p class="mt-2 font-medium text-sm text-green-400">
                         {{ __('A new verification link has been sent to your email address.') }}
                     </p>
                 @endif
@@ -87,6 +99,29 @@
             <x-label for="bio" value="{{ __('Bio') }}" />
             <x-textarea id="bio" class="mt-1 block w-full" wire:model="state.bio" />
             <x-input-error for="bio" class="mt-2" />
+        </div>
+
+        <!-- Profanity Detection Type -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="profanityOption" value="{{ __('Profanity Handling Options') }}" />
+            <div class="mt-1 block w-full">
+                <div class="flex items-center mb-2">
+                    <input type="radio" id="hide_clickable" name="profanityOption"
+                        wire:model="state.profanity_block_type" value="hide_clickable" class="mr-2">
+                    <label for="hide_clickable" class="text-white">Hide with clickable reveal</label>
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="radio" id="hide" name="profanityOption" wire:model="state.profanity_block_type"
+                        value="hide" class="mr-2">
+                    <label for="hide" class="text-white">Hide completely</label>
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="radio" id="show" name="profanityOption" wire:model="state.profanity_block_type"
+                        value="show" class="mr-2">
+                    <label for="show" class="text-white">Show content</label>
+                </div>
+            </div>
+            <x-input-error for="profanity_block_type" class="mt-2" />
         </div>
     </x-slot>
 

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Profile') }}
+        <h2 class="font-semibold text-xl text-gray-200 leading-tight">
+            {{ __('Settings') }}
         </h2>
     </x-slot>
 
@@ -13,7 +13,14 @@
                 <x-section-border />
             @endif
 
-            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()) && ! is_null($user->getAuthPassword()))
+            <!-- Verify Website -->
+            <div class="mt-10 sm:mt-0">
+                @livewire('verify-website')
+            </div>
+            <x-section-border />
+
+            @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()) &&
+                    !is_null($user->getAuthPassword()))
                 <div class="mt-10 sm:mt-0">
                     @livewire('profile.update-password-form')
                 </div>
@@ -27,7 +34,7 @@
                 <x-section-border />
             @endif
 
-            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication() && ! is_null($user->getAuthPassword()))
+            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication() && !is_null($user->getAuthPassword()))
                 <div class="mt-10 sm:mt-0">
                     @livewire('profile.two-factor-authentication-form')
                 </div>
@@ -42,7 +49,7 @@
             @endif
 
 
-            @if ( ! is_null($user->getAuthPassword()))
+            @if (!is_null($user->getAuthPassword()))
                 <x-section-border />
 
                 <div class="mt-10 sm:mt-0">
@@ -50,7 +57,7 @@
                 </div>
             @endif
 
-            @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures() && ! is_null($user->getAuthPassword()))
+            @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures() && !is_null($user->getAuthPassword()))
                 <x-section-border />
 
                 <div class="mt-10 sm:mt-0">
@@ -59,4 +66,6 @@
             @endif
         </div>
     </div>
+    <div class="stars"></div>
+    @vite(['resources/js/stars.js'])
 </x-app-layout>

@@ -6,11 +6,11 @@
             <x-socialstream-icons.provider-icon :provider="$provider['id']" class="h-6 w-6" />
 
             <div class="ml-2">
-                <div class="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                <div class="text-sm font-semibold text-gray-400">
                     {{ __($provider['name']) }}
                 </div>
 
-                @if (! empty($createdAt))
+                @if (!empty($createdAt))
                     <div class="text-xs text-gray-500">
                         {{ __('Connected :createdAt', ['createdAt' => $createdAt]) }}
                     </div>
@@ -27,9 +27,9 @@
         </div>
     </div>
 
-    @error($provider['id'].'_connect_error')
-    <div class="text-sm font-semibold text-red-500 px-3 mt-2">
-        {{ $message }}
-    </div>
+    @error($provider['id'] . '_connect_error')
+        <div class="text-sm font-semibold text-red-500 px-3 mt-2">
+            {{ $message }}
+        </div>
     @enderror
 </div>

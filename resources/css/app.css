@@ -5,3 +5,379 @@
 [x-cloak] {
     display: none;
 }
+
+body {
+    background-color: #000;
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+p {
+    color: white;
+}
+
+.stars {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.star {
+    width: 2px;
+    height: 2px;
+    background: white;
+    position: absolute;
+    animation: twinkle 1s infinite;
+}
+
+.main {
+    position: relative;
+    z-index: 2;
+    padding-top: 0;
+    margin-top: 48px;
+}
+
+.header {
+    position: relative;
+    z-index: 1;
+}
+
+.hyperlink {
+    text-decoration: underline !important;
+    color: skyblue;
+}
+
+.bio-padding {
+    padding-left: 25px;
+    padding-right: 25px;
+}
+
+.drdo {
+    display: relative;
+    z-index: 3;
+}
+
+.relative,
+.ms-3 {
+    z-index: 50;
+    /* Adjusted z-index */
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.confetti {
+    position: absolute;
+    will-change: transform, opacity;
+    z-index: -1;
+}
+
+textarea {
+    height: 100px;
+}
+
+h1 {
+    color: #fff;
+}
+
+a {
+    color: skyblue;
+}
+
+img {
+    /* Set a max width for images */
+    max-width: 250px;
+}
+
+.bio-img {
+    /* Center the image */
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+hr {
+    opacity: 0.25;
+}
+
+/* Glitch effect - SHOP */
+
+.glitch {
+    color: white;
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@keyframes noise-anim {
+    0% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    5% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    10% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    15% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    20% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    25% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    30% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    35% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    40% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    45% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    50% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    55% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    60% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    65% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    70% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    75% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    80% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    85% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    90% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    95% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    100% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+}
+
+.glitch:after {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: -3px 0 red;
+    top: 0;
+    color: white;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: noise-anim 4s infinite linear alternate-reverse;
+}
+
+@keyframes noise-anim-2 {
+    0% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    5% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    10% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    15% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    20% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    25% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    30% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    35% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    40% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    45% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    50% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    55% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    60% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    65% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    70% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    75% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    80% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    85% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+
+    90% {
+        clip: rect(12px, 9999px, 45px, 0);
+    }
+
+    95% {
+        clip: rect(85px, 9999px, 12px, 0);
+    }
+
+    100% {
+        clip: rect(45px, 9999px, 85px, 0);
+    }
+}
+
+.glitch:before {
+    content: attr(data-text);
+    position: absolute;
+    left: -2px;
+    text-shadow: 3px 0 blue;
+    top: 0;
+    color: white;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    animation: noise-anim-2 3s infinite linear alternate-reverse;
+}
+
+.wave {
+    position: relative;
+}
+
+.wave h2 {
+    color: #fff;
+    white-space: nowrap;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+.wave h2:nth-child(1) {
+    color: #03a9f4;
+}
+
+.wave h2:nth-child(2) {
+    color: #efbf24;
+    animation: animate 4s ease-in-out infinite;
+}
+
+@keyframes animate {
+
+    0%,
+    100% {
+        clip-path: polygon(0% 45%,
+                16% 44%,
+                33% 50%,
+                54% 60%,
+                70% 61%,
+                84% 59%,
+                100% 52%,
+                100% 100%,
+                0% 100%);
+    }
+
+    50% {
+        clip-path: polygon(0% 60%,
+                15% 65%,
+                34% 66%,
+                51% 62%,
+                67% 50%,
+                84% 45%,
+                100% 46%,
+                100% 100%,
+                0% 100%);
+    }
+}
+
+.flipped {
+    transform: rotate(180deg);
+}
