@@ -75,10 +75,6 @@
                             <div class="text-xl font-bold text-white" style="display:none;">
                                 {{ $post->title }}
                             </div>
-                            <a href="{{ route('post', $post->id) }}" class="text-white">
-                                <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
-                                    height="20" style="filter: invert(1);">
-                            </a>
                         @elseif($profanityOption == 'hide' && $checker->hasProfanity($post->title))
                             <h1 class="text-xl font-bold text-red-500">
                                 Content hidden due to profanity.
