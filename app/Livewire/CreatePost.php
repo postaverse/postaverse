@@ -12,6 +12,7 @@ class CreatePost extends Component
     public string $title = '';
     public string $content = '';
     public $user;
+    public $post;
 
     // Computed property for title character count
     public function getTitleCountProperty()
@@ -36,7 +37,7 @@ class CreatePost extends Component
     public function submit()
     {
         $this->user = auth()->user();
-        
+
         // Check if the user has exceeded their rate limit for post submissions
         $rateLimiter = app('Illuminate\Cache\RateLimiter');
 
@@ -69,7 +70,7 @@ class CreatePost extends Component
             Notification::create([
                 'user_id' => $mentionedUser->id,
                 'message' => $this->user->name . ' mentioned you in a post',
-                'link' => route('post', ['postId' => $this->post->id]),
+                'link' => route('post', ['postId' => $authUser->posts()->latest()->first()->id]),
             ]);
         }
 
