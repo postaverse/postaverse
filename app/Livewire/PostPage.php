@@ -53,6 +53,12 @@ class PostPage extends Component
         return $users;
     }
 
+    public function delete(int $postId)
+    {
+        $user = User::find($this->userId);
+        $user->posts()->where('id', $postId)->delete();
+    }
+
     public function submit()
     {
         $this->validate([
