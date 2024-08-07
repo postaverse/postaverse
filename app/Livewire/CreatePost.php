@@ -11,6 +11,7 @@ class CreatePost extends Component
 {
     public string $title = '';
     public string $content = '';
+    public $user;
 
     // Computed property for title character count
     public function getTitleCountProperty()
@@ -34,6 +35,8 @@ class CreatePost extends Component
 
     public function submit()
     {
+        $this->user = auth()->user();
+        
         // Check if the user has exceeded their rate limit for post submissions
         $rateLimiter = app('Illuminate\Cache\RateLimiter');
 
