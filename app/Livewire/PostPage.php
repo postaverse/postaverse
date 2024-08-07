@@ -55,7 +55,7 @@ class PostPage extends Component
 
     public function delete(int $postId)
     {
-        $user = User::find($this->userId);
+        $user = User::find($this->user->id);
         $user->posts()->where('id', $postId)->delete();
     }
 
