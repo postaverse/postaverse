@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\User;
 use Illuminate\Cache\RateLimiter;
 use Livewire\Component;
+use App\Models\Notification;
 
 class CreatePost extends Component
 {
@@ -21,6 +22,14 @@ class CreatePost extends Component
     public function getContentCountProperty()
     {
         return strlen($this->content);
+    }
+
+    private function getMentionedUsers($text)
+    {
+        $mention = preg_match_all('/@(\w+)/', $text, $matches);
+        // Handle or ID
+        $users = User::whereIn('handle', $matches[1])->orWhereIn('id', $matches[1])->get();
+        return $users;
     }
 
     public function submit()
@@ -50,6 +59,16 @@ class CreatePost extends Component
 
         // Increment the rate limiting counter
         $rateLimiter->hit($rateLimitKey, 3600); // 3600 seconds = 1 hour
+
+        $mentionedUsers = $this->getMentionedUsers($this->content);
+
+        foreach ($mentionedUsers as $mentionedUser) {
+            Notification::create([
+                'user_id' => $mentionedUser->id,
+                'message' => $this->user->name . ' mentioned you in a comment',
+                'link' => route('post', ['postId' => $this->post->id]),
+            ]);
+        }
 
         return $this->redirect('/home');
     }
