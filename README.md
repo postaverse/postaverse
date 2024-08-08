@@ -1,4 +1,5 @@
 # Postaverse
+![loc](https://img.shields.io/endpoint?url=https://ghloc.vercel.app/api/postaverse/postaverse-v2/badge?filter=.php$&label=Lines%20of%20Code%20(PHP)&color=B66BFE)
 
 > [!NOTE]
 > Postaverse is not ready to be a social media platform yet. We require contributions to make this possible!

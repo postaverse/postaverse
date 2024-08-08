@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\Site;
 use App\Models\Badge;
+use App\Models\User;
 
 class VerifyWebsite extends Component
 {
@@ -54,6 +55,16 @@ class VerifyWebsite extends Component
             'is_verified' => false,
         ]);
         $this->isVerified = false;
+    }
+
+    public function giveBadge($userId, $badgeId)
+    {
+        $user = User::find($userId);
+        $badge = Badge::find($badgeId);
+
+        if ($user && $badge) {
+            $user->badges()->attach($badge);
+        }
     }
 
     public function verify()
