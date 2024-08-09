@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use SocialiteProviders\Discord\DiscordExtendSocialite;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -18,14 +17,8 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot()
+    public function boot(): void
     {
-        $this->app->booted(function () {
-            $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
-            $socialite->extend('discord', function ($app) use ($socialite) {
-                $config = $app['config']['services.discord'];
-                return $socialite->buildProvider(DiscordExtendSocialite::class, $config);
-            });
-        });
+        //
     }
 }
