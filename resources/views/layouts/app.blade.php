@@ -54,23 +54,27 @@
                 <div class="text-gray-400 text-sm">
                     &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
                 </div>
-                <div class="text-gray-400 text-sm">
-                    <h2 class="text-lg font-bold text-gray-300">Contributors</h2>
+                <div>
+                    <div>
+                        <div class="text-gray-400 text-sm">
+                            <h2 class="text-lg font-bold text-gray-300">Contributors</h2>
+                        </div>
+                        <ul class="text-gray-400 text-sm space-y-2 text-center">
+                            <li>
+                                <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
+                            </li>
+                            <li>
+                                <a href="/@14" class="hover:text-gray-300">Calvare - Outro Creation</a>
+                            </li>
+                            <li>
+                                <a href="/@1" class="hover:text-gray-300">Zander Lewis - Development</a>
+                            </li>
+                            <li>
+                                <a href="/@2" class="hover:text-gray-300">Triston - Logos and Icons</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <ul class="text-gray-400 text-sm space-y-2 text-center">
-                    <li>
-                        <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
-                    </li>
-                    <li>
-                        <a href="/@14" class="hover:text-gray-300">Calvare - Outro Creation</a>
-                    </li>
-                    <li>
-                        <a href="/@1" class="hover:text-gray-300">Zander Lewis - Development</a>
-                    </li>
-                    <li>
-                        <a href="/@2" class="hover:text-gray-300">Triston - Logos and Icons</a>
-                    </li>
-                </ul>
             </div>
         </div>
     </footer>
