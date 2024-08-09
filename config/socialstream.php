@@ -13,6 +13,11 @@ return [
             'name' => 'Discord',
             'label' => 'Discord',
         ],
+        [
+            'id' => 'reddit',
+            'name' => 'Reddit',
+            'label' => 'Reddit',
+        ],
     ],
     'features' => [
         Features::generateMissingEmails(),

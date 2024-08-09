@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.0",
         "resend/resend-laravel": "^0.12.0",
-        "socialiteproviders/discord": "^4.2"
+        "socialiteproviders/discord": "^4.2",
+        "socialiteproviders/reddit": "^4.1"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

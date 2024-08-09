@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f56cf91448de60256fe6aab06dfa3a78",
+    "content-hash": "14d87e46f5baa93ffcca76438fbb1c12",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -4417,6 +4417,47 @@
                 "source": "https://github.com/socialiteproviders/manager"
             },
             "time": "2024-05-04T07:57:39+00:00"
+        },
+        {
+            "name": "socialiteproviders/reddit",
+            "version": "4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SocialiteProviders/Reddit.git",
+                "reference": "b7f4a535f75d0ed083c00491a7215f8dc9d356a4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Reddit/zipball/b7f4a535f75d0ed083c00491a7215f8dc9d356a4",
+                "reference": "b7f4a535f75d0ed083c00491a7215f8dc9d356a4",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^7.2 || ^8.0",
+                "socialiteproviders/manager": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\Reddit\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brian Faust",
+                    "email": "hello@brianfaust.de"
+                }
+            ],
+            "description": "Reddit OAuth2 Provider for Laravel Socialite",
+            "support": {
+                "source": "https://github.com/SocialiteProviders/Reddit/tree/4.1.0"
+            },
+            "time": "2020-12-01T23:10:59+00:00"
         },
         {
             "name": "symfony/clock",
