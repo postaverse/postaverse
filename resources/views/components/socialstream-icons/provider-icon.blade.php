@@ -38,10 +38,8 @@
             <x-socialstream-icons.twitter {{ $attributes }} />
         @break
 
-        @case (SocialiteProviders\Discord\DiscordExtendSocialite::class)
+        @case ('discord')
             <x-socialstream-icons.discord {{ $attributes }} />
-            {{-- Debugging output --}}
-            <p>Discord icon should be here</p>
         @break
 
         @default
