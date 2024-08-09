@@ -42,6 +42,7 @@
 
         <!-- Page Content -->
         <main>
+            <!--
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7453651531634667"
                 crossorigin="anonymous"></script>
             <!-- Horizontal 1 -->
@@ -50,6 +51,7 @@
             <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
+            -->
             {{ $slot }}
         </main>
     </div>
