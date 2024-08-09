@@ -50,27 +50,27 @@
 
     <footer class="bg-gray-800">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col items-center space-x-8">
+            <div class="flex flex-col items-center space-y-4">
                 <div class="text-gray-400 text-sm">
                     &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
                 </div>
-                <div class="flex justify-center">
-                    <div class="text-gray-400 text-sm">
-                        <h2 class="text-lg font-bold text-gray-300">Contributors</h2>
-                    </div>
-                    <div class="text-gray-400 text-sm">
-                        <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
-                    </div>
-                    <div class="text-gray-400 text-sm">
-                        <a href="/@14" class="hover:text-gray-300">Calvare - Outro Creation</a>
-                    </div>
-                    <div class="text-gray-400 text-sm">
-                        <a href="/@1" class="hover:text-gray-300">Zander Lewis - Development</a>
-                    </div>
-                    <div class="text-gray-400 text-sm">
-                        <a href="/@2" class="hover:text-gray-300">Triston - Logos and Icons</a>
-                    </div>
+                <div class="text-gray-400 text-sm">
+                    <h2 class="text-lg font-bold text-gray-300">Contributors</h2>
                 </div>
+                <ul class="text-gray-400 text-sm space-y-2">
+                    <li>
+                        <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
+                    </li>
+                    <li>
+                        <a href="/@14" class="hover:text-gray-300">Calvare - Outro Creation</a>
+                    </li>
+                    <li>
+                        <a href="/@1" class="hover:text-gray-300">Zander Lewis - Development</a>
+                    </li>
+                    <li>
+                        <a href="/@2" class="hover:text-gray-300">Triston - Logos and Icons</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </footer>
