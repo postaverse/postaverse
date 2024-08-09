@@ -8,6 +8,11 @@ return [
     'prompt' => 'Or Login Via',
     'providers' => [
         Providers::github(),
+        [
+            'id' => 'discord',
+            'name' => 'Discord',
+            'label' => 'Discord',
+        ],
     ],
     'features' => [
         Features::generateMissingEmails(),

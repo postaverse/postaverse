@@ -37,5 +37,12 @@
         @case (JoelButcher\Socialstream\Providers::twitter())
             <x-socialstream-icons.twitter {{ $attributes }} />
         @break
+
+        @default
+            @if ($provider == 'discord')
+                <x-socialstream-icons.discord {{ $attributes }} />
+            @else
+                <p>Unknown provider</p>
+            @endif
     @endswitch
 </div>
