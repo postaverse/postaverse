@@ -57,7 +57,7 @@
                 <div class="text-gray-400 text-sm">
                     <h2 class="text-lg font-bold text-gray-300">Contributors</h2>
                 </div>
-                <ul class="text-gray-400 text-sm space-y-2">
+                <ul class="text-gray-400 text-sm space-y-2 text-center">
                     <li>
                         <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
                     </li>
