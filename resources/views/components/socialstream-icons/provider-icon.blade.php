@@ -38,12 +38,11 @@
             <x-socialstream-icons.twitter {{ $attributes }} />
         @break
 
-        @case ('discord')
-            <x-socialstream-icons.discord {{ $attributes }} />
-        @break
-
         @default
-            {{-- Debugging output for unmatched cases --}}
-            <p>Provider not matched: {{ $provider }}</p>
+            @if ($provider == 'discord')
+                <x-socialstream-icons.discord {{ $attributes }} />
+            @else
+                <p>Unknown provider</p>
+            @endif
     @endswitch
 </div>
