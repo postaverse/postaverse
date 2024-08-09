@@ -135,7 +135,8 @@ return [
     */
 
     'providers' => [
-    \App\Providers\SocialstreamServiceProvider::class,
-    \SocialiteProviders\Manager\ServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\SocialstreamServiceProvider::class,
+        \SocialiteProviders\Manager\ServiceProvider::class,
     ],
 ];
