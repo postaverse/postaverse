@@ -40,6 +40,12 @@
 
         @case (SocialiteProviders\Discord\DiscordExtendSocialite::class)
             <x-socialstream-icons.discord {{ $attributes }} />
+            {{-- Debugging output --}}
+            <p>Discord icon should be here</p>
         @break
+
+        @default
+            {{-- Debugging output for unmatched cases --}}
+            <p>Provider not matched: {{ $provider }}</p>
     @endswitch
 </div>
