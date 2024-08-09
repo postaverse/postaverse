@@ -37,5 +37,8 @@
         @case (JoelButcher\Socialstream\Providers::twitter())
             <x-socialstream-icons.twitter {{ $attributes }} />
         @break
+
+        @case (SocialiteProviders\Discord\DiscordExtendSocialite::IDENTIFIER)
+            <x-socialstream-icons.discord {{ $attributes }} />
     @endswitch
 </div>
