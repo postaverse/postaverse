@@ -11,7 +11,7 @@ return [
         [
             'id' => 'discord',
             'name' => 'Discord',
-            'label' => 'Sign in with Discord',
+            'label' => 'Discord',
         ],
     ],
     'features' => [
