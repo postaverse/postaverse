@@ -40,5 +40,6 @@
 
         @case (SocialiteProviders\Discord\DiscordExtendSocialite::class)
             <x-socialstream-icons.discord {{ $attributes }} />
+        @break
     @endswitch
 </div>
