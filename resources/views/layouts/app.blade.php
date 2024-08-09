@@ -50,16 +50,14 @@
 
     <footer class="bg-gray-800">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            <div class="flex space-x-4 items-center justify-between">
-                <section>
+            <div class="flex flex-col items-center space-y-4">
+                <div class="text-gray-400 text-sm">
+                    &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+                </div>
+                <div class="flex justify-center space-x-8">
                     <div class="text-gray-400 text-sm">
-                        &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+                        <h2 class="text-lg font-bold text-gray-300">Contributors</h2>
                     </div>
-                </section>
-                <section>
-                    <h2 class="text-gray-400 text-sm">
-                        Credits
-                    </h2>
                     <div class="text-gray-400 text-sm">
                         <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
                     </div>
@@ -72,7 +70,7 @@
                     <div class="text-gray-400 text-sm">
                         <a href="/@2" class="hover:text-gray-300">Triston - Logos and Icons</a>
                     </div>
-                </section>
+                </div>
             </div>
         </div>
     </footer>
