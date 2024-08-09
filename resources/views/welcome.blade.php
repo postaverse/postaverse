@@ -7,6 +7,10 @@
                         <a href="{{ route('login') }}" class="text-blue-500 underline">Login</a> or
                         <a href="{{ route('register') }}" class="text-blue-500 underline">Register</a> to get started!
                     </h1>
+                    <p class="text-lg text-gray-300 mt-4">
+                        <a hredf="/blog" class="text-blue-400 underline hover:text-blue-300">Blogg</a>
+                        <a href="/home" class="text-blue-400 underline hover:text-blue-300">Browse</a>
+                    </p>
                 </div>
             @else
                 <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-t-lg rounded-b-lg p-6">
