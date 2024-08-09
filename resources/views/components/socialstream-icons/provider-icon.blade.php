@@ -38,7 +38,7 @@
             <x-socialstream-icons.twitter {{ $attributes }} />
         @break
 
-        @case (SocialiteProviders\Discord\DiscordExtendSocialite::IDENTIFIER)
+        @case (SocialiteProviders\Discord\DiscordExtendSocialite::class)
             <x-socialstream-icons.discord {{ $attributes }} />
     @endswitch
 </div>
