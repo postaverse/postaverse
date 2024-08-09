@@ -54,10 +54,10 @@
                 <div class="text-gray-400 text-sm">
                     &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
                 </div>
-                <h2 class="text-gray-400 text-sm">
-                    Credits
-                </h2>
-                <div>
+                <section>
+                    <h2 class="text-gray-400 text-sm">
+                        Credits
+                    </h2>
                     <div class="text-gray-400 text-sm">
                         <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
                     </div>
@@ -70,7 +70,7 @@
                     <div class="text-gray-400 text-sm">
                         <a href="/@2" class="hover:text-gray-300">Triston - Logos and Icons</a>
                     </div>
-                </div>
+                </section>
             </div>
         </div>
     </footer>
