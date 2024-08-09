@@ -12,7 +12,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-    
+
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -47,6 +47,33 @@
     </div>
 
     @stack('modals')
+
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between">
+                <div class="text-gray-400 text-sm">
+                    &copy; {{ date('Y') }} {{ config('app.name') }}. All rights reserved.
+                </div>
+                <h2 class="text-gray-400 text-sm">
+                    Credits
+                </h2>
+                <div>
+                    <div class="text-gray-400 text-sm">
+                        <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
+                    </div>
+                    <div class="text-gray-400 text-sm">
+                        <a href="/@14" class="hover:text-gray-300">Calvare - Outro Creation</a>
+                    </div>
+                    <div class="text-gray-400 text-sm">
+                        <a href="/@1" class="hover:text-gray-300">Zander Lewis - Development</a>
+                    </div>
+                    <div class="text-gray-400 text-sm">
+                        <a href="/@2" class="hover:text-gray-300">Triston - Logos and Icons</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     @livewireScripts
     <div id="stars" class="stars"></div>
