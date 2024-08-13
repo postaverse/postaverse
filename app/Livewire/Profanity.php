@@ -8,6 +8,7 @@ class Profanity extends Component
 {
     public function hasProfanity($string)
     {
+        /*
         // cURL request to the Profanity API
         $url = 'https://kks.zanderlewis.dev/text/detect.php?input=' . urlencode($string);
         $ch = curl_init($url);
@@ -21,6 +22,8 @@ class Profanity extends Component
         // Check the 'profane' field and return true/false
         
         return $response['profane'] === 1;
+        */
+        return 0
     }
 
     public function render()
