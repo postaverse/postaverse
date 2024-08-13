@@ -18,9 +18,13 @@ class Profanity extends Component
         // Decode the JSON response
         $response = json_decode($response, true);
 
-        // Check the 'profane' field and return true/false
-        
-        return $response['profane'] === 1;
+        // Check if the response is valid and contains the 'profane' field
+        if (is_array($response) && isset($response['profane'])) {
+            return $response['profane'] === 1 ? 1 : 0;
+        }
+
+        // Default to returning 0 if the response is not valid or profane field is missing
+        return 0;
     }
 
     public function render()
