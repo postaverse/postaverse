@@ -6,10 +6,8 @@ use Livewire\Component;
 
 class Profanity extends Component
 {
-    public $enabled = 1
     public function hasProfanity($string)
     {
-        if ($this->enabled == 0) {
         // cURL request to the Profanity API
         $url = 'https://kks.zanderlewis.dev/text/detect.php?input=' . urlencode($string);
         $ch = curl_init($url);
@@ -23,9 +21,6 @@ class Profanity extends Component
         // Check the 'profane' field and return true/false
         
         return $response['profane'] === 1;
-        } else {
-            return
-        }
     }
 
     public function render()
