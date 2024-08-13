@@ -9,7 +9,7 @@ class Profanity extends Component
     public $enabled = 1
     public function hasProfanity($string)
     {
-        if $this->enabled == 0 {
+        if ($this->enabled == 0) {
         // cURL request to the Profanity API
         $url = 'https://kks.zanderlewis.dev/text/detect.php?input=' . urlencode($string);
         $ch = curl_init($url);
