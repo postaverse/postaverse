@@ -21,7 +21,7 @@ class Profanity extends Component
         // Check the 'profane' field and return true/false
         
         return $response['profane'] === 1;
-    };
+    }
 
     public function render()
     {
