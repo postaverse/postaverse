@@ -70,6 +70,9 @@
                 </div>
                 <ul class="text-gray-400 text-sm space-y-2 text-center">
                     <li>
+                        <a href="/@2" class="hover:text-gray-300">Triston - Logos and Icons</a>
+                    </li>
+                    <li>
                         <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
                     </li>
                     <li>
@@ -77,9 +80,6 @@
                     </li>
                     <li>
                         <a href="/@1" class="hover:text-gray-300">Zander Lewis - Development</a>
-                    </li>
-                    <li>
-                        <a href="/@2" class="hover:text-gray-300">Triston - Logos and Icons</a>
                     </li>
                 </ul>
             </div>
