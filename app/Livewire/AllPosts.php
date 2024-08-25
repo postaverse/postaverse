@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Badge;
 use App\Models\Like;
 use App\Models\Site;
+use App\Models\Comment; // Assuming there's a Comment model
 use App\Livewire\Profanity;
 use Parsedown;
 
@@ -33,9 +34,14 @@ class AllPosts extends Component
 
     public function delete(int $postId)
     {
-        Post::query()
-            ->where('id', $postId)
-            ->delete();
+        // Delete associated likes
+        Like::where('post_id', $postId)->delete();
+        
+        // Delete associated comments
+        Comment::where('post_id', $postId)->delete();
+        
+        // Delete the post
+        Post::where('id', $postId)->delete();
     }
 
     public function giveBadge($userId, $badgeId)
@@ -54,7 +60,7 @@ class AllPosts extends Component
         $user = auth()->user();
         // select count(*) from posts where user_id = $user->id
         if ($user) {
-            $postCount = Post::query()->where('user_id', $user->id)->count();
+            $postCount = Post::where('user_id', $user->id)->count();
             if ($postCount >= 10) {
                 if ($postCount >= 50 && !$user->badges->contains(3)) {
                     $this->giveBadge($user->id, 3);
@@ -83,7 +89,7 @@ class AllPosts extends Component
             }
         }
 
-        $posts = Post::query()->orderByDesc('id')->paginate(20);
+        $posts = Post::orderByDesc('id')->paginate(20);
 
         $checker = new Profanity();
 
