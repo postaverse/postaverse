@@ -1,6 +1,6 @@
 # Terms of Service
 
-**Last Updated: [Date]**
+**Last Updated: September 10, 2024**
 
 Welcome to Postaverse! By accessing or using our services, you agree to comply with these Terms of Service ("Terms"). Please read them carefully.
 
