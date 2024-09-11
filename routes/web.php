@@ -12,9 +12,6 @@ use App\Livewire\Blogs;
 use App\Http\Controllers\Auth\SocialstreamController;
 use App\Livewire\PostPage;
 
-Route::get('auth/{provider}', [SocialstreamController::class, 'redirectToProvider']);
-Route::get('auth/{provider}/callback', [SocialstreamController::class, 'handleProviderCallback']);
-
 Route::get('/', function () {
     if (auth()->check()) {
         return view('home');
