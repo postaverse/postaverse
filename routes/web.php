@@ -9,7 +9,6 @@ use App\Livewire\Search;
 use App\Livewire\AdminDashboard;
 use App\Livewire\ShopTextThemes;
 use App\Livewire\Blogs;
-use App\Http\Controllers\Auth\SocialstreamController;
 use App\Livewire\PostPage;
 
 Route::get('/', function () {
