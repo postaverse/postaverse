@@ -47,10 +47,4 @@ return [
         'redirect' => '/auth/discord/callback',
     ],
 
-    'reddit' => [
-        'client_id' => env('REDDIT_CLIENT_ID'),
-        'client_secret' => env('REDDIT_CLIENT_SECRET'),
-        'redirect' => '/auth/reddit/callback',
-    ],
-
 ];
