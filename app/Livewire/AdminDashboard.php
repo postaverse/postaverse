@@ -1,16 +1,19 @@
 <?php
-
 namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\User;
 use App\Models\Badge;
+use App\Models\Banned;
 
 class AdminDashboard extends Component
 {
+    public $user_id;
+    public $reason;
+    public $uid;
+
     public function admins()
     {
-        // Get all admins where the column in the `users` table in the database is 1 or more.
         return User::where('admin_rank', '>=', 1)->get();
     }
 
@@ -21,6 +24,35 @@ class AdminDashboard extends Component
 
         if ($user && $badge) {
             $user->badges()->attach($badge);
+        }
+    }
+
+    public function banUser()
+    {
+        $user = User::find($this->user_id);
+
+        if ($user) {
+            $user->bans()->create([
+                'reason' => $this->reason,
+            ]);
+            session()->flash('banmessage', 'User banned successfully.');
+        } else {
+            return abort(404, 'User not found.');
+        }
+    }
+
+    public function unbanUser()
+    {
+        $uid = $this->uid;
+
+        $user = User::find($uid);
+
+        if ($user) {
+            $ban = Banned::where('user_id', $user->id)->first();
+            if ($ban) {
+                $ban->delete();
+                session()->flash('unbanmessage', 'User unbanned successfully.');
+            }
         }
     }
 
