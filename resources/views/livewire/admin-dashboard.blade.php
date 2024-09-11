@@ -49,12 +49,17 @@
                     <h1 class="text-4xl font-bold text-white pb-1">Ban User</h1>
                     <hr class="p-1">
                     <form wire:submit.prevent="banUser">
-                        @if (session()->has('banmessage'))
-                        <div class="text-green-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Success!</strong>
-                            <span class="block sm:inline">{{ session('banmessage') }}</span>
-                        @endif
+                        <div class="fixed-height-alert">
+                            @if (session()->has('banmessage'))
+                                <div class="text-green-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong class="font-bold">Success!</strong>
+                                    <span class="block sm:inline">{{ session('banmessage') }}</span>
+                                </div>
+                            @else
+                                <div class="text-red-700 px-4 py-4 rounded relative" role="alert">
+                                </div>
+                            @endif
+                        </div>
                         <div class="flex flex-col items-center justify-center">
                             <x-label for="user_id" :value="__('User ID')" />
                             <x-input id="user_id" class="block mt-1 max-w-lg" type="text" name="user_id"
@@ -83,12 +88,14 @@
                     <h1 class="text-4xl font-bold text-white pb-1">Unban User</h1>
                     <hr class="p-1">
                     <form wire:submit.prevent="unbanUser">
-                        @if (session()->has('unbanmessage'))
-                        <div class="text-green-700 px-4 py-3 rounded relative"
-                            role="alert">
-                            <strong class="font-bold">Success!</strong>
-                            <span class="block sm:inline">{{ session('unbanmessage') }}</span>
-                        @endif
+                        <div class="fixed-height-alert">
+                            @if (session()->has('unbanmessage'))
+                                <div class="text-green-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong class="font-bold">Success!</strong>
+                                    <span class="block sm:inline">{{ session('unbanmessage') }}</span>
+                                </div>
+                            @endif
+                        </div>
                         <div class="flex flex-col items-center justify-center">
                             <x-label for="uid" :value="__('User ID')" />
                             <x-input id="uid" class="block mt-1 max-w-lg" type="text" name="uid"
@@ -104,5 +111,40 @@
                 </div>
             </div>
         @endif
+
+        <!-- Logs: R3, R4 -->
+        <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+                <h1 class="text-4xl font-bold text-white pb-1">Logs</h1>
+                <hr class="p-1">
+                <div class="overflow-x-auto">
+                    <table class="table-auto w-full text-white mx-auto" style="table-layout: fixed;">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2 w-1/3">User</th>
+                                <th class="px-4 py-2 w-1/3">Action</th>
+                                <th class="px-4 py-2 w-1/3">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($logs as $log)
+                                <tr>
+                                    <td class="border px-4 py-2">{{ $log->admin_id }}</td>
+                                    <td class="border px-4 py-2">{{ $log->action }}</td>
+                                    <td class="border px-4 py-2">{{ $log->created_at }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+    <style>
+        .fixed-height-alert {
+            height: 50px;
+            /* Adjust the height as needed */
+            overflow: hidden;
+        }
+    </style>
 </div>

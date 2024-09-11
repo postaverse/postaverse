@@ -5,6 +5,7 @@ use Livewire\Component;
 use App\Models\User;
 use App\Models\Badge;
 use App\Models\Banned;
+use App\Models\AdminLogs;
 
 class AdminDashboard extends Component
 {
@@ -36,6 +37,11 @@ class AdminDashboard extends Component
                 'reason' => $this->reason,
             ]);
             session()->flash('banmessage', 'User banned successfully.');
+            AdminLogs::create([
+                'admin_id' => auth()->user()->id,
+                'action' => 'Banned user ' . $user->username,
+            ]);
+            $this->reset('user_id', 'reason');
         } else {
             return abort(404, 'User not found.');
         }
@@ -52,6 +58,11 @@ class AdminDashboard extends Component
             if ($ban) {
                 $ban->delete();
                 session()->flash('unbanmessage', 'User unbanned successfully.');
+                AdminLogs::create([
+                    'admin_id' => auth()->user()->id,
+                    'action' => 'Unbanned user ' . $user->username,
+                ]);
+                $this->reset('uid');
             }
         }
     }
@@ -62,9 +73,14 @@ class AdminDashboard extends Component
             $this->giveBadge(auth()->user()->id, 1);
         }
 
+        $user = auth()->user()->id;
+
+        $logs = AdminLogs::where('admin_id', $user)->orderBy('created_at', 'desc')->get();
+
         if (auth()->user()->admin_rank >= 1) {
             return view('livewire.admin-dashboard', [
                 'admins' => $this->admins(),
+                'logs' => $logs,
             ])->layout('layouts.app');
         } else {
             return abort(403, 'You are not authorized to view this page.');

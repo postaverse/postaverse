@@ -199,4 +199,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Banned::class);
     }
+
+    public function adminLogs()
+    {
+        return $this->hasMany(AdminLogs::class);
+    }
 }
