@@ -33,7 +33,7 @@ You agree not to:
 
 ## 6. Privacy
 
-Your privacy is important to us. Please review our [Privacy Policy](#) to understand how we collect, use, and share your information.
+Your privacy is important to us. Please review our [Privacy Policy](/privacy-policy) to understand how we collect, use, and share your information.
 
 ## 7. Termination
 

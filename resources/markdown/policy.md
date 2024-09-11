@@ -28,7 +28,7 @@ We use your information for the following purposes:
 
 We do not sell your personal information. We may share your information with:
 
-- **Service Providers**: Third-party companies that help us provide and improve our services, such as hosting providers, analytics services, and customer support.
+- **Service Providers**: Third-party companies that help us provide and improve our services, such as hosting providers and storage.
 - **Other Users**: Information you post or share on Postaverse may be visible to other users, depending on your privacy settings.
 - **Legal Authorities**: When required by law, we may disclose your information to comply with legal processes, enforce our Terms, or protect the rights, property, and safety of our users.
 
