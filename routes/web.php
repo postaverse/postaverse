@@ -51,6 +51,4 @@ Route::middleware([
     Route::get('/shop', ShopTextThemes::class)->name('shop');
 });
 
-// API
-
 require __DIR__ . '/socialstream.php';
