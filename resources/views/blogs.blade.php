@@ -8,8 +8,10 @@
     </x-slot>
 
     <div class="py-12 main">
-        @if ($user->admin_rank == 4)
-            <livewire:create-blog />
+        @if (auth()->user())
+            @if ($user->admin_rank == 4)
+                <livewire:create-blog />
+            @endif
         @endif
         <livewire:all-blogs />
     </div>

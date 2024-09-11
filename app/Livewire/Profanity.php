@@ -15,12 +15,31 @@ class Profanity extends Component
         $response = curl_exec($ch);
         curl_close($ch);
 
+        // Check if cURL request was successful
+        if ($response === false) {
+            // cURL error occurred
+            return 0; // Default to 0 if there's an error with the request
+        }
+
         // Decode the JSON response
         $response = json_decode($response, true);
 
-        // Check the 'profane' field and return true/false
-        
-        return $response['profane'] === 1;
+        // Check if the JSON decoding was successful
+        if ($response === null) {
+            // JSON decoding failed, you can also log or debug this
+            return 0; // Default to 0 if the response is null
+        }
+
+        // Debugging output
+        // var_dump($response); // Remove or comment this out in production
+
+        // Check if the response contains the 'profane' field
+        if (isset($response['profane'])) {
+            return $response['profane'] === 1 ? 1 : 0;
+        }
+
+        // Default to returning 0 if the response is not valid or 'profane' field is missing
+        return 0;
     }
 
     public function render()

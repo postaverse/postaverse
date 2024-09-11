@@ -91,11 +91,19 @@
                                 </a>
                             @endforeach
                             @if ($post->likes->count() > 5)
-                                <span class="text-white">+{{ $post->likes->count() - 5 }}</span>
+                                <span class="text-white bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center">
+                                    +{{ $post->likes->count() - 5 }}
+                                </span>
                             @endif
                         </div>
                     </div>
                 @endif
+                <!-- # of Comments -->
+                <div class="flex items-center space-x-4">
+                    <p class="text-white text-lg font-bold">
+                        {{ $post->comments->count() }} comments
+                    </p>
+                </div>
                 @if (auth()->user())
                     @if ($post->user_id == auth()->user()->id || auth()->user()->admin_rank >= 3)
                         <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">

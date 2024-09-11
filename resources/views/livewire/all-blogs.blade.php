@@ -31,10 +31,12 @@
                         {{ $blog->created_at->diffForHumans() }}
                     </h3>
                     <p class="text-white">{!! $parsedown->text(e($blog->content)) !!}</p>
-                    @if ($blog->user_id == auth()->user()->id || auth()->user()->admin_rank == 4)
-                        <button class="text-red-800 font-bold" wire:click="delete({{ $blog->id }})">
-                            Delete
-                        </button>
+                    @if (auth()->user())
+                        @if ($blog->user_id == auth()->user()->id || auth()->user()->admin_rank == 4)
+                            <button class="text-red-800 font-bold" wire:click="delete({{ $blog->id }})">
+                                Delete
+                            </button>
+                        @endif
                     @endif
                 </div>
             </div>

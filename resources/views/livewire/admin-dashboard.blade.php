@@ -14,66 +14,95 @@
             <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
                 <h1 class="text-4xl font-bold text-white pb-1">List of Admins</h1>
                 <hr class="p-1">
-                <ul>
-                    <!-- Sort by admin rank -->
-                    <!-- Rank 1 -->
-                    <li class="text-white font-bold text-2xl pb-1">Rank 1</li>
-                    <p>- - - - - - - - - - -</p>
-                    <ul>
-                        @foreach ($admins as $admin)
-                            @if ($admin->admin_rank == 1)
-                                <li>
-                                    <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
-                                        {{ $admin->name }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                    <!-- Rank 2 -->
-                    <li class="text-white font-bold text-2xl pb-1">Rank 2</li>
-                    <p>- - - - - - - - - - -</p>
-                    <ul>
-                        @foreach ($admins as $admin)
-                            @if ($admin->admin_rank == 2)
-                                <li>
-                                    <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
-                                        {{ $admin->name }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                    <!-- Rank 3 -->
-                    <li class="text-white font-bold text-2xl pb-1">Rank 3</li>
-                    <p>- - - - - - - - - - -</p>
-                    <ul>
-                        @foreach ($admins as $admin)
-                            @if ($admin->admin_rank == 3)
-                                <li>
-                                    <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
-                                        {{ $admin->name }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                    <!-- Rank 4 -->
-                    <li class="text-white font-bold text-2xl pb-1">Rank 4</li>
-                    <p>- - - - - - - - - - -</p>
-                    <ul>
-                        @foreach ($admins as $admin)
-                            @if ($admin->admin_rank == 4)
-                                <li>
-                                    <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
-                                        {{ $admin->name }}
-                                    </a>
-                                </li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </ul>
+                <div class="overflow-x-auto">
+                    <table class="table-auto w-full text-white mx-auto" style="table-layout: fixed;">
+                        <thead>
+                            <tr>
+                                <th class="px-4 py-2 w-1/3">Rank</th>
+                                <th class="px-4 py-2 w-1/3">Name</th>
+                                <th class="px-4 py-2 w-1/3">Profile</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($admins as $admin)
+                                <tr>
+                                    <td class="border px-4 py-2">{{ $admin->admin_rank }}</td>
+                                    <td class="border px-4 py-2">{{ $admin->name }}</td>
+                                    <td class="border px-4 py-2">
+                                        <a href="{{ route('user-profile', $admin->id) }}" class="hyperlink">
+                                            View Profile
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
+        @if (auth()->user()->admin_rank == 4)
+            <h1 class="text-4xl font-bold text-white pb-5">Rank 4</h1>
+            <!-- Ban User: R4 -->
+            <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+                <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+                    <h1 class="text-4xl font-bold text-white pb-1">Ban User</h1>
+                    <hr class="p-1">
+                    <form wire:submit.prevent="banUser">
+                        @if (session()->has('banmessage'))
+                        <div class="text-green-700 px-4 py-3 rounded relative"
+                            role="alert">
+                            <strong class="font-bold">Success!</strong>
+                            <span class="block sm:inline">{{ session('banmessage') }}</span>
+                        @endif
+                        <div class="flex flex-col items-center justify-center">
+                            <x-label for="user_id" :value="__('User ID')" />
+                            <x-input id="user_id" class="block mt-1 max-w-lg" type="text" name="user_id"
+                                wire:model="user_id" required />
+                            @error('user_id')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                            <br>
+                            <x-label for="reason" :value="__('Reason')" />
+                            <x-textarea id="reason" class="block mt-1" type="text" name="reason"
+                                wire:model="reason" required />
+                            @error('reason')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                            <x-button class="mt-4">
+                                {{ __('Ban User') }}
+                            </x-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Unban User: R4 -->
+            <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+                <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+                    <h1 class="text-4xl font-bold text-white pb-1">Unban User</h1>
+                    <hr class="p-1">
+                    <form wire:submit.prevent="unbanUser">
+                        @if (session()->has('unbanmessage'))
+                        <div class="text-green-700 px-4 py-3 rounded relative"
+                            role="alert">
+                            <strong class="font-bold">Success!</strong>
+                            <span class="block sm:inline">{{ session('unbanmessage') }}</span>
+                        @endif
+                        <div class="flex flex-col items-center justify-center">
+                            <x-label for="uid" :value="__('User ID')" />
+                            <x-input id="uid" class="block mt-1 max-w-lg" type="text" name="uid"
+                                wire:model="uid" required />
+                            @error('uid')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                            <x-button class="mt-4">
+                                {{ __('Unban User') }}
+                            </x-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endif
     </div>
 </div>

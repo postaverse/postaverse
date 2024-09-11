@@ -2,7 +2,6 @@
 
 namespace App\Actions\Fortify;
 
-use App\Models\Team;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -21,11 +20,19 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {
+        $correctEmoji = session('correct_emoji');
+
         Validator::make($input, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+            'age' => ['required'],
+            'selected_emoji' => ['required', function ($attribute, $value, $fail) use ($correctEmoji) {
+                if ($value !== $correctEmoji) {
+                    $fail('The selected emoji is incorrect.');
+                }
+            }],
         ])->validate();
 
         return DB::transaction(function () use ($input) {

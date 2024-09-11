@@ -60,6 +60,32 @@
                 </div>
             @endif
 
+            <!-- Age (13+) Checkbox -->
+            <div class="mt-4">
+                <x-label for="age">
+                    <div class="flex items-center">
+                        <x-checkbox name="age" id="age" required />
+
+                        <div class="ml-2">
+                            {!! __('I confirm that I am 13 years of age or older.') !!}
+                        </div>
+                    </x-label>
+                </div>
+            </div>
+
+            <!-- Emoji Captcha -->
+            <div class="mt-4">
+                <x-label for="captcha">
+                    <div class="flex items-center">
+                        <div class="flex items-center">
+                            <div>
+                                <x-emoji-captcha />
+                            </div>
+                        </div>
+                    </div>
+                </x-label>
+            </div>
+
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800"
                     href="{{ route('login') }}">
