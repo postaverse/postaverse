@@ -49,6 +49,19 @@ class ShopTextThemes extends Component
         }
     }
 
+    public function unequipTheme($themeId)
+    {
+        $user = Auth::user();
+        $theme = TextTheme::find($themeId);
+    
+        if ($theme && $user->textThemes->contains($theme)) {
+            $user->textThemes()->updateExistingPivot($themeId, ['equipped' => 0]);
+            session()->flash('message', 'Text theme unequipped successfully!');
+        } else {
+            session()->flash('error', 'You do not own this text theme!');
+        }
+    }
+
     public function render()
     {
         $user = Auth::user();
