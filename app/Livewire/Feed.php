@@ -63,7 +63,7 @@ class Feed extends Component
                 $likedPostIds = Like::where('user_id', $userId)->pluck('post_id');
 
                 // Fetch posts from users the current user is following or liked by the user with pagination
-                $posts = Post::query()
+                $posts = Post::with('user') // Eager load the user relationship
                     ->leftJoin('followers', 'posts.user_id', '=', 'followers.following_id')
                     ->where(function ($query) use ($userId, $likedPostIds) {
                         $query->where('followers.follower_id', $userId)
@@ -73,7 +73,7 @@ class Feed extends Component
                     ->orderByDesc('posts.created_at')
                     ->select('posts.*') // Ensure only columns from the posts table are selected
                     ->distinct()
-                    ->paginate(20);
+                    ->paginate(20); // Limit the number of posts per page
 
                 foreach ($posts as $post) {
                     $post->hasProfanity = $post->hasProfanity();
