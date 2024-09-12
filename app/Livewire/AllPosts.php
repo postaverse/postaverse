@@ -58,7 +58,8 @@ class AllPosts extends Component
 
         if ($user) {
             $postCount = Post::where('user_id', $user->id)->count();
-            $this->manageBadges($user, $postCount);
+            $this->managePostBadges($user, $postCount);
+            $this->manageOtherBadges($user);
 
             $site = Site::where('user_id', $user->id)->first();
 
@@ -80,18 +81,34 @@ class AllPosts extends Component
         return view('livewire.all-posts', compact('posts', 'parsedown'))->layout('layouts.app');
     }
 
-    private function manageBadges($user, $postCount)
+    private function managePostBadges($user, $postCount)
     {
         $badges = [
-            2 => 10,
-            3 => 50,
-            4 => 100,
+            2 => 10, // Cadet
+            3 => 50, // Moonwalker
+            4 => 100, // Rocketeer
         ];
 
         foreach ($badges as $badgeId => $threshold) {
             if ($postCount >= $threshold && !$user->badges->contains($badgeId)) {
                 $this->giveBadge($user->id, $badgeId);
             } elseif ($postCount < $threshold && $user->badges->contains($badgeId)) {
+                $user->badges()->detach($badgeId);
+            }
+        }
+    }
+
+    private function manageOtherBadges($user)
+    {
+        $badges = [
+            1, // Admin
+            5, // Verified
+        ];
+
+        foreach ($badges as $badgeId) {
+            if ($user->is_admin && !$user->badges->contains($badgeId)) {
+                $this->giveBadge($user->id, $badgeId);
+            } elseif (!$user->is_admin && $user->badges->contains($badgeId)) {
                 $user->badges()->detach($badgeId);
             }
         }
