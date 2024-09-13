@@ -2,7 +2,7 @@
 ![loc](https://img.shields.io/endpoint?url=https://ghloc.vercel.app/api/postaverse/postaverse-v2/badge?filter=.php$&label=Lines%20of%20Code%20(PHP)&color=B66BFE)
 
 > [!NOTE]
-> Postaverse is not ready to be a social media platform yet. We require contributions to make this possible!
+> Postaverse is not 100% ready to be a social media platform yet. We require contributions to make this possible!
 
 Welcome to the **Postaverse** - an open-source project designed to create a robust and scalable social media network. This platform allows users to connect, share, and communicate with each other seamlessly.
 
@@ -26,7 +26,6 @@ Welcome to the **Postaverse** - an open-source project designed to create a robu
 - **Notifications**: Get notified about interactions and updates.
 - **Search**: Search for users, posts, and hashtags.
 - **Responsive Design**: Fully responsive for mobile and desktop users.
-- **Privacy Settings**: Control the visibility of your posts and profile.
 
 ## Installation
 
@@ -87,7 +86,7 @@ Once the platform is set up, you can:
 - **Sign Up**: Create a new account.
 - **Log In**: Access your account using your credentials.
 - **Explore**: Browse posts, follow users, and interact with content.
-- **Profile Management**: Update your profile information and privacy settings.
+- **Profile Management**: Update your profile information.
 
 ## Contributing
 
@@ -107,8 +106,6 @@ We welcome contributions from the community! To contribute:
     git push origin feature/your-feature-name
     ```
 5. **Create a pull request**.
-
-Please ensure your code follows our coding standards and includes tests where applicable.
 
 ## License
 
