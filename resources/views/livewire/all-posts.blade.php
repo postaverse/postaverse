@@ -3,7 +3,7 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7453651531634667"
             crossorigin="anonymous"></script>
         <!-- Horizontal - Posts -->
-        <ins class="adsbygoogle" style="display:inline-block;max-width:728px;max-height:90px"
+        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
             data-ad-client="ca-pub-7453651531634667" data-ad-slot="7105644688"></ins>
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
@@ -134,7 +134,7 @@
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7453651531634667"
             crossorigin="anonymous"></script>
         <!-- Horizontal - Posts -->
-        <ins class="adsbygoogle" style="display:inline-block;max-width:728px;max-height:90px"
+        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
             data-ad-client="ca-pub-7453651531634667" data-ad-slot="7105644688"></ins>
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
