@@ -97,7 +97,7 @@
                                 <a href="{{ route('user-profile', $like->user->id) }}" class="hyperlink">
                                     <img src="{{ $like->user->profile_photo_url }}"
                                         alt="{{ $like->user->name }}'s profile photo"
-                                        class="w-10 h-10 rounded-full border-2 border-gray-800">
+                                        class="w-10 h-10 rounded-full border-2 border-gray-800 bg-gray-800">
                                 </a>
                             @endforeach
                             @if ($post->likes->count() > 5)

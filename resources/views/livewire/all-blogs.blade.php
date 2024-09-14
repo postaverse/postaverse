@@ -13,7 +13,7 @@
                 <div wire:key="{{ $blog->id }}" class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
                     <div class="flex items-center space-x-4">
                         <img src="{{ $blog->user->profile_photo_url }}" alt="{{ $blog->user->name }}'s profile photo"
-                            class="w-10 h-10 rounded-full">
+                            class="w-10 h-10 rounded-full bg-gray-800">
                         <h2 class="text-lg font-bold text-white">
                             <a href="{{ route('user-profile', $blog->user->id) }}" class="hyperlink">
                                 {{ $blog->user->name }}
