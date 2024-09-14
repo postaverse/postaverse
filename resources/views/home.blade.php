@@ -11,8 +11,6 @@
     </x-slot>
 
     <div class="py-12 main">
-        <h1 class="text-2xl font-bold text-white" style="text-align:center;">Please Email <a
-                href="mailto:ideas@postaverse.net">ideas@postaverse.net</a> your ideas instead of posting them.</h1>
         <livewire:create-post />
         <livewire:all-posts />
     </div>
