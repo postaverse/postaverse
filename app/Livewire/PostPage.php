@@ -86,6 +86,7 @@ class PostPage extends Component
                 'link' => route('post', ['postId' => $this->post->id]),
             ]);
         }
+        $this->reset('content');
     }
 
     private function convertMentionsToLinks($text)

@@ -1,4 +1,4 @@
-name: Deploy to Staging server
+name: Deploy to Production server
 
 on:
   push:
@@ -43,5 +43,5 @@ jobs:
           DEPLOY_PATH: postaverse.net/
         run: |
           sshpass -p "$PASSWORD" rsync -avz --exclude .env --exclude .git/ --exclude /node_modules/ --rsh="ssh -o StrictHostKeyChecking=no" . $USERNAME@$HOST:$DEPLOY_PATH
-          sshpass -p "$PASSWORD" ssh $USERNAME@$HOST "cd $DEPLOY_PATH && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache"
+          sshpass -p "$PASSWORD" ssh $USERNAME@$HOST "cd $DEPLOY_PATH && php -q artisan migrate --force 2>/dev/null && php -q artisan config:cache 2>/dev/null && php -q artisan route:cache 2>/dev/null && php -q artisan view:cache 2>/dev/null"
           sshpass -p "$PASSWORD" ssh $USERNAME@$HOST "cd $DEPLOY_PATH"

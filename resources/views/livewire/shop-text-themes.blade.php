@@ -39,7 +39,8 @@
                         $textTheme = $user->textThemes->firstWhere('id', $theme->id);
                     @endphp
                     @if ($textTheme && $textTheme->pivot->equipped == 1)
-                        <p class="text-green-500">Equipped</p>
+                        <button wire:click="unequipTheme({{ $theme->id }})"
+                            class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Unequip</button>
                     @else
                         <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
                             wire:click="equipTheme({{ $theme->id }})">Equip</button>

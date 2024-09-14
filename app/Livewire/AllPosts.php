@@ -9,7 +9,7 @@ use App\Models\User;
 use App\Models\Badge;
 use App\Models\Like;
 use App\Models\Site;
-use App\Models\Comment; // Assuming there's a Comment model
+use App\Models\Comment;
 use App\Livewire\Profanity;
 use Parsedown;
 
@@ -34,10 +34,8 @@ class AllPosts extends Component
 
     public function delete(int $postId)
     {
-        // Delete associated likes
+        // Batch delete associated likes and comments
         Like::where('post_id', $postId)->delete();
-        
-        // Delete associated comments
         Comment::where('post_id', $postId)->delete();
         
         // Delete the post
@@ -56,49 +54,63 @@ class AllPosts extends Component
 
     public function render()
     {
-        // If 10 posts, give cadet badge (badge_id = 2)
         $user = auth()->user();
-        // select count(*) from posts where user_id = $user->id
+
         if ($user) {
             $postCount = Post::where('user_id', $user->id)->count();
-            if ($postCount >= 10) {
-                if ($postCount >= 50 && !$user->badges->contains(3)) {
-                    $this->giveBadge($user->id, 3);
-                }
-                if ($postCount >= 100 && !$user->badges->contains(4)) {
-                    $this->giveBadge($user->id, 4);
-                } elseif (!$user->badges->contains(2)) {
-                    $this->giveBadge($user->id, 2);
-                }
-            }
+            $this->managePostBadges($user, $postCount);
+            $this->manageOtherBadges($user);
 
             $site = Site::where('user_id', $user->id)->first();
-            if ($site && !$user->badges->contains(5)) {
-                $this->giveBadge($user->id, 5); // Assuming badge_id = 5 for site association
-            }
 
-            // If less than these, remove the badges
-            if ($postCount < 10 && $user->badges->contains(2)) {
-                $user->badges()->detach(2);
-            }
-            if ($postCount < 50 && $user->badges->contains(3)) {
-                $user->badges()->detach(3);
-            }
-            if ($postCount < 100 && $user->badges->contains(4)) {
-                $user->badges()->detach(4);
+            if ($site && !$user->badges->contains(5)) {
+                $this->giveBadge($user->id, 5);
             }
         }
 
-        $posts = Post::orderByDesc('id')->paginate(20);
+        $posts = Post::with('user')->orderByDesc('id')->paginate(20);
 
         $checker = new Profanity();
-
         $parsedown = new Parsedown();
 
         if ($user) {
             $profanityOption = $user->profanity_block_type;
+
             return view('livewire.all-posts', compact('posts', 'profanityOption', 'parsedown', 'checker'))->layout('layouts.app');
         }
         return view('livewire.all-posts', compact('posts', 'parsedown'))->layout('layouts.app');
+    }
+
+    private function managePostBadges($user, $postCount)
+    {
+        $badges = [
+            2 => 10, // Cadet
+            3 => 50, // Moonwalker
+            4 => 100, // Rocketeer
+        ];
+
+        foreach ($badges as $badgeId => $threshold) {
+            if ($postCount >= $threshold && !$user->badges->contains($badgeId)) {
+                $this->giveBadge($user->id, $badgeId);
+            } elseif ($postCount < $threshold && $user->badges->contains($badgeId)) {
+                $user->badges()->detach($badgeId);
+            }
+        }
+    }
+
+    private function manageOtherBadges($user)
+    {
+        $badges = [
+            1, // Admin
+            5, // Verified
+        ];
+
+        foreach ($badges as $badgeId) {
+            if ($user->is_admin && !$user->badges->contains($badgeId)) {
+                $this->giveBadge($user->id, $badgeId);
+            } elseif (!$user->is_admin && $user->badges->contains($badgeId)) {
+                $user->badges()->detach($badgeId);
+            }
+        }
     }
 }
