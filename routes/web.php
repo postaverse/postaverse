@@ -54,5 +54,3 @@ Route::middleware([
     Route::get('/settings', [Settings::class, 'show'])->name('settings.show');
     Route::get('/shop', ShopTextThemes::class)->name('shop')->middleware(CheckIfBanned::class);
 });
-
-require __DIR__ . '/socialstream.php';
