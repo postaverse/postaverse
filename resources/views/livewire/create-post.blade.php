@@ -15,6 +15,7 @@
                             <span class="error text-red-500">{{ $message }}</span>
                         @enderror
                     </div>
+
                     <div class="mb-4">
                         <x-label for="content" value="{{ __('Post') }}" />
                         <x-textarea id="content" class="mt-1 block w-full" wire:model="content" x-model="content" />
@@ -28,8 +29,25 @@
                         <p class="text-sm text-gray-600"><a href="https://www.markdownguide.org/cheat-sheet/"
                                 target="_blank">Click here for the Markdown guide.</a></p>
                     </div>
+
+                    <div class="mb-4">
+                        <x-label for="photos" value="{{ __('Photos') }}" />
+                        <input type="file" wire:model="photos" multiple>
+
+                        @error('photos.*')
+                            <span class="error text-red-500">{{ $message }}</span>
+                        @enderror
+
+                        @if ($photos)
+                            @foreach($photos as $photo)
+                                <img src="{{ $photo->temporaryUrl() }}" />
+                            @endforeach
+                        @endif
+                    </div>
+
                     <x-button type="submit" class="bg-green-600"><img src="{{ asset('images/blastoff.png') }}"
                             alt="Submit" width="35" height="35" class="p-1 pr-2">{{ __('Post') }}</x-button>
+
                     @if ($errors->has('rateLimit'))
                         <div class="error text-red-500">
                             {{ $errors->first('rateLimit') }}

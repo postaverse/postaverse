@@ -27,7 +27,18 @@
                 <h3 class="text-base font-bold text-white">
                     {{ $post->created_at->diffForHumans() }}
                 </h3>
+
                 <p class="text-white bio-img">{!! $postContent !!}</p>
+
+                @if (! empty($photos))
+                    <div class="grid">
+                        @foreach ($photos as $photo)
+                            <a href="{{ Storage::url($photo->path) }}" target="_blank">
+                                <img src="{{ Storage::url($photo->path) }}" alt="" loading="lazy" decoding="async" />
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
 
                 @if (auth()->user())
                     @if ($post->user_id == auth()->user()->id)

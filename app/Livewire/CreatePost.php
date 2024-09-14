@@ -6,13 +6,18 @@ use App\Models\User;
 use Illuminate\Cache\RateLimiter;
 use Livewire\Component;
 use App\Models\Notification;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
+use Livewire\WithFileUploads;
 
 class CreatePost extends Component
 {
+    use WithFileUploads;
+
     public string $title = '';
     public string $content = '';
     public $user;
     public $post;
+    public array $photos = [];
 
     // Computed property for title character count
     public function getTitleCountProperty()
@@ -39,7 +44,7 @@ class CreatePost extends Component
         $this->user = auth()->user();
 
         // Check if the user has exceeded their rate limit for post submissions
-        $rateLimiter = app('Illuminate\Cache\RateLimiter');
+        $rateLimiter = app(RateLimiter::class);
 
         // Check if the user has exceeded their rate limit for post submissions
         $rateLimitKey = 'post-submission:' . auth()->id();
@@ -51,15 +56,23 @@ class CreatePost extends Component
         $this->validate([
             'title' => 'required|max:100',
             'content' => 'required|max:500',
+            'photos.*' => 'image|max:5000', // 5MB Max
         ]);
 
         /** @var User $authUser */
         $authUser = auth()->user();
 
-        $authUser->posts()->create([
+        $post = $authUser->posts()->create([
             'title' => $this->title,
             'content' => $this->content,
         ]);
+
+        /** @var TemporaryUploadedFile $photo */
+        foreach ($this->photos as $photo) {
+            $post->images()->create([
+                'path' => $photo->store('photos', 's3'),
+            ]);
+        }
 
         // Increment the rate limiting counter
         $rateLimiter->hit($rateLimitKey, 3600); // 3600 seconds = 1 hour

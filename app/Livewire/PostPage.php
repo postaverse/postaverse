@@ -3,6 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Post;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Parsedown;
 use Illuminate\Support\Facades\Auth;
@@ -17,17 +19,21 @@ class PostPage extends Component
     public $comments;
     public $content = '';
     public $user;
+    public ?Collection $photos = null;
 
     public function mount($postId)
     {
         if (Auth::check()) {
             $this->user = Auth::user();
         }
-        $this->post = Post::find($postId);
-        if (!$this->post) {
-            abort(404);
-        }
-        $this->comments = Comment::where('post_id', $this->post->id)->orderBy('created_at', 'desc')->get();
+
+        $this->post = Post::query()
+            ->with('images', 'comments')
+            ->where('id', $postId)
+            ->firstOrFail();
+
+        $this->comments = $this->post->comments;
+        $this->photos = $this->post->images;
     }
 
     public function likePost($postId)
@@ -76,7 +82,7 @@ class PostPage extends Component
         $this->comments = Comment::where('post_id', $this->post->id)->orderBy('created_at', 'desc')->get();
 
         // Notify people mentioned in the comment
-        
+
         $mentionedUsers = $this->getMentionedUsers($this->content);
 
         foreach ($mentionedUsers as $mentionedUser) {
