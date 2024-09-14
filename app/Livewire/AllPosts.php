@@ -37,7 +37,7 @@ class AllPosts extends Component
         // Batch delete associated likes and comments
         Like::where('post_id', $postId)->delete();
         Comment::where('post_id', $postId)->delete();
-        
+
         // Delete the post
         Post::where('id', $postId)->delete();
     }
@@ -68,7 +68,7 @@ class AllPosts extends Component
             }
         }
 
-        $posts = Post::with('user')->orderByDesc('id')->paginate(20);
+        $posts = Post::with('user', 'comments', 'likes')->orderByDesc('id')->paginate(20);
 
         $checker = new Profanity();
         $parsedown = new Parsedown();
