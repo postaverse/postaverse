@@ -1,4 +1,12 @@
 <div>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7453651531634667"
+        crossorigin="anonymous"></script>
+    <!-- Horizontal - Posts -->
+    <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-7453651531634667"
+        data-ad-slot="7105644688"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
     @foreach ($posts as $post)
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
             <div wire:key="{{ $post->id }}" class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
@@ -91,7 +99,8 @@
                                 </a>
                             @endforeach
                             @if ($post->likes->count() > 5)
-                                <span class="text-white bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center">
+                                <span
+                                    class="text-white bg-gray-800 rounded-full w-10 h-10 flex items-center justify-center">
                                     +{{ $post->likes->count() - 5 }}
                                 </span>
                             @endif
@@ -118,6 +127,15 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
         {{ $posts->links() }}
     </div>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7453651531634667"
+        crossorigin="anonymous"></script>
+    <!-- Horizontal - Posts -->
+    <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
+        data-ad-client="ca-pub-7453651531634667" data-ad-slot="7105644688"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
 
     <script>
         document.querySelectorAll('.likeButton').forEach(button => {
