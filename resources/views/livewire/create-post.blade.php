@@ -32,16 +32,18 @@
 
                     <div class="mb-4">
                         <x-label for="photos" value="{{ __('Photos') }}" />
-                        <input type="file" wire:model="photos" multiple>
+                        <input type="file" wire:model="photos" multiple class="mt-1 block w-full bg-gray-600 text-gray-800" />
 
                         @error('photos.*')
                             <span class="error text-red-500">{{ $message }}</span>
                         @enderror
 
                         @if ($photos)
-                            @foreach($photos as $photo)
-                                <img src="{{ $photo->temporaryUrl() }}" />
-                            @endforeach
+                            <div class="grid grid-cols-2 gap-4 mt-4">
+                                @foreach($photos as $photo)
+                                    <img src="{{ $photo->temporaryUrl() }}" />
+                                @endforeach
+                            </div>
                         @endif
                     </div>
 
