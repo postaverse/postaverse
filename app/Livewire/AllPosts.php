@@ -100,16 +100,6 @@ class AllPosts extends Component
 
     private function manageOtherBadges($user)
     {
-        $badges = [
-            1, // Admin
-            5, // Verified
-        ];
-
-        if ($user->is_admin && !$user->badges->contains(1)) {
-            $this->giveBadge($user->id, 1);
-        } elseif (!$user->is_admin && $user->badges->contains(1)) {
-            $user->badges()->detach(1);
-        }
         if ($user->sites->count() > 0 && !$user->badges->contains(5)) {
             $this->giveBadge($user->id, 5);
         } elseif ($user->sites->count() == 0 && $user->badges->contains(5)) {
