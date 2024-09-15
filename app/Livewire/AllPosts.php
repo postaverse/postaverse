@@ -105,12 +105,15 @@ class AllPosts extends Component
             5, // Verified
         ];
 
-        foreach ($badges as $badgeId) {
-            if ($user->is_admin && !$user->badges->contains($badgeId)) {
-                $this->giveBadge($user->id, $badgeId);
-            } elseif (!$user->is_admin && $user->badges->contains($badgeId)) {
-                $user->badges()->detach($badgeId);
-            }
+        if ($user->is_admin && !$user->badges->contains(1)) {
+            $this->giveBadge($user->id, 1);
+        } elseif (!$user->is_admin && $user->badges->contains(1)) {
+            $user->badges()->detach(1);
+        }
+        if ($user->sites->count() > 0 && !$user->badges->contains(5)) {
+            $this->giveBadge($user->id, 5);
+        } elseif ($user->sites->count() == 0 && $user->badges->contains(5)) {
+            $user->badges()->detach(5);
         }
     }
 }
