@@ -118,5 +118,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Livewire](https://laravel-livewire.com/)
 - [Alpine.js](https://alpinejs.dev/)
+- **And many more!**
 
 Thank you to all our contributors and the open-source community!
