@@ -75,7 +75,7 @@ class AdminDashboard extends Component
 
         $user = auth()->user()->id;
 
-        $logs = AdminLogs::where('admin_id', $user)->orderBy('rank', 'desc')->get();
+        $logs = AdminLogs::where('admin_id', $user)->orderBy('created_at', 'desc')->get();
 
         if (auth()->user()->admin_rank >= 1) {
             return view('livewire.admin-dashboard', [
