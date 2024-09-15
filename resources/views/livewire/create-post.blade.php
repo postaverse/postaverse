@@ -30,6 +30,7 @@
                                 target="_blank">Click here for the Markdown guide.</a></p>
                     </div>
 
+                    {{--
                     <div class="mb-4">
                         <x-label for="photos" value="{{ __('Photos') }}" />
                         <input type="file" wire:model="photos" multiple class="mt-1 block w-full" />
@@ -46,6 +47,7 @@
                             </div>
                         @endif
                     </div>
+                    --}}
 
                     <x-button type="submit" class="bg-green-600"><img src="{{ asset('images/blastoff.png') }}"
                             alt="Submit" width="35" height="35" class="p-1 pr-2">{{ __('Post') }}</x-button>
