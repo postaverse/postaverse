@@ -10,6 +10,7 @@
         "joelbutcher/socialstream": "^6.0",
         "laravel/framework": "^11.0",
         "laravel/jetstream": "^5.1",
+        "laravel/pulse": "^1.2",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "league/flysystem-aws-s3-v3": "^3.0",

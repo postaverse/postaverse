@@ -9,6 +9,10 @@
         <br>
         <h1 class="text-xl font-bold text-white">Welcome, {{ auth()->user()->name }}</h1>
         <br>
+        <p class="text-white">Rank: {{ auth()->user()->admin_rank }}</p>
+        <br>
+        <a href="/pulse"><h3 class="text-lg font-bold text-white">Pulse Dashboard</h3></a>
+        <br>
         <!-- List of admins -->
         <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
             <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
