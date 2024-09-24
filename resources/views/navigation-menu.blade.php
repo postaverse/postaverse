@@ -229,8 +229,16 @@
                     </x-responsive-nav-link>
                     <!-- Feed Link -->
                     <x-responsive-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')"
-                        class="flex items-center space-x-2">
-                        <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10">
+                        class="flex items-center space-x-2 relative">
+                        <div class="relative">
+                            <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10">
+                            @if (auth()->user()->unreadNotifications->count() > 0)
+                                <span class="absolute top-0 right-0 flex h-3 w-3">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+                                </span>
+                            @endif
+                        </div>
                         <span>{{ __('Feed') }}</span>
                     </x-responsive-nav-link>
                     <!-- Shop Link -->
