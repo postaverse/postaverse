@@ -33,7 +33,7 @@
                     {{--
                     <div class="mb-4">
                         <x-label for="photos" value="{{ __('Photos') }}" />
-                        <input type="file" wire:model="photos" multiple class="mt-1 block w-full" />
+                        <input type="file" wire:model="photos" multiple class="mt-1 block w-full text-gray-300 focus:border-indigo-600 focus:ring-indigo-600 rounded-md shadow-sm" />
 
                         @error('photos.*')
                             <span class="error text-red-500">{{ $message }}</span>
