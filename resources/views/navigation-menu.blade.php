@@ -3,7 +3,7 @@
         <nav x-data="{ open: false }" class="bg-gray-800 border-b border-gray-700 drdo">
             <!-- Primary Navigation Menu -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mmain">
-                <div class="flex justify-between h-16">
+                <div class="flex justify-between h-17">
                     <div class="flex">
                         <!-- Logo -->
                         <div class="shrink-0 flex items-center">
@@ -27,8 +27,18 @@
                                 <span>{{ __('Home') }}</span>
                             </x-nav-link>
                             <!-- Feed Link -->
-                            <x-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')" class="flex flex-col items-center">
-                                <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-9 h-9">
+                            <x-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')"
+                                class="flex flex-col items-center relative">
+                                <div class="relative">
+                                    <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-9 h-9">
+                                    @if (auth()->user()->unreadNotifications->count() > 0)
+                                        <span class="absolute top-0 right-0 flex h-3 w-3">
+                                            <span
+                                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
+                                            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-600"></span>
+                                        </span>
+                                    @endif
+                                </div>
                                 <span>{{ __('Feed') }}</span>
                             </x-nav-link>
                             <!-- Shop Link -->

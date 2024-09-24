@@ -53,6 +53,12 @@ class Feed extends Component
                 // Store notifications in the session
                 Session::put('notifications', $notifications);
             }
+            foreach ($notifications as $notification) {
+                // Mark the notification as read if it hasn't been read
+                if (!$notification->read_at) {
+                    $notification->markAsRead();
+                }
+            }
             return view('livewire.feed', compact('notifications'))->layout('layouts.app');
         } else {
             // Check if feed posts are cached in the session

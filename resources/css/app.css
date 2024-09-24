@@ -6,6 +6,18 @@
     display: none;
 }
 
+.h-17 {
+    height: 68px;
+}
+
+.h-18 {
+    height: 72px;
+}
+
+.h-19 {
+    height: 76px;
+}
+
 body {
     background-color: #000;
 }
