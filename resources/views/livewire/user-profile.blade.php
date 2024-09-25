@@ -86,45 +86,7 @@
         </div>
     @else
         @foreach ($posts as $post)
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 main">
-                <div wire:key="{{ $post->id }}" class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
-                    <div class="flex items-center space-x-4">
-                        <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->name }}'s profile photo"
-                            class="w-10 h-10 rounded-full">
-                        <h2 class="text-lg font-bold text-white">
-                            <a href="{{ route('user-profile', $post->user->id) }}" class="hyperlink">
-                                {{ $post->user->name }}
-                            </a>
-                        </h2>
-                        @if ($post->user->isSiteVerified())
-                            <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20"
-                                height="20">
-                        @endif
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div>
-                            <h1 class="text-xl font-bold text-white">
-                                {{ $post->title }}
-                            </h1>
-                            <h3 class="text-base font-bold text-white">
-                                {{ $post->created_at->diffForHumans() }}
-                            </h3>
-                        </div>
-                        <a href="{{ route('post', $post->id) }}" class="text-white">
-                            <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
-                                height="20" style="filter: invert(1);">
-                        </a>
-                    </div>
-
-                    @if (auth()->check())
-                        @if ($post->user_id == auth()->user()->id)
-                            <button class="text-red-800 font-bold" wire:click="delete({{ $post->id }})">
-                                Delete
-                            </button>
-                        @endif
-                    @endif
-                </div>
-            </div>
+            <x-post :post="$post" />
         @endforeach
     @endif
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">

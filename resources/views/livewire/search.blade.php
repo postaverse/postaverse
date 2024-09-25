@@ -4,7 +4,7 @@
             {{ __('Search') }}
         </h2>
     </x-slot>
-    <div class="flex flex-col items-start justify-start main px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         @if ($insult)
             <div class="bg-gray-500 text-white p-4 rounded-lg mb-6">
                 <h1 class="text-xl font-bold">
@@ -21,15 +21,15 @@
                 </div>
             </div>
         @else
-            <h1 class="text-xl font-bold text-white">Users</h1>
+            <h1 class="text-xl font-bold text-white mb-4">Users</h1>
             @foreach ($users as $user)
                 <div class="w-full mb-6">
-                    <div wire:key="{{ $user->id }}" class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+                    <div wire:key="{{ $user->id }}" class="bg-gray-800 border border-gray-700 rounded-lg shadow-md p-4 flex">
                         <div class="flex items-center space-x-4">
                             <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}'s profile photo"
-                                class="w-10 h-10 rounded-full">
-                            <h2 class="text-lg font-bold text-white">
-                                <a href="{{ route('user-profile', $user->id) }}" class="hyperlink">
+                                class="w-8 h-8 rounded-full">
+                            <h2 class="text-sm font-bold text-white">
+                                <a href="{{ route('user-profile', $user->id) }}" class="hover:underline">
                                     {{ $user->name }}
                                 </a>
                             </h2>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
             @endforeach
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+            <div class="w-full mb-6">
                 {{ $users->links() }}
             </div>
         @endif
@@ -50,51 +50,15 @@
                 </div>
             </div>
         @else
-            <h1 class="text-xl font-bold text-white">
+            <h1 class="text-xl font-bold text-white mb-4">
                 Posts
             </h1>
             @foreach ($posts as $post)
                 <div class="w-full mb-6">
-                    <div wire:key="{{ $post->id }}" class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
-                        <div class="flex items-center space-x-4">
-                            <img src="{{ $post->user->profile_photo_url }}"
-                                alt="{{ $post->user->name }}'s profile photo" class="w-10 h-10 rounded-full">
-                            <h2 class="text-lg font-bold text-white">
-                                <a href="{{ route('user-profile', $post->user->id) }}" class="hyperlink">
-                                    {{ $post->user->name }}
-                                </a>
-                            </h2>
-                        </div>
-                        @if ($profanityOption == 'hide_clickable' && $checker->hasProfanity($post->title))
-                            <a href="#"
-                                onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
-                                <h1 class="text-xl font-bold text-red-500 hyperlink">
-                                    Content hidden due to profanity. Click to reveal.
-                                </h1>
-                            </a>
-                            <div class="text-xl font-bold text-white" style="display:none;">
-                                {{ $post->title }}
-                            </div>
-                        @elseif($profanityOption == 'hide' && $checker->hasProfanity($post->title))
-                            <h1 class="text-xl font-bold text-red-500">
-                                Content hidden due to profanity.
-                            </h1>
-                        @else
-                            <h1 class="text-xl font-bold text-white">
-                                {{ $post->title }}
-                            </h1>
-                        @endif
-                        <h3 class="text-base font-bold text-white">
-                            {{ $post->created_at->diffForHumans() }}
-                        </h3>
-                        <a href="{{ route('post', $post->id) }}" class="text-white">
-                            <img src="{{ asset('images/external-link.png') }}" alt="Go to post" width="20"
-                                height="20" style="filter: invert(1);">
-                        </a>
-                    </div>
+                    <x-post :post="$post" :profanity="$profanityOption" :checker="$checker" />
                 </div>
             @endforeach
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+            <div class="w-full mb-6">
                 {{ $posts->links() }}
             </div>
         @endif

@@ -9,6 +9,7 @@ use App\Models\Like;
 use App\Models\Notification;
 use Parsedown;
 use Illuminate\Support\Facades\Session;
+use App\Livewire\Profanity;
 
 class Feed extends Component
 {
