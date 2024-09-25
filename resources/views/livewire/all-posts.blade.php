@@ -1,4 +1,5 @@
 <div>
+    {{--
     <div class="flex items-center justify-center mb-6">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7453651531634667"
             crossorigin="anonymous"></script>
@@ -9,6 +10,7 @@
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
     </div>
+    --}}
     @foreach ($posts as $post)
         <x-post :post="$post" />
     @endforeach
@@ -17,6 +19,7 @@
         {{ $posts->links() }}
     </div>
 
+    {{--
     <div class="flex items-center justify-center">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7453651531634667"
             crossorigin="anonymous"></script>
@@ -27,6 +30,7 @@
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
     </div>
+    --}}
 
     <script>
         document.querySelectorAll('.likeButton').forEach(button => {
