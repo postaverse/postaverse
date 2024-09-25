@@ -106,7 +106,7 @@ We welcome contributions from the community! To contribute:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+This project is licensed under the MPL 2.0 License - see the [LICENSE](LICENSE.md) file for details.
 
 ## Acknowledgements
 
