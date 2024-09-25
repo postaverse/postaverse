@@ -81,10 +81,6 @@ class Feed extends Component
                     ->distinct()
                     ->paginate(20); // Limit the number of posts per page
 
-                foreach ($posts as $post) {
-                    $post->hasProfanity = $post->hasProfanity();
-                }
-
                 // Store feed posts in the session
                 Session::put('feed_posts', $posts);
             }
