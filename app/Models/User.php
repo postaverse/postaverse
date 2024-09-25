@@ -108,6 +108,11 @@ class User extends Authenticatable
         return $this->hasMany(Site::class);
     }
 
+    public function blockedUsers()
+    {
+        return $this->hasMany(BlockedUser::class);
+    }
+
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
