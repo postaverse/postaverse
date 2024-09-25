@@ -9,6 +9,8 @@ use App\Models\Like;
 use App\Models\Notification;
 use Parsedown;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\DeleteController;
+use App\Http\Controllers\LikeController;
 
 class Feed extends Component
 {
@@ -18,17 +20,8 @@ class Feed extends Component
 
     public function likePost($postId)
     {
-        $user = auth()->user();
-        $like = Like::where('post_id', $postId)->where('user_id', $user->id)->first();
-
-        if ($like) {
-            $like->delete();
-        } else {
-            Like::create([
-                'post_id' => $postId,
-                'user_id' => $user->id,
-            ]);
-        }
+        $likeController = new LikeController();
+        $likeController->likePost($postId);
 
         // Clear the session cache for feed to refresh the data
         Session::forget('feed_posts');
@@ -37,6 +30,15 @@ class Feed extends Component
     public function setView($view)
     {
         $this->view = $view;
+    }
+
+    public function delete($postId)
+    {
+        $deleteController = new DeleteController();
+        $deleteController->deletePost($postId);
+
+        // Clear the session cache for feed to refresh the data
+        Session::forget('feed_posts');
     }
 
     public function render()

@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Notification;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
+use App\Livewire\Profanity;
 
 class CreatePost extends Component
 {
@@ -43,6 +44,15 @@ class CreatePost extends Component
     {
         $this->user = auth()->user();
 
+        // Check for profanity in the title/content
+        $profanityChecker = new Profanity();
+        $profane = 0;
+
+        // If the title or content contains profanity, set the `has_profanity` column to true
+        if ($profanityChecker->hasProfanity($this->title) || $profanityChecker->hasProfanity($this->content)) {
+            $profane = 1;
+        }
+
         // Check if the user has exceeded their rate limit for post submissions
         $rateLimiter = app(RateLimiter::class);
 
@@ -65,6 +75,7 @@ class CreatePost extends Component
         $post = $authUser->posts()->create([
             'title' => $this->title,
             'content' => $this->content,
+            'has_profanity' => $profane,
         ]);
 
         /** @var TemporaryUploadedFile $photo */
