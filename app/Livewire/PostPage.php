@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Parsedown;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +11,8 @@ use App\Models\Comment;
 use App\Models\Like;
 use App\Models\User;
 use App\Models\Notification;
+use App\Http\Controllers\DeleteController;
+use App\Http\Controllers\LikeController;
 
 class PostPage extends Component
 {
@@ -38,17 +39,8 @@ class PostPage extends Component
 
     public function likePost($postId)
     {
-        $user = auth()->user();
-        $like = Like::where('post_id', $postId)->where('user_id', $user->id)->first();
-
-        if ($like) {
-            $like->delete();
-        } else {
-            Like::create([
-                'post_id' => $postId,
-                'user_id' => $user->id,
-            ]);
-        }
+        $likeController = new LikeController();
+        $likeController->likePost($postId);
     }
 
     private function getMentionedUsers($text)
@@ -61,8 +53,8 @@ class PostPage extends Component
 
     public function delete(int $postId)
     {
-        $user = User::find($this->user->id);
-        $user->posts()->where('id', $postId)->delete();
+        $deleteController = new DeleteController();
+        $deleteController->deletePost($postId);
 
         return redirect()->route('home');
     }
@@ -97,12 +89,10 @@ class PostPage extends Component
 
     public function deleteComment(int $commentId)
     {
-    $comment = Comment::find($commentId);
+        $deleteController = new DeleteController();
+        $deleteController->deleteComment($commentId);
 
-    if ($comment && ($comment->user_id == $this->user->id || $comment->post->user_id == $this->user->id || $this->user->admin_rank > 2)) {
-        $comment->delete();
         $this->comments = Comment::where('post_id', $this->post->id)->orderBy('created_at', 'desc')->get();
-    }
     }
 
     private function convertMentionsToLinks($text)

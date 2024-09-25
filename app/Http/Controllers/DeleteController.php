@@ -6,7 +6,7 @@ use App\Models\Post;
 use App\Models\Like;
 use App\Models\Comment;
 
-abstract class Controller
+class DeleteController extends Controller
 {
     // Delete a post
     public function deletePost($postId)
@@ -17,5 +17,12 @@ abstract class Controller
         $likes->each->delete();
         $comments->each->delete();
         $post->delete();
+    }
+
+    // Delete a comment
+    public function deleteComment($commentId)
+    {
+        $comment = Comment::find($commentId);
+        $comment->delete();
     }
 }
