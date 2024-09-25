@@ -97,10 +97,12 @@ class PostPage extends Component
 
     public function deleteComment(int $commentId)
     {
-        $user = User::find($this->user->id);
-        $user->comments()->where('id', $commentId)->delete();
+    $comment = Comment::find($commentId);
 
+    if ($comment && ($comment->user_id == $this->user->id || $comment->post->user_id == $this->user->id || $this->user->admin_rank > 2)) {
+        $comment->delete();
         $this->comments = Comment::where('post_id', $this->post->id)->orderBy('created_at', 'desc')->get();
+    }
     }
 
     private function convertMentionsToLinks($text)
