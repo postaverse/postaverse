@@ -13,6 +13,8 @@ use App\Livewire\PostPage;
 use App\Livewire\Banned;
 use App\Http\Middleware\CheckIfBanned;
 
+require __DIR__ . '/auth.php';
+
 Route::get('/banned', Banned::class)->name('banned');
 
 Route::get('/', function () {
