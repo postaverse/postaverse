@@ -1,9 +1,6 @@
 # Postaverse
 ![loc](https://img.shields.io/endpoint?url=https://ghloc.vercel.app/api/postaverse/postaverse/badge?filter=.php$&label=Lines%20of%20Code%20(PHP)&color=B66BFE)
 
-> [!NOTE]
-> Postaverse is not 100% ready to be a social media platform yet. We require contributions to make this possible!
-
 Welcome to the **Postaverse** - an open-source project designed to create a robust and scalable social media network. This platform allows users to connect, share, and communicate with each other seamlessly.
 
 ## Table of Contents
@@ -33,8 +30,8 @@ To set up the project locally, follow these steps:
 
 1. **Clone the repository**:
     ```bash
-    git clone https://github.com/Postaverse/postaverse-v2.git
-    cd postaverse-v2
+    git clone https://github.com/Postaverse/postaverse.git
+    cd postaverse
     ```
 
 2. **Install dependencies**:
@@ -109,7 +106,7 @@ We welcome contributions from the community! To contribute:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
 
 ## Acknowledgements
 
