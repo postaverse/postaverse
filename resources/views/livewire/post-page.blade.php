@@ -134,6 +134,24 @@
                                 <h3 class="text-base font-bold text-white">
                                     {{ $comment->created_at->diffForHumans() }}
                                 </h3>
+                                @if (auth()->user())
+                                    @if ($comment->user_id == auth()->user()->id)
+                                        <button wire:click="deleteComment({{ $comment->id }})"
+                                            class="text-red-800 font-bold">
+                                            Delete
+                                        </button>
+                                    @elseif ($comment->post->user_id == auth()->user()->id)
+                                        <button wire:click="deleteComment({{ $comment->id }})"
+                                            class="text-red-800 font-bold">
+                                            Delete
+                                        </button>
+                                    @elseif (auth()->user()->admin_rank > 2)
+                                        <button wire:click="deleteComment({{ $comment->id }})"
+                                            class="text-red-800 font-bold">
+                                            Delete
+                                        </button>
+                                    @endif
+                                @endif
                             </div>
                         @endforeach
                     @else

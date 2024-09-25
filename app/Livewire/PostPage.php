@@ -95,6 +95,14 @@ class PostPage extends Component
         $this->reset('content');
     }
 
+    public function deleteComment(int $commentId)
+    {
+        $user = User::find($this->user->id);
+        $user->comments()->where('id', $commentId)->delete();
+
+        $this->comments = Comment::where('post_id', $this->post->id)->orderBy('created_at', 'desc')->get();
+    }
+
     private function convertMentionsToLinks($text)
     {
         $mention = preg_replace_callback('/@(\w+)/', function ($matches) {
