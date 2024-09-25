@@ -13,6 +13,12 @@
                 <x-section-border />
             @endif
 
+            <!-- Blocked Users -->
+            <div class="mt-10 sm:mt-0">
+                @livewire('blocked-users')
+            </div>
+            <x-section-border />
+
             <!-- Verify Website -->
             <div class="mt-10 sm:mt-0">
                 @livewire('verify-website')
