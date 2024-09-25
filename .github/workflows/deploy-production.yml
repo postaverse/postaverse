@@ -1,9 +1,8 @@
 name: Deploy to Production server
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [published]
 
 jobs:
   deploy:
