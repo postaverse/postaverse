@@ -17,8 +17,8 @@
             </div>
 
             @if (auth()->user())
-                @if (isset($profanity))
-                    @if ($profanity == 'hide_clickable' && $checker->hasProfanity($post->title))
+                @if ($post->has_profanity)
+                    @if (auth()->user()->profanity_block_type == 'hide_clickable')
                         <div>
                             <a href="#"
                                 onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
@@ -26,24 +26,26 @@
                                     Content hidden due to profanity. Click to reveal.
                                 </h1>
                             </a>
-                            <h1 class="text-lg font-bold text-white" style="display:none;">
-                                {{ $post->title }}
-                            </h1>
+                            <a href="{{ route('post', $post->id) }}" style="display:none;">
+                                <h1 class="text-lg font-bold hover:underline" style="color:skyblue;">
+                                    {{ $post->title }}
+                                </h1>
+                            </a>
                         </div>
-                    @elseif($profanity == 'hide' && $checker->hasProfanity($post->title))
+                    @elseif(auth()->user()->profanity_block_type == 'hide')
                         <h1 class="text-lg font-bold text-red-500 mb-2">
                             Content hidden due to profanity.
                         </h1>
                     @else
                         <h1 class="text-xl font-bold text-white mb-2">
-                            <a href="{{ route('post', $post->id) }}" class="hover:underline">
+                            <a href="{{ route('post', $post->id) }}" class="hover:underline" style="color:skyblue;">
                                 {{ $post->title }}
                             </a>
                         </h1>
                     @endif
                 @else
                     <h1 class="text-xl font-bold text-white mb-2">
-                        <a href="{{ route('post', $post->id) }}" class="hover:underline">
+                        <a href="{{ route('post', $post->id) }}" class="hover:underline" style="color:skyblue;">
                             {{ $post->title }}
                         </a>
                     </h1>

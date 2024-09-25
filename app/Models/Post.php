@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content', 'has_profanity'];
 
     public function user(): BelongsTo
     {
@@ -24,26 +24,6 @@ class Post extends Model
     public function images(): HasMany
     {
         return $this->hasMany(PostImage::class);
-    }
-
-    public function hasProfanity($handlingOption = 'hide_clickable')
-    {
-        if ($handlingOption === 'show') {
-            return false;
-        }
-
-        $textToCheck = $this->title . ' ' . $this->content;
-
-        $response = Http::get('https://api.zanderlewis.dev/profane_check.php', [
-            'text' => $textToCheck,
-        ]);
-
-        if ($response->successful()) {
-            $result = $response->json();
-            return $result['containsBadWords'];
-        } else {
-            return false;
-        }
     }
 
     public function comments(): HasMany

@@ -55,7 +55,7 @@
             </h1>
             @foreach ($posts as $post)
                 <div class="w-full mb-6">
-                    <x-post :post="$post" :profanity="$profanityOption" :checker="$checker" />
+                    <x-post :post="$post" />
                 </div>
             @endforeach
             <div class="w-full mb-6">
