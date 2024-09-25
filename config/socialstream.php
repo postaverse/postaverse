@@ -8,6 +8,7 @@ return [
     'prompt' => 'Or Login Via',
     'providers' => [
         Providers::github(),
+        Providers::google(),
         [
             'id' => 'discord',
             'name' => 'Discord',
