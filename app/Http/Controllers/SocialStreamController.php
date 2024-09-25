@@ -20,8 +20,17 @@ class SocialstreamController extends Controller
     {
         $user = Socialite::driver($provider)->user();
 
-        // Check if the user already exists
+        // Fist, check if the user is logged in
+        $liu = Auth::user();
         $u = User::where('email', $user->getEmail())->first();
+
+        if ($liu) {
+            // Set the email of the connected account to the email of the logged in user
+            // instead of the email of the connected account.
+            // This prevents account creation if the user is already logged in.
+            // This modifies the $u variable
+            $u = $liu;
+        }
 
         if ($u) {
             // Check if the user has already connected the account
