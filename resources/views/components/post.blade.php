@@ -1,13 +1,11 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6" wire:key="{{ $post->id }}">
-    @if (auth()->user())
-        @php
-            $blockedUsers = [];
-            if (auth()->check()) {
-                $blockedUsers = auth()->user()->blockedUsers->pluck('blocked_users')->toArray();
-                $blockedUsers = array_map('trim', explode(',', implode(',', $blockedUsers)));
-            }
-        @endphp
-    @endif
+    @php
+        $blockedUsers = [];
+        if (auth()->check()) {
+            $blockedUsers = auth()->user()->blockedUsers->pluck('blocked_users')->toArray();
+            $blockedUsers = array_map('trim', explode(',', implode(',', $blockedUsers)));
+        }
+    @endphp
     @if (!in_array($post->user_id, $blockedUsers))
         <div class="bg-gray-800 border border-gray-700 rounded-lg shadow-md p-4 flex">
             <!-- Post Content -->
