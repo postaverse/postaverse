@@ -12,6 +12,7 @@ use App\Livewire\Blogs;
 use App\Livewire\PostPage;
 use App\Livewire\Banned;
 use App\Http\Middleware\CheckIfBanned;
+use App\Http\Controllers\AsteroidMine;
 
 require __DIR__ . '/auth.php';
 
@@ -34,6 +35,8 @@ Route::get('/search', Search::class)->name('search')->middleware(CheckIfBanned::
 Route::get('/blog', Blogs::class)->name('blogs');
 
 Route::get('/post/{postId}', PostPage::class)->name('post')->middleware(CheckIfBanned::class);
+
+Route::post('/asteroid-mine', AsteroidMine::class)->name('mine');
 
 Route::get('/home', function () {
     if (!auth()->check()) {

@@ -185,6 +185,11 @@ class User extends Authenticatable
         }
     }
 
+    public function totalMeteors(): int
+    {
+        return $this->meteors()->sum('quantity');
+    }
+
     public function textThemes()
     {
         return $this->belongsToMany(TextTheme::class, 'text_theme_user')->withPivot('equipped');
