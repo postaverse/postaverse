@@ -56,14 +56,7 @@ class Search extends Component
             ->orderByDesc('id')
             ->paginate(5);
 
-        foreach ($posts as $post) {
-            $post->hasProfanity = $post->hasProfanity();
-        }
-        $profanityOption = auth()->user()->profanity_block_type;
-        $parsedown = new Parsedown();
-        $checker = new Profanity();
-
         // Pass the insult along with users and posts to the view
-        return view('livewire.search', compact('users', 'posts', 'insult', 'profanityOption', 'parsedown', 'checker'))->layout('layouts.app');
+        return view('livewire.search', compact('users', 'posts', 'insult'))->layout('layouts.app');
     }
 }
