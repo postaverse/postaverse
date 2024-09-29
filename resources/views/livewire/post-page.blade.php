@@ -28,7 +28,11 @@
                     {{ $post->created_at->diffForHumans() }}
                 </h3>
 
-                <p class="text-white bio-img">{!! $postContent !!}</p>
+                <div class="text-white prose prose-invert bg-gray-900 m-4 ml-0 mr-0 max-w-7xl rounded">
+                    <div class="p-4">
+                        {!! $postContent !!}
+                    </div>
+                </div>
 
                 @if (!empty($photos))
                     <div class="grid">
@@ -131,7 +135,7 @@
                                             class="w-6 h-6">
                                     @endif
                                 </div>
-                                <p class="text-white">{!! $comment->content !!}</p>
+                                <div class="text-white prose prose-invert">{!! $comment->content !!}</div>
                                 <h3 class="text-base font-bold text-white">
                                     {{ $comment->created_at->diffForHumans() }}
                                 </h3>
