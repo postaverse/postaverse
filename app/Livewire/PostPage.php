@@ -5,10 +5,9 @@ namespace App\Livewire;
 use App\Models\Post;
 use Illuminate\Support\Collection;
 use Livewire\Component;
-use Parsedown;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Comment;
-use App\Models\Like;
 use App\Models\User;
 use App\Models\Notification;
 use App\Http\Controllers\DeleteController;
@@ -27,13 +26,20 @@ class PostPage extends Component
         if (Auth::check()) {
             $this->user = Auth::user();
         }
+        
+        $blockedUsers = [];
+        if (Auth::check()) {
+            $blockedUsers = $this->user->blockedUsers->pluck('blocked_users')->toArray();
+            $blockedUsers = array_map('trim', explode(',', implode(',', $blockedUsers)));
+        }
 
         $this->post = Post::query()
-            ->with('images', 'comments')
+            ->with('images')
             ->where('id', $postId)
             ->firstOrFail();
 
-        $this->comments = $this->post->comments;
+        $this->comments = $this->post->comments()->whereNotIn('user_id', $blockedUsers)->get();
+        
         $this->photos = $this->post->images;
     }
 
@@ -116,16 +122,14 @@ class PostPage extends Component
 
     public function render()
     {
-        $parsedown = new Parsedown();
-        $postContent = $this->convertMentionsToLinks($parsedown->text(e($this->post->content)));
-        $comments = $this->comments->map(function ($comment) use ($parsedown) {
-            $comment->content = $this->convertMentionsToLinks($parsedown->text(e($comment->content)));
+        $postContent = $this->convertMentionsToLinks(Str::markdown($this->post->content));
+        $comments = $this->comments->map(function ($comment) {
+            $comment->content = $this->convertMentionsToLinks(Str::markdown($comment->content));
             return $comment;
         });
 
         return view('livewire.post-page', [
             'post' => $this->post,
-            'parsedown' => $parsedown,
             'postContent' => $postContent,
             'comments' => $comments,
         ])->layout('layouts.app');

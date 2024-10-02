@@ -55,17 +55,18 @@ class AllPosts extends Component
             }
         }
 
-        $posts = Post::with('user', 'comments', 'likes')->orderByDesc('id')->paginate(20);
-
-        $checker = new Profanity();
-        $parsedown = new Parsedown();
-
-        if ($user) {
-            $profanityOption = $user->profanity_block_type;
-
-            return view('livewire.all-posts', compact('posts', 'profanityOption', 'parsedown', 'checker'))->layout('layouts.app');
+        $blockedUsers = [];
+        if (auth()->check()) {
+            $blockedUsers = auth()->user()->blockedUsers->pluck('blocked_users')->toArray();
+            $blockedUsers = array_map('trim', explode(',', implode(',', $blockedUsers)));
         }
-        return view('livewire.all-posts', compact('posts', 'parsedown'))->layout('layouts.app');
+
+        $posts = Post::with('user', 'comments', 'likes')
+            ->whereNotIn('user_id', $blockedUsers)
+            ->orderByDesc('id')
+            ->paginate(20);
+        
+        return view('livewire.all-posts', compact('posts'))->layout('layouts.app');
     }
 
     private function managePostBadges($user, $postCount)

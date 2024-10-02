@@ -30,7 +30,11 @@
                     <h3 class="text-base font-bold text-white">
                         {{ $blog->created_at->diffForHumans() }}
                     </h3>
-                    <p class="text-white">{!! $parsedown->text(e($blog->content)) !!}</p>
+                    <div class="text-white prose prose-invert bg-gray-900 m-4 ml-0 mr-0 max-w-7xl rounded">
+                        <div class="p-4">
+                            {!! $blog->content !!}
+                        </div>
+                    </div>
                     @if (auth()->user())
                         @if ($blog->user_id == auth()->user()->id || auth()->user()->admin_rank == 4)
                             <button class="text-red-800 font-bold" wire:click="delete({{ $blog->id }})">

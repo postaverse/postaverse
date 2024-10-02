@@ -15,6 +15,7 @@ use App\Http\Middleware\CheckIfBanned;
 use App\Http\Controllers\AsteroidMine;
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/markdown.php';
 
 Route::get('/banned', Banned::class)->name('banned');
 

@@ -11,17 +11,6 @@ class AllBlogs extends Component
 {
     use WithPagination;
 
-    public $expandedPosts = [];
-
-    public function toggleExpand($postId)
-    {
-        if (in_array($postId, $this->expandedPosts)) {
-            $this->expandedPosts = array_diff($this->expandedPosts, [$postId]);
-        } else {
-            $this->expandedPosts[] = $postId;
-        }
-    }
-
     public function delete(int $blogId)
     {
         Blog::query()
