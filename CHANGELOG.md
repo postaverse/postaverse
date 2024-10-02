@@ -14,3 +14,5 @@
 * Partial style rewrite
 * Banning users
 * Pulse dashboard
+* Add Changelog
+* Better Markdown
