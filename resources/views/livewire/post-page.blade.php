@@ -135,7 +135,27 @@
                                             class="w-6 h-6">
                                     @endif
                                 </div>
-                                <div class="text-white prose prose-invert">{!! $comment->content !!}</div>
+                                @if ($comment->has_profanity)
+                                    @if (auth()->user()->profanity_block_type == 'hide_clickable')
+                                        <div>
+                                            <a href="#"
+                                                onclick="event.preventDefault(); this.nextElementSibling.style.display='block'; this.style.display='none'">
+                                                <p class="text-red-500 hover:underline">
+                                                    Content hidden due to profanity. Click to reveal.
+                                                </p>
+                                            </a>
+                                            <div class="text-white prose prose-invert" style="display:none;">
+                                                {!! $comment->content !!}
+                                            </div>
+                                        </div>
+                                    @else
+                                        <p class="text-red-500">
+                                            Content hidden due to profanity.
+                                        </p>
+                                    @endif
+                                @else
+                                    <div class="text-white prose prose-invert">{!! $comment->content !!}</div>
+                                @endif
                                 <h3 class="text-base font-bold text-white">
                                     {{ $comment->created_at->diffForHumans() }}
                                 </h3>

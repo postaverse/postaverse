@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\Notification;
 use App\Http\Controllers\DeleteController;
 use App\Http\Controllers\LikeController;
+use App\Livewire\Profanity;
 
 class PostPage extends Component
 {
@@ -71,10 +72,14 @@ class PostPage extends Component
             'content' => 'required|max:500',
         ]);
 
+        $profanityChecker = new Profanity();
+        $hasProfanity = $profanityChecker->hasProfanity($this->content);
+
         $this->user->comments()->create([
             'content' => $this->content,
             'post_id' => $this->post->id,
             'user_id' => $this->user->id,
+            'has_profanity' => $hasProfanity,
         ]);
 
         $this->comments = Comment::where('post_id', $this->post->id)->orderBy('created_at', 'desc')->get();
