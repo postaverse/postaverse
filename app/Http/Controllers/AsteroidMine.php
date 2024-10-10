@@ -22,6 +22,7 @@ class AsteroidMine extends Controller
         $userId = $request->input('user_id');
         $meteors = $request->input('meteors');
         $password = $request->input('password');
+        $asteroidMineSecret = config('postaverse.asteroid_mine_secret');
         $checksum = $request->input('checksum');
 
         // Log the received payload for debugging
@@ -43,7 +44,7 @@ class AsteroidMine extends Controller
         $meteors = floatval($meteors);
 
         // Regenerate checksum
-        $data = $meteors . $userId . $password;
+        $data = $meteors . $userId . $password . $asteroidMineSecret;
         $generatedChecksum = hash('sha256', $data);
 
         // Log the generated checksum for debugging
