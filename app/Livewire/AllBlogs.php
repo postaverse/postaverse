@@ -5,7 +5,7 @@ namespace App\Livewire;
 use App\Models\Blog;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Parsedown;
+use Illuminate\Support\Str;
 
 class AllBlogs extends Component
 {
@@ -20,8 +20,11 @@ class AllBlogs extends Component
 
     public function render()
     {
-        $parsedown = new Parsedown();
         $blogs = Blog::latest()->paginate(5);
-        return view('livewire.all-blogs', compact('blogs', 'parsedown'))->layout('layouts.app');
+        $blogs->getCollection()->transform(function ($blog) {
+            $blog->content = Str::markdown($blog->content);
+            return $blog;
+        });
+        return view('livewire.all-blogs', compact('blogs'))->layout('layouts.app');
     }
 }
