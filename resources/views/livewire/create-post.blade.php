@@ -49,7 +49,7 @@
                     </div>
                     
 
-                    <x-button type="submit" class="bg-green-600"><img src="{{ asset('images/blastoff.png') }}"
+                    <x-button type="submit" class="bg-green-600"><img src="{{ asset('images/icons/blastoff.png') }}"
                             alt="Submit" width="35" height="35" class="p-1 pr-2">{{ __('Post') }}</x-button>
 
                     @if ($errors->has('rateLimit'))

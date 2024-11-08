@@ -8,7 +8,7 @@
         @if (!$redeemed)
             <button id="redeem-button" wire:click="redeemMeteors"
                 class="bg-gray-400 hover:bg-gray-600 text-black font-bold py-2 px-4 rounded">
-                <img src="{{ asset('images/meteor.png') }}" class="w-6 h-6 inline-block" alt="Meteor">
+                <img src="{{ asset('images/icons/meteor.png') }}" class="w-6 h-6 inline-block" alt="Meteor">
                 Redeem your daily Meteors!
             </button>
         @endif

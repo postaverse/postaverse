@@ -34,7 +34,7 @@
         <br>
         <!-- User Meteor Count -->
         <div class="pl-5 flex items-center shrink-0">
-            <img src="{{ asset('images/meteor.png') }}" alt="Meteor" class="w-10 h-10">
+            <img src="{{ asset('images/icons/meteor.png') }}" alt="Meteor" class="w-10 h-10">
             <span class="text-white text-lg font-bold pl-2">{{ $user->meteorQuantity->quantity }}</span>
         </div>
         <br>

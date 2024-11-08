@@ -68,9 +68,9 @@
                 <div class="flex items-center space-x-4 mb-4">
                     <button wire:click="likePost({{ $post->id }})" class="focus:outline-none">
                         @if (!$post->likes->contains('user_id', auth()->id()))
-                            <img src="{{ asset('images/unliked.png') }}" alt="Like" class="w-10 h-10">
+                            <img src="{{ asset('images/icons/like/unliked.png') }}" alt="Like" class="w-10 h-10">
                         @else
-                            <img src="{{ asset('images/liked.png') }}" alt="Unlike" class="w-10 h-10">
+                            <img src="{{ asset('images/icons/like/liked.png') }}" alt="Unlike" class="w-10 h-10">
                         @endif
                     </button>
                     <div class="flex -space-x-2">

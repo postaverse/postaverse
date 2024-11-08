@@ -74,12 +74,6 @@
                 </div>
                 <ul class="text-gray-400 text-sm space-y-2 text-center">
                     <li>
-                        <a href="/@3" class="hover:text-gray-300">Gorilla - Bananas</a>
-                    </li>
-                    <li>
-                        <a href="/@2" class="hover:text-gray-300">Triston - Logos and Icons</a>
-                    </li>
-                    <li>
                         <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
                     </li>
                     <li>

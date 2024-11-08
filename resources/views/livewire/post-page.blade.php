@@ -63,10 +63,10 @@
                         <div class="flex items-center space-x-4">
                             <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
                                 @if (!$post->likes->contains('user_id', auth()->id()))
-                                    <img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="35"
+                                    <img src="{{ asset('images/icons/like/unliked.png') }}" alt="Unlike" width="35"
                                         height="35" class="p-1">
                                 @else
-                                    <img src="{{ asset('images/liked.png') }}" alt="Like" width="35"
+                                    <img src="{{ asset('images/icons/like/liked.png') }}" alt="Like" width="35"
                                         height="35" class="p-1">
                                 @endif
                             </button>
@@ -105,7 +105,7 @@
                                     <span class="error text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <x-button type="submit" class="bg-green-600"><img src="{{ asset('images/blastoff.png') }}"
+                            <x-button type="submit" class="bg-green-600"><img src="{{ asset('images/icons/blastoff.png') }}"
                                     alt="Submit" width="35" height="35"
                                     class="p-1 pr-2">{{ __('Post') }}</x-button>
                             <script>
@@ -187,11 +187,11 @@
             button.addEventListener('click', function() {
                 if (button.innerHTML.includes('unliked.png')) {
                     button.innerHTML =
-                        '<img src="{{ asset('images/liked.png') }}" alt="Like" width="20" height="20">';
+                        '<img src="{{ asset('images/icons/like/liked.png') }}" alt="Like" width="20" height="20">';
                     countText.innerHTML = parseInt(countText.innerHTML) - 1 + ' likes';
                 } else {
                     button.innerHTML =
-                        '<img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="20" height="20">';
+                        '<img src="{{ asset('images/icons/like/unliked.png') }}" alt="Unlike" width="20" height="20">';
                     countText.innerHTML = parseInt(countText.innerHTML) + 1 + ' likes';
                 }
             });
