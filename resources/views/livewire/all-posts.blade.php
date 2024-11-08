@@ -40,11 +40,11 @@
             button.addEventListener('click', function() {
                 if (button.innerHTML.includes('unliked.png')) {
                     button.innerHTML =
-                        '<img src="{{ asset('images/liked.png') }}" alt="Like" width="20" height="20">';
+                        '<img src="{{ asset('images/icons/like/liked.png') }}" alt="Like" width="20" height="20">';
                     countText.innerHTML = parseInt(countText.innerHTML) - 1 + ' likes';
                 } else {
                     button.innerHTML =
-                        '<img src="{{ asset('images/unliked.png') }}" alt="Unlike" width="20" height="20">';
+                        '<img src="{{ asset('images/icons/like/unliked.png') }}" alt="Unlike" width="20" height="20">';
                     countText.innerHTML = parseInt(countText.innerHTML) + 1 + ' likes';
                 }
             });

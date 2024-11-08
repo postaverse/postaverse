@@ -33,10 +33,7 @@
                 <p class="text-lg text-gray-300 mb-6">
                     Postaverse was founded by
                     <a href="https://zanderlewis.dev" class="text-blue-400 underline hover:text-blue-300">Zander
-                        Lewis</a> and
-                    <a href="https://tristonpenn.com" class="text-blue-400 underline hover:text-blue-300">Triston
-                        Penn</a> as an alternative to algorithm-driven social media platforms.
-                </p>
+                        Lewis.</a>
                 <h2 class="text-2xl font-bold text-white mb-4">
                     Our Story:
                 </h2>

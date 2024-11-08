@@ -8,13 +8,14 @@
                         <!-- Logo -->
                         <div class="shrink-0 flex items-center">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('images/wordlogo.png') }}" class="block h-10 w-auto" />
+                                <img src="{{ asset('images/icons/logo/logo.png') }}" class="block w-auto" style="height: 80px;"
+                                    alt="Logo">
                             </a>
                         </div>
 
                         <!-- Meteor Image and Count -->
                         <div class="pl-5 flex items-center shrink-0">
-                            <img src="{{ asset('images/meteor.png') }}" alt="Meteor" class="w-8 h-8">
+                            <img src="{{ asset('images/icons/meteor.png') }}" alt="Meteor" class="w-8 h-8">
                             <span
                                 class="text-white text-lg font-bold pl-2">{{ auth()->user()->meteorQuantity->quantity }}</span>
                         </div>
@@ -23,14 +24,14 @@
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                             <!-- Home Link -->
                             <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')" class="flex flex-col items-center">
-                                <img src="{{ asset('images/home.png') }}" alt="Home" class="w-9 h-9">
+                                <img src="{{ asset('images/icons/nav/home.png') }}" alt="Home" class="w-9 h-9">
                                 <span>{{ __('Home') }}</span>
                             </x-nav-link>
                             <!-- Feed Link -->
                             <x-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')"
                                 class="flex flex-col items-center relative">
                                 <div class="relative">
-                                    <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-9 h-9">
+                                    <img src="{{ asset('images/icons/nav/feed.png') }}" alt="Feed" class="w-9 h-9">
                                     @if (auth()->user()->unreadNotifications->count() > 0)
                                         <span class="absolute top-0 right-0 flex h-3 w-3">
                                             <span
@@ -44,28 +45,26 @@
                             <!-- Shop Link -->
                             <x-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')"
                                 class="flex flex-col items-center">
-                                <img src="{{ asset('images/shop.png') }}" alt="Shop" class="w-9 h-9">
+                                <img src="{{ asset('images/icons/nav/shop.png') }}" alt="Shop" class="w-9 h-9">
                                 <span>{{ __('Shop') }}</span>
                             </x-nav-link>
                             <!-- Blogs Link -->
                             <x-nav-link href="{{ route('blogs') }}" :active="request()->routeIs('blogs')"
                                 class="flex flex-col items-center">
-                                <img src="{{ asset('images/blog.png') }}" alt="Blogs" class="w-9 h-9">
+                                <img src="{{ asset('images/icons/nav/blog.png') }}" alt="Blogs" class="w-9 h-9">
                                 <span>{{ __('Blog') }}</span>
                             </x-nav-link>
                             <!-- Admin Link -->
                             @if (auth()->user()->admin_rank >= 1)
                                 <x-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')"
                                     class="flex flex-col items-center">
-                                    <img src="{{ asset('images/admin.png') }}" alt="Admin" class="w-9 h-9">
+                                    <img src="{{ asset('images/icons/nav/admin.png') }}" alt="Admin" class="w-9 h-9">
                                     <span>{{ __('Admin') }}</span>
                                 </x-nav-link>
                             @endif
                             <!-- Search Bar -->
                             <div class="relative mt-2.5">
                                 <form action="{{ route('search') }}" method="GET" class="flex items-center">
-                                    <!-- Image in search bar -->
-                                    <!-- <img src="{{ asset('images/search.png') }}" alt="Search" class="h-10 w-10 mr-1"> -->
                                     <input type="text" name="query" placeholder="Search posts/users..."
                                         class="bg-gray-800 text-white rounded-md py-2 pl-4 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
                                         autocomplete="off">
@@ -224,14 +223,14 @@
                     <!-- Home Link -->
                     <x-responsive-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')"
                         class="flex items-center space-x-2">
-                        <img src="{{ asset('images/home.png') }}" alt="Home" class="w-10 h-10">
+                        <img src="{{ asset('images/icons/nav/home.png') }}" alt="Home" class="w-10 h-10">
                         <span>{{ __('Home') }}</span>
                     </x-responsive-nav-link>
                     <!-- Feed Link -->
                     <x-responsive-nav-link href="{{ route('feed') }}" :active="request()->routeIs('feed')"
                         class="flex items-center space-x-2 relative">
                         <div class="relative">
-                            <img src="{{ asset('images/feed.png') }}" alt="Feed" class="w-10 h-10">
+                            <img src="{{ asset('images/icons/nav/feed.png') }}" alt="Feed" class="w-10 h-10">
                             @if (auth()->user()->unreadNotifications->count() > 0)
                                 <span class="absolute top-0 right-0 flex h-3 w-3">
                                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75"></span>
@@ -244,20 +243,20 @@
                     <!-- Shop Link -->
                     <x-responsive-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')"
                         class="flex items-center space-x-2">
-                        <img src="{{ asset('images/shop.png') }}" alt="Shop" class="w-10 h-10">
+                        <img src="{{ asset('images/icons/nav/shop.png') }}" alt="Shop" class="w-10 h-10">
                         <span>{{ __('Shop') }}</span>
                     </x-responsive-nav-link>
                     <!-- Blogs Link -->
                     <x-responsive-nav-link href="{{ route('blogs') }}" :active="request()->routeIs('blogs')"
                         class="flex items-center space-x-2">
-                        <img src="{{ asset('images/blog.png') }}" alt="Blogs" class="w-10 h-10">
+                        <img src="{{ asset('images/icons/nav/blog.png') }}" alt="Blogs" class="w-10 h-10">
                         <span>{{ __('Blog') }}</span>
                     </x-responsive-nav-link>
                     <!-- Admin Link -->
                     @if (auth()->user()->admin_rank >= 1)
                         <x-responsive-nav-link href="{{ route('admin') }}" :active="request()->routeIs('admin')"
                             class="flex items-center space-x-2">
-                            <img src="{{ asset('images/admin.png') }}" alt="Admin" class="w-10 h-10">
+                            <img src="{{ asset('images/icons/nav/admin.png') }}" alt="Admin" class="w-10 h-10">
                             <span>{{ __('Admin') }}</span>
                         </x-responsive-nav-link>
                     @endif
