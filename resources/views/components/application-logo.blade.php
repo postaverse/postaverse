@@ -1,1 +1,1 @@
-<img src="{{ asset('images/icons/logo/full-logo.png') }}" alt="Application Logo" class="rounded-full" {{ $attributes }} />
+<img src="{{ asset('images/icons/logo/logo.png') }}" alt="Application Logo" {{ $attributes }} />
