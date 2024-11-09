@@ -8,7 +8,7 @@
                         <!-- Logo -->
                         <div class="shrink-0 flex items-center">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('images/icons/logo/logo.png') }}" class="block w-auto" style="height: 80px;"
+                                <img src="{{ asset('images/icons/logo/logo.png') }}" class="block w-auto h-12"
                                     alt="Logo">
                             </a>
                         </div>
