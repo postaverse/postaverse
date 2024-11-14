@@ -69,11 +69,13 @@
                 <h2 class="text-2xl font-bold text-white mb-4">
                     Join Us:
                 </h2>
-                <p class="text-lg text-gray-300">
-                    Become a part of the Postaverse community today. <a href="{{ route('register') }}"
-                        class="text-blue-400 underline hover:text-blue-300">Register now</a> and start sharing your
-                    thoughts with the world.
-                </p>
+                @if (Route::has('register'))
+                    <p class="text-lg text-gray-300">
+                        Become a part of the Postaverse community today. <a href="{{ route('register') }}"
+                            class="text-blue-400 underline hover:text-blue-300">Register now</a> and start sharing your
+                        thoughts with the world.
+                    </p>
+                @endif
             </div>
         </main>
     </div>
