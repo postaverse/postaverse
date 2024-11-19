@@ -19,9 +19,6 @@ class SocialstreamController extends Controller
 
     public function handleProviderCallback($provider)
     {   
-        if (Whitelisted::where('email', Socialite::driver($provider)->user()->getEmail())->first() == null) {
-            return redirect()->route('login')->with('error', 'You are not whitelisted.');
-        }
         $user = Socialite::driver($provider)->user();
 
         // First, check if the user is logged in
@@ -48,6 +45,9 @@ class SocialstreamController extends Controller
                 return redirect()->intended('/home');
             }
             else {
+                if (Whitelisted::where('email', Socialite::driver($provider)->user()->getEmail())->first() == null) {
+                    return redirect()->route('login')->with('error', 'You are not whitelisted.');
+                }
                 // Create a new connected account
                 $createConnectedAccount = new CreateConnectedAccount();
                 $createConnectedAccount->create($u, $provider, $user);
