@@ -6,8 +6,10 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
+use App\Models\Whitelisted;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -19,7 +21,12 @@ class CreateNewUser implements CreatesNewUsers
      * @param  array<string, string>  $input
      */
     public function create(array $input): User
-    {
+    {   
+        if (Whitelisted::where('email', $input['email'])->first() == null) {
+            throw ValidationException::withMessages([
+                'email' => ['You are not whitelisted.'],
+            ]);
+        }
         $correctEmoji = session('correct_emoji');
 
         Validator::make($input, [

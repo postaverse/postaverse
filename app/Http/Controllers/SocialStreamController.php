@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Socialstream\CreateConnectedAccount;
 use JoelButcher\Socialstream\ConnectedAccount;
+use App\Models\Whitelisted;
 
 class SocialstreamController extends Controller
 {
@@ -17,10 +18,13 @@ class SocialstreamController extends Controller
     }
 
     public function handleProviderCallback($provider)
-    {
+    {   
+        if (Whitelisted::where('email', Socialite::driver($provider)->user()->getEmail())->first() == null) {
+            return redirect()->route('login')->with('error', 'You are not whitelisted.');
+        }
         $user = Socialite::driver($provider)->user();
 
-        // Fist, check if the user is logged in
+        // First, check if the user is logged in
         $liu = Auth::user();
         $u = User::where('email', $user->getEmail())->first();
 
