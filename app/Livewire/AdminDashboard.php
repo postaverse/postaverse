@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Livewire;
 
 use Livewire\Component;
@@ -12,6 +13,7 @@ class AdminDashboard extends Component
     public $user_id;
     public $reason;
     public $uid;
+    public $admin_id;
 
     public function admins()
     {
@@ -67,18 +69,20 @@ class AdminDashboard extends Component
         }
     }
 
-    public function addAdmin($id)
+    public function addAdmin()
     {
-        $user = User::find($id);
-
+        $user = User::find($this->admin_id);
         if ($user) {
-            $user->admin_rank = 1;
+            $user->admin_rank = $this->admin_rank;
             $user->save();
-            session()->flash('addadminmessage', 'Admin added successfully.');
+            session()->flash('addmessage', 'Admin added successfully.');
             AdminLogs::create([
                 'admin_id' => auth()->user()->id,
                 'action' => 'Added admin ' . $user->username,
             ]);
+            $this->reset('admin_id', 'admin_rank');
+        } else {
+            session()->flash('addmessage', 'User not found.');
         }
     }
 
