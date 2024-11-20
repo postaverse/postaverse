@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Badge;
 use App\Models\Banned;
 use App\Models\AdminLogs;
+use App\Models\Whitelisted;
 
 class AdminDashboard extends Component
 {
@@ -15,10 +16,28 @@ class AdminDashboard extends Component
     public $uid;
     public $admin_id;
     public $admin_rank;
+    public $email;
 
     public function admins()
     {
         return User::where('admin_rank', '>=', 1)->get();
+    }
+
+    public function addEmail()
+    {
+        if (Whitelisted::where('email', $this->email)->exists()) {
+            session()->flash('whitelistmessage', 'Email already whitelisted.');
+        } else {
+            Whitelisted::create([
+                'email' => $this->email,
+            ]);
+            session()->flash('whitelistmessage', 'Email whitelisted successfully.');
+            AdminLogs::create([
+                'admin_id' => auth()->user()->id,
+                'action' => 'Whitelisted email ' . $this->email,
+            ]);
+            $this->reset('email');
+        }
     }
 
     public function giveBadge($userId, $badgeId)
