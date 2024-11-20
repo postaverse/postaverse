@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
@@ -18,7 +19,7 @@ class SocialstreamController extends Controller
     }
 
     public function handleProviderCallback($provider)
-    {   
+    {
         $user = Socialite::driver($provider)->user();
 
         // First, check if the user is logged in
@@ -43,8 +44,7 @@ class SocialstreamController extends Controller
             if ($connectedAccount) {
                 Auth::login($u, true);
                 return redirect()->intended('/home');
-            }
-            else {
+            } else {
                 if (Whitelisted::where('email', Socialite::driver($provider)->user()->getEmail())->first() == null) {
                     return redirect()->route('login')->with('error', 'You are not whitelisted.');
                 }
@@ -52,8 +52,7 @@ class SocialstreamController extends Controller
                 $createConnectedAccount = new CreateConnectedAccount();
                 $createConnectedAccount->create($u, $provider, $user);
             }
-        }
-        else {
+        } else {
             // Create a new user and connect the account
             User::create([
                 'name' => $user->getName(),
