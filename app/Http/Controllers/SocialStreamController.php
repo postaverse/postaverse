@@ -45,14 +45,14 @@ class SocialstreamController extends Controller
                 Auth::login($u, true);
                 return redirect()->intended('/home');
             } else {
-                if (Whitelisted::where('email', Socialite::driver($provider)->user()->getEmail())->first() == null) {
-                    return redirect()->route('login')->with('error', 'You are not whitelisted.');
-                }
                 // Create a new connected account
                 $createConnectedAccount = new CreateConnectedAccount();
                 $createConnectedAccount->create($u, $provider, $user);
             }
         } else {
+            if (Whitelisted::where('email', Socialite::driver($provider)->user()->getEmail())->first() == null) {
+                return redirect()->route('login')->with('error', 'You are not whitelisted.');
+            }
             // Create a new user and connect the account
             User::create([
                 'name' => $user->getName(),

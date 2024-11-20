@@ -74,7 +74,7 @@
                 </div>
                 <ul class="text-gray-400 text-sm space-y-2 text-center">
                     <li>
-                        <a href="/@9" class="hover:text-gray-300">Liv - Mascot Creation</a>
+                        <a href="/@2" class="hover:text-gray-300">Liv - Mascot Creation</a>
                     </li>
                     <li>
                         <a href="/@14" class="hover:text-gray-300">Calvare - Outro Creation</a>
