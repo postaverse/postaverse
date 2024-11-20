@@ -14,6 +14,7 @@ class AdminDashboard extends Component
     public $reason;
     public $uid;
     public $admin_id;
+    public $admin_rank;
 
     public function admins()
     {
