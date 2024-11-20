@@ -67,6 +67,21 @@ class AdminDashboard extends Component
         }
     }
 
+    public function addAdmin($id)
+    {
+        $user = User::find($id);
+
+        if ($user) {
+            $user->admin_rank = 1;
+            $user->save();
+            session()->flash('addadminmessage', 'Admin added successfully.');
+            AdminLogs::create([
+                'admin_id' => auth()->user()->id,
+                'action' => 'Added admin ' . $user->username,
+            ]);
+        }
+    }
+
     public function render()
     {
         if (!auth()->user()->badges->contains(1)) {

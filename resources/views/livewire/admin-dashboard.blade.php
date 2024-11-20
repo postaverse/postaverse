@@ -116,6 +116,47 @@
             </div>
         @endif
 
+        <!-- Add Admin: R4 -->
+        @if (auth()->user()->admin_rank == 4)
+            <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
+                <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+                    <h1 class="text-4xl font-bold text-white pb-1">Add Admin</h1>
+                    <hr class="p-1">
+                    <form wire:submit.prevent="addAdmin">
+                        <div class="fixed-height-alert">
+                            @if (session()->has('addmessage'))
+                                <div class="text-green-700 px-4 py-3 rounded relative" role="alert">
+                                    <strong class="font-bold">Success!</strong>
+                                    <span class="block sm:inline">{{ session('addmessage') }}</span>
+                                </div>
+                            @else
+                                <div class="text-red-700 px-4 py-4 rounded relative" role="alert">
+                                </div>
+                            @endif
+                        </div>
+                        <div class="flex flex-col items-center justify-center">
+                            <x-label for="admin_id" :value="__('Admin ID')" />
+                            <x-input id="admin_id" class="block mt-1 max-w-lg" type="text" name="admin_id"
+                                wire:model="admin_id" required />
+                            @error('admin_id')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                            <br>
+                            <x-label for="admin_rank" :value="__('Admin Rank')" />
+                            <x-input id="admin_rank" class="block mt-1 max-w-lg" type="text" name="admin_rank"
+                                wire:model="admin_rank" required />
+                            @error('admin_rank')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                            <x-button class="mt-4">
+                                {{ __('Add Admin') }}
+                            </x-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        @endif
+
         <!-- Logs: R3, R4 -->
         <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
             <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
