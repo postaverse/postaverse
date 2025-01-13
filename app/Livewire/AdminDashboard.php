@@ -8,7 +8,6 @@ use App\Models\Badge;
 use App\Models\Banned;
 use App\Models\AdminLogs;
 use App\Models\Whitelisted;
-use App\Models\Report;
 
 class AdminDashboard extends Component
 {
@@ -18,7 +17,7 @@ class AdminDashboard extends Component
     public $admin_id;
     public $admin_rank;
     public $email;
-    public $confirmBan = false; // Pe716
+    public $confirmBan = false;
 
     public function admins()
     {
@@ -121,17 +120,19 @@ class AdminDashboard extends Component
 
     public function reportUser($userId, $reason)
     {
-        $report = Report::create([
-            'user_id' => $userId,
-            'reported_by' => auth()->user()->id,
-            'reason' => $reason,
-            'status' => 'pending',
-        ]);
-
-        session()->flash('reportmessage', 'User reported successfully.');
+        // Logic to report a user
         AdminLogs::create([
             'admin_id' => auth()->user()->id,
-            'action' => 'Reported user ' . $userId,
+            'action' => 'Reported user ' . $userId . ' for ' . $reason,
+        ]);
+    }
+
+    public function reportPost($postId, $reason)
+    {
+        // Logic to report a post
+        AdminLogs::create([
+            'admin_id' => auth()->user()->id,
+            'action' => 'Reported post ' . $postId . ' for ' . $reason,
         ]);
     }
 
@@ -149,7 +150,7 @@ class AdminDashboard extends Component
             return view('livewire.admin-dashboard', [
                 'admins' => $this->admins(),
                 'logs' => $logs,
-                'confirmBan' => $this->confirmBan, // P8461
+                'confirmBan' => $this->confirmBan,
             ])->layout('layouts.app');
         } else {
             return abort(403, 'You are not authorized to view this page.');
