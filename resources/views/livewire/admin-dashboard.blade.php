@@ -52,7 +52,7 @@
                 <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
                     <h1 class="text-4xl font-bold text-white pb-1">Ban User</h1>
                     <hr class="p-1">
-                    <form wire:submit.prevent="banUser">
+                    <form wire:submit.prevent="confirmBanUser">
                         <div class="fixed-height-alert">
                             @if (session()->has('banmessage'))
                                 <div class="text-green-700 px-4 py-3 rounded relative" role="alert">
@@ -76,6 +76,13 @@
                             <x-textarea id="reason" class="block mt-1" type="text" name="reason"
                                 wire:model="reason" required />
                             @error('reason')
+                                <span class="error">{{ $message }}</span>
+                            @enderror
+                            <br>
+                            <x-label for="confirmBan" :value="__('Confirm Ban')" />
+                            <x-checkbox id="confirmBan" class="block mt-1" name="confirmBan"
+                                wire:model="confirmBan" />
+                            @error('confirmBan')
                                 <span class="error">{{ $message }}</span>
                             @enderror
                             <x-button class="mt-4">
