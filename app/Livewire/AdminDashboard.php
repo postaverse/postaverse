@@ -17,6 +17,7 @@ class AdminDashboard extends Component
     public $admin_id;
     public $admin_rank;
     public $email;
+    public $confirmBan = false;
 
     public function admins()
     {
@@ -50,8 +51,19 @@ class AdminDashboard extends Component
         }
     }
 
+    public function confirmBanUser()
+    {
+        $this->confirmBan = true;
+        $this->banUser();
+    }
+
     public function banUser()
     {
+        if (!$this->confirmBan) {
+            session()->flash('banmessage', 'Please confirm the ban action.');
+            return;
+        }
+
         $user = User::find($this->user_id);
 
         if ($user) {
@@ -63,7 +75,7 @@ class AdminDashboard extends Component
                 'admin_id' => auth()->user()->id,
                 'action' => 'Banned user ' . $user->username,
             ]);
-            $this->reset('user_id', 'reason');
+            $this->reset('user_id', 'reason', 'confirmBan');
         } else {
             return abort(404, 'User not found.');
         }
@@ -106,6 +118,24 @@ class AdminDashboard extends Component
         }
     }
 
+    public function reportUser($userId, $reason)
+    {
+        // Logic to report a user
+        AdminLogs::create([
+            'admin_id' => auth()->user()->id,
+            'action' => 'Reported user ' . $userId . ' for ' . $reason,
+        ]);
+    }
+
+    public function reportPost($postId, $reason)
+    {
+        // Logic to report a post
+        AdminLogs::create([
+            'admin_id' => auth()->user()->id,
+            'action' => 'Reported post ' . $postId . ' for ' . $reason,
+        ]);
+    }
+
     public function render()
     {
         if (!auth()->user()->badges->contains(1)) {
@@ -120,6 +150,7 @@ class AdminDashboard extends Component
             return view('livewire.admin-dashboard', [
                 'admins' => $this->admins(),
                 'logs' => $logs,
+                'confirmBan' => $this->confirmBan,
             ])->layout('layouts.app');
         } else {
             return abort(403, 'You are not authorized to view this page.');

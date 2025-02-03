@@ -93,3 +93,40 @@
         {{ $posts->links() }}
     </div>
 </div>
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 main w-full">
+    <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+        <h1 class="text-4xl font-bold text-white pb-1">Report User</h1>
+        <hr class="p-1">
+        <form wire:submit.prevent="reportUser">
+            <div class="fixed-height-alert">
+                @if (session()->has('reportusermessage'))
+                    <div class="text-green-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">Success!</strong>
+                        <span class="block sm:inline">{{ session('reportusermessage') }}</span>
+                    </div>
+                @else
+                    <div class="text-red-700 px-4 py-4 rounded relative" role="alert">
+                    </div>
+                @endif
+            </div>
+            <div class="flex flex-col items-center justify-center">
+                <x-label for="report_user_id" :value="__('User ID')" />
+                <x-input id="report_user_id" class="block mt-1 max-w-lg" type="text" name="report_user_id"
+                    wire:model="report_user_id" required />
+                @error('report_user_id')
+                    <span class="error">{{ $message }}</span>
+                @enderror
+                <br>
+                <x-label for="report_reason" :value="__('Reason')" />
+                <x-textarea id="report_reason" class="block mt-1" type="text" name="report_reason"
+                    wire:model="report_reason" required />
+                @error('report_reason')
+                    <span class="error">{{ $message }}</span>
+                @enderror
+                <x-button class="mt-4">
+                    {{ __('Report User') }}
+                </x-button>
+            </div>
+        </form>
+    </div>
+</div>
