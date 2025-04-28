@@ -13,13 +13,6 @@
                             </a>
                         </div>
 
-                        <!-- Meteor Image and Count -->
-                        <div class="pl-5 flex items-center shrink-0">
-                            <img src="{{ asset('images/icons/meteor.png') }}" alt="Meteor" class="w-8 h-8">
-                            <span
-                                class="text-white text-lg font-bold pl-2">{{ auth()->user()->meteorQuantity->quantity }}</span>
-                        </div>
-
                         <!-- Navigation Links -->
                         <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                             <!-- Home Link -->
@@ -41,12 +34,6 @@
                                     @endif
                                 </div>
                                 <span>{{ __('Feed') }}</span>
-                            </x-nav-link>
-                            <!-- Shop Link -->
-                            <x-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')"
-                                class="flex flex-col items-center">
-                                <img src="{{ asset('images/icons/nav/shop.png') }}" alt="Shop" class="w-9 h-9">
-                                <span>{{ __('Shop') }}</span>
                             </x-nav-link>
                             <!-- Blogs Link -->
                             <x-nav-link href="{{ route('blogs') }}" :active="request()->routeIs('blogs')"
@@ -239,12 +226,6 @@
                             @endif
                         </div>
                         <span>{{ __('Feed') }}</span>
-                    </x-responsive-nav-link>
-                    <!-- Shop Link -->
-                    <x-responsive-nav-link href="{{ route('shop') }}" :active="request()->routeIs('shop')"
-                        class="flex items-center space-x-2">
-                        <img src="{{ asset('images/icons/nav/shop.png') }}" alt="Shop" class="w-10 h-10">
-                        <span>{{ __('Shop') }}</span>
                     </x-responsive-nav-link>
                     <!-- Blogs Link -->
                     <x-responsive-nav-link href="{{ route('blogs') }}" :active="request()->routeIs('blogs')"
