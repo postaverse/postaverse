@@ -10,6 +10,7 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 use App\Models\Whitelisted;
+use Illuminate\Support\Facades\Config;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -22,11 +23,16 @@ class CreateNewUser implements CreatesNewUsers
      */
     public function create(array $input): User
     {   
-        if (Whitelisted::where('email', $input['email'])->first() == null) {
-            throw ValidationException::withMessages([
-                'email' => ['You are not whitelisted.'],
-            ]);
+        // Check if whitelisting is enabled
+        if (Config::get('whitelisting.enabled', false)) {
+            // Only perform whitelisting check if the feature is enabled
+            if (Whitelisted::where('email', $input['email'])->first() == null) {
+                throw ValidationException::withMessages([
+                    'email' => ['You are not whitelisted.'],
+                ]);
+            }
         }
+        
         $correctEmoji = session('correct_emoji');
 
         Validator::make($input, [

@@ -63,8 +63,6 @@
                     <li>Community Driven: Engage with a community that values genuine interactions and connections.</li>
                     <li>Zero Algorithm: No algorithms means no manipulation. See content from the people you follow, in
                         order.</li>
-                    <li>Currency and Shop: Earn meteors by coming back everyday. Spend meteors in the shop to customize
-                        your profile.</li>
                 </ul>
                 <h2 class="text-2xl font-bold text-white mb-4">
                     Join Us:
