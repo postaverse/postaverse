@@ -44,7 +44,8 @@
                     In mid-December 2023, Zander completed CS50x and learned how to create websites using Python.
                     Postaverse was launched on January 4, 2024, built entirely from scratch. Due to hosting issues, the
                     platform was temporarily taken down in mid-February. On August 7, 2024, Postaverse was relaunched in
-                    its development phase as version 2, utilizing PHP and the Laravel framework.
+                    its development phase as version 2, utilizing PHP and the Laravel framework. On April 28, 2025, development
+                    for version 3 began, introducing a new design, features, and a more user-friendly experience.
                 </p>
                 <h2 class="text-2xl font-bold text-white mb-4">
                     Our Mission:
