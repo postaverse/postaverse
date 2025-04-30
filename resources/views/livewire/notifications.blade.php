@@ -9,8 +9,6 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Header with actions -->
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-                <h1 class="text-2xl font-bold text-white">Your Notifications</h1>
-                
                 <!-- Bulk Actions -->
                 @if(!$notifications->isEmpty())
                     <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
