@@ -20,6 +20,10 @@ class BlogPage extends Component
     public $content = '';
     public $user;
     public ?Collection $images = null;
+    
+    // New properties for reply functionality
+    public $replyingTo = null;
+    public $replyContent = '';
 
     public function mount($blogId)
     {
@@ -38,8 +42,88 @@ class BlogPage extends Component
             ->where('id', $blogId)
             ->firstOrFail();
             
-        $this->comments = $this->blog->comments()->whereNotIn('user_id', $blockedUsers)->get();
+        // Load comments with nested replies of any depth
+        $this->comments = $this->blog->comments()
+            ->with(['user', 'replies.user', 'replies.replies.user', 'replies.replies.replies.user'])
+            ->whereNull('parent_id') // Only root comments
+            ->whereNotIn('user_id', $blockedUsers)
+            ->orderBy('created_at', 'desc')
+            ->get();
+            
         $this->images = $this->blog->images;
+    }
+    
+    // Start replying to a comment
+    public function startReply($commentId)
+    {
+        $this->replyingTo = $commentId;
+        $this->replyContent = '';
+    }
+
+    // Cancel replying
+    public function cancelReply()
+    {
+        $this->replyingTo = null;
+        $this->replyContent = '';
+    }
+
+    // Submit a reply to a comment
+    public function submitReply()
+    {
+        $this->validate([
+            'replyContent' => 'required|max:1024',
+        ]);
+
+        // Find the parent comment
+        $parentComment = BlogComment::findOrFail($this->replyingTo);
+        
+        $profanityChecker = new Profanity();
+        $hasProfanity = $profanityChecker->hasProfanity($this->replyContent);
+
+        // Create the reply comment
+        $reply = $this->user->blogComments()->create([
+            'content' => $this->replyContent,
+            'blog_id' => $this->blog->id,
+            'parent_id' => $this->replyingTo,
+            'user_id' => $this->user->id,
+            'has_profanity' => $hasProfanity,
+        ]);
+
+        // Send notification to the parent comment author
+        if ($parentComment->user_id != $this->user->id) {
+            Notification::create([
+                'user_id' => $parentComment->user_id,
+                'message' => $this->user->name . ' replied to your comment',
+                'link' => route('blog', ['blogId' => $this->blog->id]),
+            ]);
+        }
+
+        // Notify mentioned users
+        $mentionedUsers = $this->getMentionedUsers($this->replyContent);
+        
+        foreach ($mentionedUsers as $mentionedUser) {
+            if ($mentionedUser->id != $parentComment->user_id && $mentionedUser->id != $this->user->id) {
+                Notification::create([
+                    'user_id' => $mentionedUser->id,
+                    'message' => $this->user->name . ' mentioned you in a comment reply',
+                    'link' => route('blog', ['blogId' => $this->blog->id]),
+                ]);
+            }
+        }
+
+        // Reset reply state
+        $this->replyingTo = null;
+        $this->replyContent = '';
+
+        // Refresh comments
+        $this->comments = $this->blog->comments()
+            ->with('replies.user')
+            ->whereNull('parent_id')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Dispatch an event to reset the form
+        $this->dispatch('replyAdded');
     }
 
     public function likeBlog($blogId)
@@ -102,20 +186,7 @@ class BlogPage extends Component
             'has_profanity' => $hasProfanity,
         ]);
 
-        $this->comments = BlogComment::where('blog_id', $this->blog->id)->orderBy('created_at', 'desc')->get();
-
-        // Notify people mentioned in the comment
-        $mentionedUsers = $this->getMentionedUsers($this->content);
-
-        foreach ($mentionedUsers as $mentionedUser) {
-            Notification::create([
-                'user_id' => $mentionedUser->id,
-                'message' => $this->user->name . ' mentioned you in a blog comment',
-                'link' => route('blog', ['blogId' => $this->blog->id]),
-            ]);
-        }
-        
-        // Also notify the blog author if they're not the comment author
+        // Notify blog author if they're not the comment author
         if ($this->blog->user_id != $this->user->id) {
             Notification::create([
                 'user_id' => $this->blog->user_id,
@@ -123,8 +194,31 @@ class BlogPage extends Component
                 'link' => route('blog', ['blogId' => $this->blog->id]),
             ]);
         }
+
+        // Refresh comments
+        $this->comments = $this->blog->comments()
+            ->with('replies.user')
+            ->whereNull('parent_id')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Notify people mentioned in the comment
+        $mentionedUsers = $this->getMentionedUsers($this->content);
+
+        foreach ($mentionedUsers as $mentionedUser) {
+            if ($mentionedUser->id != $this->blog->user_id && $mentionedUser->id != $this->user->id) {
+                Notification::create([
+                    'user_id' => $mentionedUser->id,
+                    'message' => $this->user->name . ' mentioned you in a blog comment',
+                    'link' => route('blog', ['blogId' => $this->blog->id]),
+                ]);
+            }
+        }
         
         $this->reset('content');
+        
+        // Dispatch an event to reset the form
+        $this->dispatch('commentAdded');
     }
 
     public function deleteComment(int $commentId)
@@ -136,7 +230,13 @@ class BlogPage extends Component
         
         if (auth()->check() && ($comment->user_id == auth()->id() || $this->blog->user_id == auth()->id() || auth()->user()->admin_rank > 2)) {
             $comment->delete();
-            $this->comments = BlogComment::where('blog_id', $this->blog->id)->orderBy('created_at', 'desc')->get();
+            
+            // Refresh comments with the updated structure
+            $this->comments = $this->blog->comments()
+                ->with('replies.user')
+                ->whereNull('parent_id')
+                ->orderBy('created_at', 'desc')
+                ->get();
         }
     }
 
@@ -162,8 +262,19 @@ class BlogPage extends Component
     public function render()
     {
         $blogContent = $this->convertMentionsToLinks(Str::markdown($this->blog->content));
+        
+        // Process comment content including replies
         $comments = $this->comments->map(function ($comment) {
             $comment->content = $this->convertMentionsToLinks(Str::markdown($comment->content));
+            
+            // Process replies content
+            if ($comment->replies && $comment->replies->count() > 0) {
+                $comment->replies->map(function ($reply) {
+                    $reply->content = $this->convertMentionsToLinks(Str::markdown($reply->content));
+                    return $reply;
+                });
+            }
+            
             return $comment;
         });
 
