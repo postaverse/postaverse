@@ -148,13 +148,13 @@
                                         @if($rank == 1)
                                             View dashboard, manage reports, view logs, delete comments
                                         @elseif($rank == 2)
-                                            All previous + temp bans, manage users, delete posts
+                                            All previous + manage users, delete posts
                                         @elseif($rank == 3)
-                                            All previous + permanent bans, unbans, manage badges
+                                            All previous + permanent bans, unbans
                                         @elseif($rank == 4)
-                                            All previous + whitelist emails, manage admins
+                                            All previous + whitelist emails, manage admins + blog posting
                                         @elseif($rank == 5)
-                                            All previous + modify system
+                                            All previous + overlord status
                                         @endif
                                     </td>
                                 </tr>
