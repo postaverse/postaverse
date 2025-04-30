@@ -6,10 +6,11 @@
                 <img src="{{ $blog->user->profile_photo_url }}" alt="{{ $blog->user->name }}'s profile photo"
                     class="w-10 h-10 rounded-full ring-2 ring-indigo-500/30">
                 <div>
-                    <h2 class="text-sm font-bold text-white">
+                    <h2 class="text-sm font-bold text-white flex items-center">
                         <a href="{{ route('user-profile', $blog->user->id) }}" class="hover:text-indigo-400 transition-colors">
                             {{ $blog->user->name }}
                         </a>
+                        <x-admin-tag :user="$blog->user" />
                     </h2>
                     <span class="text-xs text-gray-400">{{ $blog->created_at->diffForHumans() }}</span>
                 </div>

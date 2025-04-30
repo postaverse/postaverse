@@ -20,7 +20,10 @@
                         
                         <!-- Profile Details -->
                         <div class="flex-1 text-center md:text-left">
-                            <h1 class="text-3xl font-bold text-white mb-2">{{ $user->name }}</h1>
+                            <h1 class="text-3xl font-bold text-white mb-2 flex items-center">
+                                {{ $user->name }}
+                                <x-admin-tag :user="$user" />
+                            </h1>
                             
                             @if ($site)
                                 <div class="text-indigo-400 mb-4">{!! $site !!}</div>

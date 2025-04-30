@@ -54,10 +54,11 @@
                             <div wire:key="{{ $user->id }}" class="bg-gray-800/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-sm p-4 flex items-center hover:border-white/30 transition-colors duration-200">
                                 <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}'s profile photo" class="w-12 h-12 rounded-full">
                                 <div class="ml-4">
-                                    <h4 class="font-bold text-white">
+                                    <h4 class="font-bold text-white flex items-center">
                                         <a href="{{ route('user-profile', $user->id) }}" class="hover:text-indigo-400 transition-colors duration-200">
                                             {{ $user->name }}
                                         </a>
+                                        <x-admin-tag :user="$user" />
                                     </h4>
                                     <p class="text-sm text-gray-400">User ID: {{ $user->id }}</p>
                                 </div>
