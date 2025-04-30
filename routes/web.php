@@ -31,7 +31,7 @@ Route::middleware([CheckIfBanned::class])->group(function () {
         if (auth()->check()) {
             return view('home');
         }
-        return redirect()->route('welcome');
+        return view('welcome');
     })->name('home');
     
     Route::get('/@{handle}', Profile::class)->name('user-profile');
