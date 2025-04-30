@@ -162,9 +162,19 @@ class User extends Authenticatable
         return $this->sites->contains('is_verified', true);
     }
 
-    public function blogs()
+    public function blogs(): HasMany
     {
         return $this->hasMany(Blog::class);
+    }
+
+    public function blogLikes(): HasMany
+    {
+        return $this->hasMany(BlogLike::class);
+    }
+
+    public function blogComments(): HasMany
+    {
+        return $this->hasMany(BlogComment::class);
     }
 
     public function bans()

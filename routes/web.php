@@ -8,6 +8,7 @@ use App\Livewire\Settings;
 use App\Livewire\Search;
 use App\Livewire\AdminDashboard;
 use App\Livewire\Blogs;
+use App\Livewire\BlogPage;
 use App\Livewire\PostPage;
 use App\Livewire\Banned;
 use App\Http\Middleware\CheckIfBanned;
@@ -36,6 +37,7 @@ Route::middleware([CheckIfBanned::class])->group(function () {
     Route::get('/@{handle}', Profile::class)->name('user-profile');
     Route::get('/search', Search::class)->name('search');
     Route::get('/post/{postId}', PostPage::class)->name('post');
+    Route::get('/blog/{blogId}', BlogPage::class)->name('blog');
 });
 
 Route::get('/home', function () {
@@ -59,6 +61,7 @@ Route::middleware([
     // User content routes with banned check
     Route::middleware([CheckIfBanned::class])->group(function () {
         Route::get('/feed', Feed::class)->name('feed');
+        Route::get('/notifications', \App\Livewire\Notifications::class)->name('notifications');
     });
     
     Route::get('/settings', [Settings::class, 'show'])->name('settings.show');

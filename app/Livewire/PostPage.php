@@ -69,7 +69,7 @@ class PostPage extends Component
     public function submit()
     {
         $this->validate([
-            'content' => 'required|max:500',
+            'content' => 'required|max:1024',
         ]);
 
         $profanityChecker = new Profanity();
