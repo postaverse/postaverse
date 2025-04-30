@@ -64,8 +64,8 @@ class CreatePost extends Component
         }
 
         $this->validate([
-            'title' => 'required|max:100',
-            'content' => 'required|max:500',
+            'title' => 'required|max:128',
+            'content' => 'required|max:2048',
             'photos.*' => 'image|max:5000', // 5MB Max
         ]);
 

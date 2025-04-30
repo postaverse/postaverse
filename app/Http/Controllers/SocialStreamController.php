@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use App\Models\ConnectedAccount;
+use App\Models\Whitelisted;
+use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\Actions\Socialstream\CreateConnectedAccount;
-use JoelButcher\Socialstream\ConnectedAccount;
-use App\Models\Whitelisted;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 
-class SocialstreamController extends Controller
+class SocialStreamController extends Controller
 {
     public function redirectToProvider($provider)
     {
@@ -19,7 +20,11 @@ class SocialstreamController extends Controller
 
     public function handleProviderCallback($provider)
     {
-        $user = Socialite::driver($provider)->user();
+        try {
+            $user = Socialite::driver($provider)->user();
+        } catch (\Exception $e) {
+            return redirect('/login');
+        }
 
         // First, check if the user is logged in
         $liu = Auth::user();
@@ -49,9 +54,14 @@ class SocialstreamController extends Controller
                 $createConnectedAccount->create($u, $provider, $user);
             }
         } else {
-            if (Whitelisted::where('email', Socialite::driver($provider)->user()->getEmail())->first() == null) {
-                return redirect()->route('login')->with('error', 'You are not whitelisted.');
+            // Check if whitelisting is enabled
+            if (Config::get('whitelisting.enabled', false)) {
+                // Only check whitelist if the feature is enabled
+                if (Whitelisted::where('email', Socialite::driver($provider)->user()->getEmail())->first() == null) {
+                    return redirect()->route('login')->with('error', 'You are not whitelisted.');
+                }
             }
+            
             // Create a new user and connect the account
             User::create([
                 'name' => $user->getName(),

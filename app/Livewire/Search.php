@@ -7,11 +7,8 @@ use App\Models\User;
 use App\Models\Post;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\Http;
-use App\Livewire\Profanity;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\DeleteController;
-use Parsedown;
 
 class Search extends Component
 {
@@ -38,17 +35,6 @@ class Search extends Component
 
     public function render()
     {
-        $insult = ''; // Initialize an empty insult string
-
-        if ($this->query === '??ramsay??') {
-            $response = Http::get('https://api.zanderlewis.dev/ramsay_insult.php');
-
-            if ($response->successful()) {
-                $data = $response->json();
-                $insult = $data['insult']; // Store the insult from the API response
-            }
-        }
-
         // Regular search logic
         $users = User::where('name', 'LIKE', "%{$this->query}%")->orderByDesc('id')->paginate(5);
         $posts = Post::where('title', 'LIKE', "%{$this->query}%")
@@ -56,7 +42,6 @@ class Search extends Component
             ->orderByDesc('id')
             ->paginate(5);
 
-        // Pass the insult along with users and posts to the view
-        return view('livewire.search', compact('users', 'posts', 'insult'))->layout('layouts.app');
+        return view('livewire.search', compact('users', 'posts'))->layout('layouts.app');
     }
 }

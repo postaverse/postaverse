@@ -1,36 +1,21 @@
 <div>
-    {{--
-    <div class="flex items-center justify-center mb-6">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7453651531634667"
-            crossorigin="anonymous"></script>
-        <!-- Horizontal - Posts -->
-        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
-            data-ad-client="ca-pub-7453651531634667" data-ad-slot="7105644688"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-    --}}
-    @foreach ($posts as $post)
-        <x-post :post="$post" />
-    @endforeach
-
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-        {{ $posts->links() }}
-    </div>
+        <h2 class="text-xl font-bold text-white mb-4">Recent Posts</h2>
 
-    {{--
-    <div class="flex items-center justify-center">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7453651531634667"
-            crossorigin="anonymous"></script>
-        <!-- Horizontal - Posts -->
-        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px"
-            data-ad-client="ca-pub-7453651531634667" data-ad-slot="7105644688"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        @if ($posts->isEmpty())
+            <x-empty-state title="No posts found" />
+        @else
+            @foreach ($posts as $post)
+                <div class="mb-6">
+                    <x-post :post="$post" />
+                </div>
+            @endforeach
+
+            <div class="mt-6">
+                {{ $posts->links() }}
+            </div>
+        @endif
     </div>
-    --}}
 
     <script>
         document.querySelectorAll('.likeButton').forEach(button => {
