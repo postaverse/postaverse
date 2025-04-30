@@ -76,7 +76,14 @@ class PostPage extends Component
         ]);
 
         // Find the parent comment
-        $parentComment = Comment::findOrFail($this->replyingTo);
+        $parentComment = Comment::find($this->replyingTo);
+        
+        // If parent comment doesn't exist, treat as a top-level comment
+        if (!$parentComment) {
+            $this->content = $this->replyContent;
+            $this->submit();
+            return;
+        }
         
         $profanityChecker = new Profanity();
         $hasProfanity = $profanityChecker->hasProfanity($this->replyContent);

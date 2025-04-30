@@ -75,7 +75,14 @@ class BlogPage extends Component
         ]);
 
         // Find the parent comment
-        $parentComment = BlogComment::findOrFail($this->replyingTo);
+        $parentComment = BlogComment::find($this->replyingTo);
+        
+        // If parent comment doesn't exist, treat as a top-level comment
+        if (!$parentComment) {
+            $this->content = $this->replyContent;
+            $this->submit();
+            return;
+        }
         
         $profanityChecker = new Profanity();
         $hasProfanity = $profanityChecker->hasProfanity($this->replyContent);
