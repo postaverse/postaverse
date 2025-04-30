@@ -9,7 +9,7 @@
 
     <div class="py-12 main">
         @if (auth()->user())
-            @if ($user->admin_rank == 4)
+            @if ($user->admin_rank >= 4)
                 <livewire:create-blog />
             @endif
         @endif
