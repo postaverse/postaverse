@@ -1,5 +1,5 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6" wire:key="{{ $post->id }}">
-    <div class="bg-gray-800 border border-gray-700 rounded-lg shadow-md p-4 flex">
+    <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 rounded-lg shadow-sm p-4 flex hover:border-white/30 transition-colors duration-200">
         <!-- Post Content -->
         <div class="flex-1">
             <div class="flex items-center space-x-4 mb-2">
@@ -10,9 +10,6 @@
                         {{ $post->user->name }}
                     </a>
                 </h2>
-                @if ($post->user->isSiteVerified())
-                    <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" class="w-4 h-4">
-                @endif
                 <span class="text-xs text-gray-400">{{ $post->created_at->diffForHumans() }}</span>
             </div>
 

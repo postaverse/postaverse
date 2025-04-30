@@ -37,7 +37,7 @@
             <div class="col-span-6 sm:col-span-4">
                 <x-label value="{{ __('Instructions') }}" />
                 <p class="mt-1 text-sm text-gray-600">
-                    {{ __('Please add the following meta tag to your website\'s <code>&lt;head&gt;</code> section:') }}
+                    {{ __('Please add the following meta tag to your website\'s <head></head> tags:') }}
                 </p>
                 <p class="bg-gray-100 p-2 rounded text-black" style="word-break: break-all;">
                     <code>&lt;meta name="postaverse-web-verification" content="{{ $verificationCode }}"&gt;</code>

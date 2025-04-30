@@ -1,65 +1,79 @@
 document.addEventListener('DOMContentLoaded', function () {
     function createStars(id, count) {
+        const starsContainer = document.getElementById(id);
+        if (!starsContainer) return;
+        
         for (let i = 0; i < count; i++) {
             let star = document.createElement('div');
             star.className = 'star';
             star.style.top = Math.random() * window.innerHeight + 'px';
             star.style.left = Math.random() * window.innerWidth + 'px';
-            let size = Math.random() * 3; // Change this value to adjust the range of sizes
+            
+            // Create varying star sizes with a bias toward smaller stars
+            let sizeRand = Math.random();
+            let size;
+            
+            if (sizeRand > 0.97) {
+                // 3% chance of larger stars (shooting stars)
+                size = 3 + Math.random() * 1;
+                star.classList.add('shooting-star');
+            } else if (sizeRand > 0.85) {
+                // 12% chance of medium stars
+                size = 1.5 + Math.random() * 1;
+            } else {
+                // 85% chance of small stars
+                size = 0.5 + Math.random() * 1;
+            }
+            
             star.style.width = `${size}px`;
             star.style.height = `${size}px`;
-            star.style.transform = `rotate(${Math.random() * 360}deg)`;
-            document.getElementById(id).appendChild(star);
+            
+            // Add a subtle color tint to some stars
+            if (Math.random() > 0.7) {
+                const hue = Math.random() > 0.5 ? '210' : Math.random() > 0.7 ? '45' : '0'; // Blue, yellow, or red tint
+                const saturation = 50 + Math.random() * 50;
+                star.style.backgroundColor = `hsla(${hue}, ${saturation}%, 95%, 1)`;
+                star.style.boxShadow = `0 0 ${size * 2}px hsla(${hue}, ${saturation}%, 80%, 0.8)`;
+            }
+            
+            starsContainer.appendChild(star);
         }
     }
 
-    createStars('stars', 400);
+    // Initialize stars
+    createStars('stars', 250);
 
+    // Configure star animation properties
     const stars = document.querySelectorAll('.star');
-
     stars.forEach(star => {
-        // Random duration between 0.5s and 2.5s
-        const duration = Math.random() * 2 + 0.5;
-        // Random delay up to 5s
+        // Randomize twinkle duration between 1s and 4s
+        const duration = Math.random() * 3 + 1;
+        // Random delay up to 5s for twinkling offset
         const delay = Math.random() * 5;
-
+        
         star.style.animationDuration = `${duration}s`;
         star.style.animationDelay = `-${delay}s`;
+        
+        // Add shooting star effect to larger stars
+        if (star.classList.contains('shooting-star') && Math.random() > 0.7) {
+            const shootingDuration = Math.random() * 3 + 4;
+            const shootingDelay = Math.random() * 10 + 5;
+            
+            // Apply a shooting star animation that runs occasionally
+            star.style.animation = `twinkle ${duration}s infinite, 
+                                  shooting-star ${shootingDuration}s linear ${shootingDelay}s infinite`;
+        }
     });
-    function createConfetti(id, count) {
-        const nope = true;
-        if (nope) {
-            return;
-        }
-        for (let i = 0; i < count; i++) {
-            let confettiPiece = document.createElement('div');
-            confettiPiece.className = 'confetti';
-            confettiPiece.style.top = `${-Math.random() * 20}px`; // Start above the screen
-            confettiPiece.style.left = `${Math.random() * window.innerWidth}px`;
-            confettiPiece.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`; // Random color
-            let size = Math.random() * 5 + 5; // Size between 5px and 10px
-            confettiPiece.style.width = `${size}px`;
-            confettiPiece.style.height = `${size}px`;
-            confettiPiece.style.opacity = Math.random(); // Varying opacity
-            confettiPiece.style.transform = `rotate(${Math.random() * 360}deg)`;
-            document.getElementById(id).appendChild(confettiPiece);
-        }
-    }
-
-    let clickCount = 0;
-
-    document.body.addEventListener('click', function (event) {
-        // Check if the click is within the top left 5px by 5px area
-        if (event.clientX <= 5 && event.clientY <= 5) {
-            createConfetti('confetti-container', 25); // Adjust count as needed
-
-            // Animate each confetti piece
-            document.querySelectorAll('.confetti').forEach(confettiPiece => {
-                const duration = Math.random() * 3 + 2; // Duration between 2s and 5s
-                const delay = Math.random() * 5; // Delay up to 5s
-
-                confettiPiece.style.animation = `fall ${duration}s linear ${delay}s infinite`;
+    
+    // Handle responsive resizing - reposition stars on window resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function() {
+            stars.forEach(star => {
+                star.style.top = Math.random() * window.innerHeight + 'px';
+                star.style.left = Math.random() * window.innerWidth + 'px';
             });
-        }
+        }, 500);
     });
 });

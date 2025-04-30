@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\Site;
-use App\Models\Badge;
 use App\Models\User;
 
 class VerifyWebsite extends Component
@@ -57,16 +56,6 @@ class VerifyWebsite extends Component
         $this->isVerified = false;
     }
 
-    public function giveBadge($userId, $badgeId)
-    {
-        $user = User::find($userId);
-        $badge = Badge::find($badgeId);
-
-        if ($user && $badge) {
-            $user->badges()->attach($badge);
-        }
-    }
-
     public function verify()
     {
         // Retrieve the verification code from the session
@@ -83,11 +72,6 @@ class VerifyWebsite extends Component
             $this->site->domain = $this->domain;
             $this->site->save();
             Log::info('Site verification status updated', ['site' => $this->site]);
-            // Create a badge for the user
-            if (!$this->site->user->badges->contains(5)) {
-                $this->giveBadge(Auth::id(), 5);
-            }
-
         } else {
             Log::warning('Verification failed', ['domain' => $this->domain, 'verificationCode' => $this->verificationCode]);
         }

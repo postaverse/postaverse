@@ -19,7 +19,7 @@
         crossorigin="anonymous"></script>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
 
     <!-- Styles -->
     @livewireStyles
@@ -27,6 +27,11 @@
 
 <body>
     <div class="font-sans text-gray-100 antialiased">
+        <!-- Guest Navigation Bar -->
+        @guest
+            <x-guest-nav />
+        @endguest
+
         {{ $slot }}
     </div>
 

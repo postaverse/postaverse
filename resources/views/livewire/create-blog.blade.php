@@ -1,5 +1,5 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6" x-data="{ title: '', content: '' }">
-    <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+    <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 hover:border-white/30 transition-colors duration-200">
         <form wire:submit.prevent="submit">
             <div class="mb-4">
                 <x-label for="title" value="{{ __('Title') }}" />

@@ -1,14 +1,12 @@
 <div>
-    <br>
     <x-slot name="header" class="header">
         <h2 class="font-semibold text-xl text-gray-200 leading-tight">
             {{ __('Feed') }}
         </h2>
     </x-slot>
-    <br>
 
     <!-- Selector for Feed or Notifications -->
-    <div class="flex justify-center mb-4">
+    <div class="flex justify-center mb-4 mt-6">
         <button wire:click="setView('feed')"
             class="px-4 py-2 {{ $view === 'feed' ? 'bg-blue-500 text-white' : 'bg-gray-300' }} rounded-l-lg">
             Feed
@@ -20,7 +18,7 @@
     </div>
 
     @if ($view === 'notifications')
-        @if ($notifications->isEmpty())
+        @if (!isset($notifications) || $notifications->isEmpty())
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
                 <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
                     <h1 class="text-xl font-bold text-white">
@@ -51,7 +49,7 @@
             @endforeach
         @endif
     @else
-        @if ($posts->isEmpty())
+        @if (!isset($posts) || $posts->isEmpty())
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
                 <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
                     <h1 class="text-xl font-bold text-white">
@@ -68,9 +66,13 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
         @if ($view === 'feed')
-            {{ $posts->links() }}
+            @if (isset($posts))
+                {{ $posts->links() }}
+            @endif
         @else
-            {{ $notifications->links() }}
+            @if (isset($notifications))
+                {{ $notifications->links() }}
+            @endif
         @endif
     </div>
 </div>

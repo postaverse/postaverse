@@ -1,21 +1,17 @@
 <div>
-    <br>
     <x-slot name="header" class="header">
         <h2 class="font-semibold text-xl text-gray-200 leading-tight">
             {{ __('Admin Dashboard') }}
         </h2>
     </x-slot>
-    <div class="flex flex-col items-center justify-center main">
-        <br>
+    <div class="flex flex-col items-center justify-center main py-6 space-y-6">
         <h1 class="text-xl font-bold text-white">Welcome, {{ auth()->user()->name }}</h1>
-        <br>
         <p class="text-white">Rank: {{ auth()->user()->admin_rank }}</p>
-        <br>
         <a href="/pulse"><h3 class="text-lg font-bold text-white">Pulse Dashboard</h3></a>
-        <br>
+        
         <!-- List of admins -->
         <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+            <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 text-center hover:border-white/30 transition-colors duration-200">
                 <h1 class="text-4xl font-bold text-white pb-1">List of Admins</h1>
                 <hr class="p-1">
                 <div class="overflow-x-auto">
@@ -49,7 +45,7 @@
             <h1 class="text-4xl font-bold text-white pb-5">Rank 4</h1>
             <!-- Ban User: R4 -->
             <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-                <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+                <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 text-center hover:border-white/30 transition-colors duration-200">
                     <h1 class="text-4xl font-bold text-white pb-1">Ban User</h1>
                     <hr class="p-1">
                     <form wire:submit.prevent="banUser">
@@ -71,8 +67,7 @@
                             @error('user_id')
                                 <span class="error">{{ $message }}</span>
                             @enderror
-                            <br>
-                            <x-label for="reason" :value="__('Reason')" />
+                            <x-label for="reason" :value="__('Reason')" class="mt-4" />
                             <x-textarea id="reason" class="block mt-1" type="text" name="reason"
                                 wire:model="reason" required />
                             @error('reason')
@@ -88,7 +83,7 @@
 
             <!-- Unban User: R4 -->
             <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-                <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+                <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 text-center hover:border-white/30 transition-colors duration-200">
                     <h1 class="text-4xl font-bold text-white pb-1">Unban User</h1>
                     <hr class="p-1">
                     <form wire:submit.prevent="unbanUser">
@@ -119,7 +114,7 @@
         <!-- Add Whitelisted Email: R4 -->
         @if (auth()->user()->admin_rank == 4)
             <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-                <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+                <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 text-center hover:border-white/30 transition-colors duration-200">
                     <h1 class="text-4xl font-bold text-white pb-1">Add Whitelisted Email</h1>
                     <hr class="p-1">
                     <form wire:submit.prevent="addEmail">
@@ -153,7 +148,7 @@
         <!-- Add Admin: R4 -->
         @if (auth()->user()->admin_rank == 4)
             <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-                <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+                <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 text-center hover:border-white/30 transition-colors duration-200">
                     <h1 class="text-4xl font-bold text-white pb-1">Add Admin</h1>
                     <hr class="p-1">
                     <form wire:submit.prevent="addAdmin">
@@ -175,8 +170,7 @@
                             @error('admin_id')
                                 <span class="error">{{ $message }}</span>
                             @enderror
-                            <br>
-                            <x-label for="admin_rank" :value="__('Admin Rank')" />
+                            <x-label for="admin_rank" :value="__('Admin Rank')" class="mt-4" />
                             <x-input id="admin_rank" class="block mt-1 max-w-lg" type="text" name="admin_rank"
                                 wire:model="admin_rank" required />
                             @error('admin_rank')
@@ -193,7 +187,7 @@
 
         <!-- Logs: R3, R4 -->
         <div class="w-full max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 text-center">
+            <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 text-center hover:border-white/30 transition-colors duration-200">
                 <h1 class="text-4xl font-bold text-white pb-1">Logs</h1>
                 <hr class="p-1">
                 <div class="overflow-x-auto">

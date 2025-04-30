@@ -36,7 +36,7 @@ class CreateNewUser implements CreatesNewUsers
         $correctEmoji = session('correct_emoji');
 
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'handle' => ['required', 'string', 'max:30', 'alpha_dash', 'unique:users,handle'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
@@ -50,7 +50,7 @@ class CreateNewUser implements CreatesNewUsers
 
         return DB::transaction(function () use ($input) {
             return User::create([
-                'name' => $input['name'],
+                'handle' => $input['handle'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
             ]);

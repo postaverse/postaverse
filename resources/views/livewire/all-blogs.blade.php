@@ -1,16 +1,12 @@
-<div>
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
     @if ($blogs->isEmpty())
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
-                <h1 class="text-xl font-bold text-white">
-                    No blogs found.
-                </h1>
-            </div>
-        </div>
+        <x-empty-state title="No blogs found"
+            message="It seems like there are no blogs available at the moment. Please check back later." />
     @else
         @foreach ($blogs as $blog)
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6">
-                <div wire:key="{{ $blog->id }}" class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+                <div wire:key="{{ $blog->id }}"
+                    class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 hover:border-white/30 transition-colors duration-200">
                     <div class="flex items-center space-x-4">
                         <img src="{{ $blog->user->profile_photo_url }}" alt="{{ $blog->user->name }}'s profile photo"
                             class="w-10 h-10 rounded-full bg-gray-800">
@@ -19,10 +15,6 @@
                                 {{ $blog->user->name }}
                             </a>
                         </h2>
-                        @if ($blog->user->isSiteVerified())
-                            <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20"
-                                height="20">
-                        @endif
                     </div>
                     <h1 class="text-xl font-bold text-white">
                         {{ $blog->title }}

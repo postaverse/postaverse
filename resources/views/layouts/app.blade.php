@@ -19,14 +19,14 @@
         crossorigin="anonymous"></script>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css'])
 
     <!-- Styles -->
     @livewireStyles
 </head>
 
 <body class="font-sans antialiased">
-    <div class="bg-gray-800 shadow header">
+    <div class="bg-gray-800/10 backdrop-blur-sm border-b border-white/20 shadow header">
         <x-banner />
     </div>
 
@@ -37,7 +37,7 @@
 
         <!-- Page Heading -->
         @if (isset($header))
-            <header class="bg-gray-800 shadow header">
+            <header class="bg-gray-800/10 backdrop-blur-sm border-b border-white/20 shadow header" style="position: relative !important; z-index: 9999 !important;">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                     {{ $header }}
                 </div>
@@ -63,7 +63,7 @@
 
     @stack('modals')
 
-    <footer class="bg-gray-800">
+    <footer class="bg-gray-800/10 backdrop-blur-sm border-t border-white/20">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col items-center space-y-4">
                 <div class="text-gray-400 text-sm">

@@ -1,13 +1,12 @@
 <div>
-    <br>
     <x-slot name="header" class="header">
         <h2 class="font-semibold text-xl text-gray-200 leading-tight">
             {{ __('Post') }}
         </h2>
     </x-slot>
-    <div class="flex flex-col items-center justify-center main">
+    <div class="flex flex-col items-center justify-center main py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 main w-full">
-            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+            <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 hover:border-white/30 transition-colors duration-200">
                 <div class="flex items-center space-x-4">
                     <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->name }}'s profile photo"
                         class="w-10 h-10 rounded-full">
@@ -16,10 +15,6 @@
                             {{ $post->user->name }}
                         </a>
                     </h2>
-                    @if ($post->user->isSiteVerified())
-                        <img src="{{ asset('images/badges/verified.png') }}" alt="Verified" width="20"
-                            height="20">
-                    @endif
                 </div>
                 <h1 class="text-xl font-bold text-white">
                     {{ $post->title }}
@@ -54,12 +49,12 @@
                 @endif
             </div>
         </div>
-        <br>
+        
         @if (auth()->user())
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 main w-full">
                 @if ($post->likes->count() > 0)
                     <h2 class="text-2xl font-bold text-white pb-2 pl-2">Likes</h2>
-                    <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+                    <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 hover:border-white/30 transition-colors duration-200">
                         <div class="flex items-center space-x-4">
                             <button wire:click="likePost({{ $post->id }})" class="text-white" id="likeButton">
                                 @if (!$post->likes->contains('user_id', auth()->id()))
@@ -88,18 +83,18 @@
                         </div>
                     </div>
                 @endif
-                <span class="text-white" id="likeCount-{{ $post->id }}">{{ $post->likes->count() }} likes</span>
-                <br>
+                <span class="text-white block mt-2" id="likeCount-{{ $post->id }}">{{ $post->likes->count() }} likes</span>
         @endif
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 main w-full">
+        
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 main w-full mt-6">
             <h2 class="text-2xl font-bold text-white pb-2 pl-2">Comments</h2>
-            <div class="bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4">
+            <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-4 hover:border-white/30 transition-colors duration-200">
                 @if (auth()->user())
                     <div class="pb-3">
                         <form wire:submit.prevent="submit" class="max-w-7xl w-full">
                             <div class="mb-4 max-w-7xl w-full">
                                 <x-label for="comment" value="{{ __('Comment') }}" />
-                                <textarea id="comment" class="w-full p-2 rounded bg-gray-700 text-white" wire:model="content"
+                                <textarea id="comment" class="w-full p-2 rounded bg-gray-800/10 backdrop-blur-sm border border-white/20 text-white focus:border-white/30 focus:ring-2 focus:outline-none" wire:model="content"
                                     placeholder="Write your comment here..."></textarea>
                                 @error('content')
                                     <span class="error text-red-500">{{ $message }}</span>
@@ -121,7 +116,7 @@
                 <div>
                     @if ($comments)
                         @foreach ($comments as $comment)
-                            <div class="bg-gray-700 p-2 rounded mt-2">
+                            <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 rounded mt-2 p-2 hover:border-white/30 transition-colors duration-200">
                                 <div class="flex space-x-4">
                                     <img src="{{ $comment->user->profile_photo_url }}"
                                         alt="{{ $comment->user->name }}'s profile photo" class="w-8 h-8 rounded-full">
@@ -130,10 +125,6 @@
                                             {{ $comment->user->name }}
                                         </a>
                                     </h2>
-                                    @if ($comment->user->isSiteVerified())
-                                        <img src="{{ asset('images/badges/verified.png') }}" alt="Verified"
-                                            class="w-6 h-6">
-                                    @endif
                                 </div>
                                 @if ($comment->has_profanity)
                                     @if (auth()->user()->profanity_block_type == 'hide_clickable')
