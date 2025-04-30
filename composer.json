@@ -15,7 +15,7 @@
         "laravel/tinker": "^2.10",
         "league/flysystem-aws-s3-v3": "^3.29",
         "livewire/livewire": "^3.6",
-        "resend/resend-laravel": "^0.17.0",
+        "resend/resend-laravel": "^0.18.0",
         "socialiteproviders/discord": "^4.2",
         "socialiteproviders/reddit": "^4.1"
     },
