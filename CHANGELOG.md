@@ -46,3 +46,4 @@
 * New admin system
 * New admin panel
 * New account settings page
+* Admin tags
