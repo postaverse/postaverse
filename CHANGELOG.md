@@ -4,7 +4,7 @@
   - [v2.0.0](#v200)
     - [v2.0.0+](#v200-1)
   - [v3](#v3)
-    - [v3.0.0-alpha0](#v3000-alpha0)
+    - [v3.0.0-alpha0](#v300-alpha0)
 
 ## v2.0.0
 * Full Rewrite of Postaverse from Python's Flask to PHP's Laravel
@@ -29,6 +29,20 @@
 * Major restyle
 * Mobile friendly
 * User friendly user blocking
-* Navigation bar for non-logged in users
+* Guest navigation bar
 * New no posts/blogs found card
 * New search page
+* New landing page
+* New icons
+* Blogs act like posts
+* Higher content length in posts
+* Higher title length in posts/blogs
+* Blog pages
+* Blog liking
+* Blog commenting
+* New profile pages
+* Dedicated notification page
+* New notification system
+* New admin system
+* New admin panel
+* New account settings page

@@ -11,15 +11,26 @@ Artisan::command('inspire', function () {
 Artisan::command('add-admin', function () {
     // Prompt for user id
     $userId = $this->ask('Enter the user ID to add as admin');
-    // Attach the user to the admin role
+    
+    // Prompt for admin rank
+    $rank = $this->ask('Enter admin rank (0-5)');
+    
+    // Validate the rank
+    if (!is_numeric($rank) || $rank < 0 || $rank > 5) {
+        $this->error('Rank must be a number between 0 and 5.');
+        return;
+    }
+    
+    // Attach the user to the admin role with specified rank
     $user = User::find($userId);
     if ($user) {
-        User::where('id', $userId)->update(['admin_rank' => 4]);
-        $this->info("User with ID {$userId} has been added as admin.");
+        User::where('id', $userId)->update(['admin_rank' => $rank]);
+        $this->info("User with ID {$userId} has been added as admin with rank {$rank}.");
     } else {
         $this->error("User with ID {$userId} not found.");
     }
 })->purpose('Add a user as admin');
+
 Artisan::command('remove-admin', function () {
     // Prompt for user id
     $userId = $this->ask('Enter the user ID to remove from admin');
