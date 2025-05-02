@@ -48,7 +48,7 @@
             
             <!-- Notifications List -->
             @if($notifications->isEmpty())
-                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-8 text-center">
+                <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-8 text-center">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-500 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                     </svg>
@@ -73,9 +73,9 @@
                 
                 <div class="space-y-4">
                     @foreach($notifications as $notification)
-                        <div class="flex bg-gradient-to-br {{ !$notification->read_at ? 'from-indigo-900/20 to-gray-800/60 border-indigo-500/30' : 'from-gray-900/80 to-gray-800/60 border-white/10' }} backdrop-blur-xl border overflow-hidden shadow-lg sm:rounded-xl p-4 transition-colors hover:border-white/20">
+                        <div class="flex bg-linear-to-br {{ !$notification->read_at ? 'from-indigo-900/20 to-gray-800/60 border-indigo-500/30' : 'from-gray-900/80 to-gray-800/60 border-white/10' }} backdrop-blur-xl border overflow-hidden shadow-lg sm:rounded-xl p-4 transition-colors hover:border-white/20">
                             <!-- Checkbox -->
-                            <div class="flex-shrink-0 self-center mr-4">
+                            <div class="shrink-0 self-center mr-4">
                                 <input 
                                     type="checkbox" 
                                     value="{{ $notification->id }}" 
@@ -89,7 +89,7 @@
                                 <div class="flex justify-between items-start">
                                     <!-- User Info & Message -->
                                     <div class="flex space-x-4">
-                                        <a href="{{ route('user-profile', $notification->user->id) }}" class="flex-shrink-0">
+                                        <a href="{{ route('user-profile', $notification->user->id) }}" class="shrink-0">
                                             <img src="{{ $notification->user->profile_photo_url }}" 
                                                 alt="{{ $notification->user->name }}'s profile photo" 
                                                 class="w-12 h-12 rounded-full object-cover border-2 {{ !$notification->read_at ? 'border-indigo-500' : 'border-gray-700' }}">

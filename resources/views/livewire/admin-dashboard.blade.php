@@ -8,7 +8,7 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <!-- Admin Header with Stats -->
-            <div class="mb-8 bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+            <div class="mb-8 bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
                     <div>
                         <h1 class="text-2xl font-bold text-white">Welcome, {{ auth()->user()->name }}</h1>
@@ -117,7 +117,7 @@
             <div>
                 <!-- Overview Tab -->
                 @if ($activeTab === 'overview')
-                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+                <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                     <h2 class="text-2xl font-bold text-white mb-4">Admin Ranks & Permissions</h2>
                     <div class="overflow-x-auto">
                         <table class="w-full text-sm text-left text-gray-300">
@@ -170,7 +170,7 @@
                 @if ($activeTab === 'admins')
                 <div class="space-y-6">
                     <!-- List of admins -->
-                    <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+                    <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                         <h2 class="text-2xl font-bold text-white mb-4">Current Admin Team</h2>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm text-left text-gray-300">
@@ -219,7 +219,7 @@
                     
                     <!-- Add Admin (R4 only) -->
                     @if (auth()->user()->admin_rank >= 4)
-                    <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+                    <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                         <h2 class="text-2xl font-bold text-white mb-4">Add or Modify Admin</h2>
                         
                         @if (session()->has('addmessage'))
@@ -279,7 +279,7 @@
                 <div class="space-y-6">
                     <!-- Ban User (R3+) -->
                     @if (auth()->user()->admin_rank >= 3)
-                    <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+                    <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                         <h2 class="text-2xl font-bold text-white mb-4">Ban User</h2>
                         
                         @if (session()->has('banmessage'))
@@ -320,7 +320,7 @@
                     </div>
                     
                     <!-- Unban User (R3+) -->
-                    <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+                    <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                         <h2 class="text-2xl font-bold text-white mb-4">Unban User</h2>
                         
                         @if (session()->has('unbanmessage'))
@@ -351,7 +351,7 @@
                     </div>
                     
                     <!-- Banned Users List -->
-                    <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+                    <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                         <h2 class="text-2xl font-bold text-white mb-4">Banned Users</h2>
                         
                         @if($bannedUsers->count() > 0)
@@ -399,7 +399,7 @@
                 
                 <!-- Logs Tab -->
                 @if ($activeTab === 'logs')
-                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+                <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                     <div class="flex justify-between items-center mb-4">
                         <h2 class="text-2xl font-bold text-white">Admin Activity Logs</h2>
                         
@@ -442,7 +442,7 @@
                 
                 <!-- Whitelist Tab (R4+) -->
                 @if ($activeTab === 'whitelist' && auth()->user()->admin_rank >= 4 && config('whitelisting.enabled'))
-                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+                <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                     <h2 class="text-2xl font-bold text-white mb-4">Email Whitelist Management</h2>
                     
                     @if (session()->has('emailmessage'))

@@ -1,0 +1,123 @@
+#!/usr/bin/env php
+<?php
+# This script reads the contents of composer.json and package.json files,
+# and updates the dependencies to the latest versions.
+
+echo "Updating dependencies to latest versions...\n";
+
+// Update composer dependencies
+if (file_exists('composer.json')) {
+    echo "Updating composer dependencies...\n";
+    
+    $composerJson = json_decode(file_get_contents('composer.json'), true);
+    if ($composerJson === null) {
+        echo "Error: Invalid composer.json file\n";
+    } else {
+        // Create backup of the original file
+        file_put_contents('composer.json.backup', file_get_contents('composer.json'));
+        echo "Created backup at composer.json.backup\n";
+        
+        // Run composer outdated to get the latest versions
+        echo "Checking outdated packages...\n";
+        $outdatedOutput = shell_exec('composer outdated -D --format=json');
+        $outdatedPackages = json_decode($outdatedOutput, true);
+        
+        $updates = 0;
+        if (!empty($outdatedPackages['installed'])) {
+            foreach ($outdatedPackages['installed'] as $package) {
+                if (isset($composerJson['require'][$package['name']]) && $package['latest-status'] !== 'up-to-date') {
+                    $newVersion = '^' . $package['latest'];
+                    echo "Updating {$package['name']} from {$package['version']} to {$newVersion}\n";
+                    $composerJson['require'][$package['name']] = $newVersion;
+                    $updates++;
+                }
+                
+                if (isset($composerJson['require-dev'][$package['name']]) && $package['latest-status'] !== 'up-to-date') {
+                    $newVersion = '^' . $package['latest'];
+                    echo "Updating {$package['name']} from {$package['version']} to {$newVersion}\n";
+                    $composerJson['require-dev'][$package['name']] = $newVersion;
+                    $updates++;
+                }
+            }
+        }
+        
+        if ($updates > 0) {
+            // Save updated composer.json
+            file_put_contents('composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+            
+            // Run composer update
+            echo "Running composer update...\n";
+            echo shell_exec('composer update');
+        } else {
+            echo "No composer packages need updating\n";
+        }
+    }
+} else {
+    echo "composer.json not found\n";
+}
+
+// Update npm dependencies
+if (file_exists('package.json')) {
+    echo "Updating npm dependencies...\n";
+    
+    $packageJson = json_decode(file_get_contents('package.json'), true);
+    if ($packageJson === null) {
+        echo "Error: Invalid package.json file\n";
+    } else {
+        // Create backup of the original file
+        file_put_contents('package.json.backup', file_get_contents('package.json'));
+        echo "Created backup at package.json.backup\n";
+        
+        // Get outdated packages
+        echo "Checking outdated npm packages...\n";
+        $outdatedOutput = shell_exec('npm outdated --json');
+        $outdatedPackages = json_decode($outdatedOutput, true) ?: [];
+        
+        $updates = 0;
+        
+        // Update dependencies
+        if (isset($packageJson['dependencies'])) {
+            foreach ($packageJson['dependencies'] as $package => $version) {
+                if (isset($outdatedPackages[$package])) {
+                    $latest = $outdatedPackages[$package]->latest ?? $outdatedPackages[$package]['latest'] ?? null;
+                    if ($latest) {
+                        $newVersion = '^' . $latest;
+                        echo "Updating {$package} to {$newVersion}\n";
+                        $packageJson['dependencies'][$package] = $newVersion;
+                        $updates++;
+                    }
+                }
+            }
+        }
+        
+        // Update devDependencies
+        if (isset($packageJson['devDependencies'])) {
+            foreach ($packageJson['devDependencies'] as $package => $version) {
+                if (isset($outdatedPackages[$package])) {
+                    $latest = $outdatedPackages[$package]->latest ?? $outdatedPackages[$package]['latest'] ?? null;
+                    if ($latest) {
+                        $newVersion = '^' . $latest;
+                        echo "Updating {$package} to {$newVersion}\n";
+                        $packageJson['devDependencies'][$package] = $newVersion;
+                        $updates++;
+                    }
+                }
+            }
+        }
+        
+        if ($updates > 0) {
+            // Save updated package.json
+            file_put_contents('package.json', json_encode($packageJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+            
+            // Run npm update
+            echo "Running npm update...\n";
+            echo shell_exec('npm update');
+        } else {
+            echo "No npm packages need updating\n";
+        }
+    }
+} else {
+    echo "package.json not found\n";
+}
+
+echo "Dependencies update completed!\n";

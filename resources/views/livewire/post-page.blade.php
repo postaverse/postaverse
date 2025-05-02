@@ -7,7 +7,7 @@
     <div class="flex flex-col items-center justify-center main py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8 main w-full">
             <!-- Main Post Content Card -->
-            <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+            <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                 <!-- User Info and Post Metadata -->
                 <div class="flex items-center space-x-4 mb-6 pb-4 border-b border-white/10">
                     <img src="{{ $post->user->profile_photo_url }}" alt="{{ $post->user->name }}'s profile photo"
@@ -70,7 +70,7 @@
             <!-- Likes Section -->
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8 main w-full">
                 <h2 class="text-2xl font-bold text-white mb-4 ml-1">Likes</h2>
-                <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+                <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                     <div class="flex items-center gap-6">
                         <!-- Like Button -->
                         <button wire:click="likePost({{ $post->id }})" class="text-white hover:scale-110 transition-transform" id="likeButton">
@@ -106,7 +106,7 @@
         <!-- Comments Section -->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8 main w-full mt-6">
             <h2 class="text-2xl font-bold text-white mb-4 ml-1">Comments</h2>
-            <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+            <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                 <!-- Comment Form -->
                 @if (auth()->user())
                     <div class="pb-6 mb-6 border-b border-white/10">

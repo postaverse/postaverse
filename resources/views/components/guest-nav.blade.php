@@ -3,7 +3,7 @@
         <div class="flex justify-between h-16">
             <div class="flex items-center">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
+                <div class="shrink-0 flex items-center">
                     <a href="{{ route('welcome') }}" class="text-xl font-bold text-white">
                         Postaverse
                     </a>

@@ -27,7 +27,7 @@
             <div class="bg-opacity-10 backdrop-blur-sm border border-white/20 overflow-hidden shadow-sm sm:rounded-lg p-8 fade-in" style="animation-delay: 0.2s">
                 <div class="flex flex-col md:flex-row">
                     <div class="md:w-3/5 pr-0 md:pr-8">
-                        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-500">
+                        <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-6 bg-clip-text text-transparent bg-linear-to-r from-blue-400 to-indigo-500">
                             Welcome to Postaverse!
                         </h1>
                         <p class="text-lg text-gray-200 mb-6 leading-relaxed">
@@ -63,25 +63,25 @@
                             </h2>
                             <ul class="space-y-3 text-lg">
                                 <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-400 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-400 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     <span class="text-gray-200">Chronological Feed: Enjoy a timeline that shows posts in the order they were made.</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-400 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-400 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     <span class="text-gray-200">Privacy Focused: Your data is yours. We prioritize user privacy and data security.</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-400 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-400 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     <span class="text-gray-200">Community Driven: Engage with a community that values genuine interactions and connections.</span>
                                 </li>
                                 <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-400 flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-400 shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                     </svg>
                                     <span class="text-gray-200">Zero Algorithm: No algorithms means no manipulation. See content from the people you follow, in order.</span>

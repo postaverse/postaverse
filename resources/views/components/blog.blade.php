@@ -1,5 +1,5 @@
 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6" wire:key="{{ $blog->id }}">
-    <div class="bg-gradient-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+    <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
         <!-- Blog Header: User Info -->
         <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
             <div class="flex items-center space-x-3">

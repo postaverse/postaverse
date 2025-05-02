@@ -94,7 +94,7 @@
 
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
                         <!-- Settings Dropdown -->
-                        <div class="ms-3 relative z-[9999]">
+                        <div class="ms-3 relative z-9999">
                             <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
                                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())

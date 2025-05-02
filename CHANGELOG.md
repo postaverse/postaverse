@@ -34,7 +34,7 @@
 * New admin panel
 * New account settings page
 * Admin tags
-
+* Update Dependencies
 
 ## v2.0.0
 * Full Rewrite of Postaverse from Python's Flask to PHP's Laravel

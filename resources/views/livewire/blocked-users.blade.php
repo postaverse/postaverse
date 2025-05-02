@@ -13,7 +13,7 @@
         <!-- Add User Form -->
         <div class="col-span-6 sm:col-span-4">
             <div class="flex">
-                <div class="flex-grow mr-2">
+                <div class="grow mr-2">
                     <x-label for="username" value="{{ __('Username') }}" class="text-gray-300 mb-2" />
                     <x-input id="username" type="text" wire:model="username" class="block w-full mt-1 bg-gray-800/40 backdrop-blur-sm border border-white/10 text-white focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all" name="username" autocomplete="off" placeholder="Enter a username" />
                 </div>
