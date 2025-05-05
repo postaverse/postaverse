@@ -57,8 +57,8 @@
 
         <!-- Display Name -->
         <div class="col-span-6 sm:col-span-4">
-            <x-label for="name" value="{{ __('Display Name') }}" class="text-gray-300 mb-2" />
-            <x-input id="name" type="text" class="mt-1 block w-full bg-gray-800/40 backdrop-blur-sm border border-white/10 text-white focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all" wire:model="state.name" required
+            <x-label for="name" value="{{ __('Display Name') }} (optional)" class="text-gray-300 mb-2" />
+            <x-input id="name" type="text" class="mt-1 block w-full bg-gray-800/40 backdrop-blur-sm border border-white/10 text-white focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all" wire:model="state.name"
                 autocomplete="name" />
             <x-input-error for="name" class="mt-2" />
         </div>

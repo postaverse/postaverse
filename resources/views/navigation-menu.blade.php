@@ -94,13 +94,12 @@
 
                     <div class="hidden sm:flex sm:items-center sm:ms-6">
                         <!-- Settings Dropdown -->
-                        <div class="ms-3 relative z-9999">
+                        <div class="ms-3 relative">
                             <x-dropdown align="right" width="48">
                                 <x-slot name="trigger">
                                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                         <button
-                                            class="flex items-center text-sm border-2 border-white/20 rounded-full focus:outline-none focus:border-white/30 transition bg-gray-800/10 backdrop-blur-sm"
-                                            style="display: flex; align-items: center; padding: 5px;">
+                                            class="flex items-center text-sm border-2 border-white/20 rounded-full focus:outline-none focus:border-white/30 transition bg-gray-800/10 backdrop-blur-sm p-1.75">
                                             <h3 class="text-white pr-4 font-bold text-sm" style="margin: 0;">{{ Auth::user()->name }}</h3>
                                             <img class="h-8 w-8 rounded-full object-cover"
                                                 src="{{ Auth::user()->profile_photo_url }}"
@@ -109,7 +108,7 @@
                                     @else
                                         <span class="inline-flex rounded-md">
                                             <button type="button"
-                                                class="inline-flex items-center px-3 py-2 border border-white/20 text-sm leading-4 font-medium rounded-md text-gray-400 bg-gray-800/10 backdrop-blur-sm hover:text-gray-300 hover:border-white/30 focus:outline-none focus:bg-gray-800/20 active:bg-gray-800/20 transition ease-in-out duration-150">
+                                                class="inline-flex items-center px-3 py-2 border border-white/20 text-sm leading-4 font-medium rounded-md text-gray-400 bg-gray-800/10 backdrop-blur-sm hover:text-gray-300 hover:border-white/30 focus:outline-none focus:bg-gray-800/20 active:bg-gray-800/20 transition ease-in-out duration-150 p-1.75">
                                                 {{ Auth::user()->name }}
 
                                                 <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
