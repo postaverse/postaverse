@@ -2,11 +2,15 @@
 ## Table of Contents
 - [Changelog](#changelog)
   - [v3](#v3)
-    - [v3.0.0-alpha0](#v300-alpha)
+    - [v3.0.0 Beta](#v300-beta)
+    - [v3.0.0 Alpha](#v300-alpha)
   - [v2.0.0](#v200)
     - [v2.0.0+](#v200-1)
 
 ## v3
+
+### v3.0.0 Beta
+* UI fixes
 
 ### v3.0.0 Alpha
 * Code cleanup
