@@ -192,7 +192,7 @@
                                     @foreach ($admins as $admin)
                                     <tr class="bg-gray-800/20 border-b border-gray-700">
                                         <td class="px-6 py-4 font-medium">{{ $admin->id }}</td>
-                                        <td class="px-6 py-4">{{ $admin->name }}</td>
+                                        <td class="px-6 py-4">{{ $admin->name ?: $admin->handle }}</td>
                                         <td class="px-6 py-4">
                                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                                 @if($admin->admin_rank == 1) bg-blue-500/20 text-blue-300
@@ -377,7 +377,7 @@
                                     @foreach ($bannedUsers as $banned)
                                     <tr class="bg-gray-800/20 border-b border-gray-700">
                                         <td class="px-6 py-4 font-medium">{{ $banned->user->id }}</td>
-                                        <td class="px-6 py-4">{{ $banned->user->name }}</td>
+                                        <td class="px-6 py-4">{{ $banned->user->name ?: $banned->user->handle }}</td>
                                         <td class="px-6 py-4">{{ $banned->user->email }}</td>
                                         <td class="px-6 py-4">{{ $banned->created_at->format('M d, Y') }}</td>
                                         <td class="px-6 py-4 max-w-xs truncate">{{ $banned->reason }}</td>

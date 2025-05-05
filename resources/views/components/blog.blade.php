@@ -3,12 +3,12 @@
         <!-- Blog Header: User Info -->
         <div class="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
             <div class="flex items-center space-x-3">
-                <img src="{{ $blog->user->profile_photo_url }}" alt="{{ $blog->user->name }}'s profile photo"
+                <img src="{{ $blog->user->profile_photo_url }}" alt="{{ $blog->user->name ?: $blog->user->handle }}'s profile photo"
                     class="w-10 h-10 rounded-full ring-2 ring-indigo-500/30">
                 <div>
                     <h2 class="text-sm font-bold text-white flex items-center">
                         <a href="{{ route('user-profile', $blog->user->id) }}" class="hover:text-indigo-400 transition-colors">
-                            {{ $blog->user->name }}
+                            {{ $blog->user->name ?: $blog->user->handle }}
                         </a>
                         <x-admin-tag :user="$blog->user" />
                     </h2>
@@ -76,7 +76,7 @@
                             @foreach ($blog->likes->take(3) as $like)
                                 <a href="{{ route('user-profile', $like->user->id) }}" class="relative hover:z-10 transition-all">
                                     <img src="{{ $like->user->profile_photo_url }}"
-                                        alt="{{ $like->user->name }}'s profile photo"
+                                        alt="{{ $like->user->name ?: $like->user->handle }}'s profile photo"
                                         class="w-6 h-6 rounded-full border-2 border-gray-800 hover:border-indigo-500 transition-colors">
                                 </a>
                             @endforeach

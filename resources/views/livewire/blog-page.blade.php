@@ -10,12 +10,12 @@
             <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                 <!-- User Info and Blog Metadata -->
                 <div class="flex items-center space-x-4 mb-6 pb-4 border-b border-white/10">
-                    <img src="{{ $blog->user->profile_photo_url }}" alt="{{ $blog->user->name }}'s profile photo"
+                    <img src="{{ $blog->user->profile_photo_url }}" alt="{{ $blog->user->name ?: $blog->user->handle }}'s profile photo"
                         class="w-12 h-12 rounded-full ring-2 ring-indigo-500/50">
                     <div>
                         <h2 class="text-lg font-bold text-white flex items-center">
                             <a href="{{ route('user-profile', $blog->user->id) }}" class="hover:text-indigo-400 transition-colors">
-                                {{ $blog->user->name }}
+                                {{ $blog->user->name ?: $blog->user->handle }}
                             </a>
                             <x-admin-tag :user="$blog->user" />
                         </h2>
@@ -88,7 +88,7 @@
                             @foreach ($blog->likes->take(10) as $like)
                                 <a href="{{ route('user-profile', $like->user->id) }}" class="relative hover:z-10 transition-all">
                                     <img src="{{ $like->user->profile_photo_url }}"
-                                        alt="{{ $like->user->name }}'s profile photo"
+                                        alt="{{ $like->user->name ?: $like->user->handle }}'s profile photo"
                                         class="w-10 h-10 rounded-full border-2 border-gray-800 bg-gray-800 hover:border-indigo-500 transition-all">
                                 </a>
                             @endforeach
@@ -146,12 +146,12 @@
                                 <div class="flex justify-between mb-3">
                                     <div class="flex space-x-3">
                                         <img src="{{ $comment->user->profile_photo_url }}"
-                                            alt="{{ $comment->user->name }}'s profile photo" 
+                                            alt="{{ $comment->user->name ?: $comment->user->handle }}'s profile photo" 
                                             class="w-8 h-8 rounded-full">
                                         <div>
                                             <h2 class="text-sm font-bold text-white flex items-center">
                                                 <a href="{{ route('user-profile', $comment->user->id) }}" class="hover:text-indigo-400 transition-colors">
-                                                    {{ $comment->user->name }}
+                                                    {{ $comment->user->name ?: $comment->user->handle }}
                                                 </a>
                                                 <x-admin-tag :user="$comment->user" />
                                             </h2>

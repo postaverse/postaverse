@@ -5,12 +5,12 @@
     <div class="flex justify-between mb-3">
         <div class="flex space-x-3">
             <img src="{{ $reply->user->profile_photo_url }}"
-                alt="{{ $reply->user->name }}'s profile photo" 
+                alt="{{ $reply->user->name ?: $reply->user->handle }}'s profile photo" 
                 class="w-8 h-8 rounded-full">
             <div>
                 <h2 class="text-sm font-bold text-white flex items-center">
                     <a href="{{ route('user-profile', $reply->user->id) }}" class="hover:text-indigo-400 transition-colors">
-                        {{ $reply->user->name }}
+                        {{ $reply->user->name ?: $reply->user->handle }}
                     </a>
                     <x-admin-tag :user="$reply->user" />
                 </h2>

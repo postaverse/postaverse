@@ -21,7 +21,7 @@
                         <!-- Profile Details -->
                         <div class="flex-1 text-center md:text-left">
                             <h1 class="text-3xl font-bold text-white mb-2 flex items-center">
-                                {{ $user->name }}
+                                {{ $user->name ?: $user->handle }}
                                 <x-admin-tag :user="$user" />
                             </h1>
                             

@@ -100,16 +100,16 @@
                                     @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                         <button
                                             class="flex items-center text-sm border-2 border-white/20 rounded-full focus:outline-none focus:border-white/30 transition bg-gray-800/10 backdrop-blur-sm p-1.75">
-                                            <h3 class="text-white pr-4 font-bold text-sm" style="margin: 0;">{{ Auth::user()->name }}</h3>
+                                            <h3 class="text-white pr-4 font-bold text-sm" style="margin: 0;">{{ Auth::user()->name ?: Auth::user()->handle }}</h3>
                                             <img class="h-8 w-8 rounded-full object-cover"
                                                 src="{{ Auth::user()->profile_photo_url }}"
-                                                alt="{{ Auth::user()->name }}" />
+                                                alt="{{ Auth::user()->name ?: Auth::user()->handle }}" />
                                         </button>
                                     @else
                                         <span class="inline-flex rounded-md">
                                             <button type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-white/20 text-sm leading-4 font-medium rounded-md text-gray-400 bg-gray-800/10 backdrop-blur-sm hover:text-gray-300 hover:border-white/30 focus:outline-none focus:bg-gray-800/20 active:bg-gray-800/20 transition ease-in-out duration-150 p-1.75">
-                                                {{ Auth::user()->name }}
+                                                {{ Auth::user()->name ?: Auth::user()->handle }}
 
                                                 <svg class="ms-2 -me-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                                     fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -260,13 +260,13 @@
                         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                             <div class="shrink-0 me-3">
                                 <img class="h-10 w-10 rounded-full object-cover"
-                                    src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name ?: Auth::user()->handle }}" />
                             </div>
                         @endif
 
                         <div>
                             <div class="font-medium text-base text-gray-200">
-                                {{ Auth::user()->name }}</div>
+                                {{ Auth::user()->name ?: Auth::user()->handle }}</div>
                             <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                         </div>
                     </div>
