@@ -3,23 +3,34 @@
 # This script reads the contents of composer.json and package.json files,
 # and updates the dependencies to the latest versions.
 
-echo "Updating dependencies to latest versions...\n";
+// Color constants
+define('COLOR_GREEN', "\033[32m");
+define('COLOR_RED', "\033[31m");
+define('COLOR_BLUE', "\033[34m");
+define('COLOR_YELLOW', "\033[33m");
+define('COLOR_RESET', "\033[0m");
+
+function colorize($text, $color) {
+    return $color . $text . COLOR_RESET;
+}
+
+echo colorize("Updating dependencies to latest versions...\n", COLOR_BLUE);
 
 // Update composer dependencies
 if (file_exists('composer.json')) {
-    echo "Updating composer dependencies...\n";
+    echo colorize("Updating composer dependencies...\n", COLOR_BLUE);
     
     $composerJson = json_decode(file_get_contents('composer.json'), true);
     if ($composerJson === null) {
-        echo "Error: Invalid composer.json file\n";
+        echo colorize("Error: Invalid composer.json file\n", COLOR_RED);
     } else {
         // Create backup of the original file
         file_put_contents('composer.json.backup', file_get_contents('composer.json'));
-        echo "Created backup at composer.json.backup\n";
+        echo colorize("Created backup at composer.json.backup\n", COLOR_BLUE);
         
         // Run composer outdated to get the latest versions
-        echo "Checking outdated packages...\n";
-        $outdatedOutput = shell_exec('composer outdated -D --format=json');
+        echo colorize("Checking outdated packages...\n", COLOR_BLUE);
+        $outdatedOutput = shell_exec('composer outdated -D --format=json 2>/dev/null');
         $outdatedPackages = json_decode($outdatedOutput, true);
         
         $updates = 0;
@@ -27,14 +38,14 @@ if (file_exists('composer.json')) {
             foreach ($outdatedPackages['installed'] as $package) {
                 if (isset($composerJson['require'][$package['name']]) && $package['latest-status'] !== 'up-to-date') {
                     $newVersion = '^' . $package['latest'];
-                    echo "Updating {$package['name']} from {$package['version']} to {$newVersion}\n";
+                    echo "Updating {$package['name']} from {$package['version']} to " . colorize($newVersion, COLOR_GREEN) . "\n";
                     $composerJson['require'][$package['name']] = $newVersion;
                     $updates++;
                 }
                 
                 if (isset($composerJson['require-dev'][$package['name']]) && $package['latest-status'] !== 'up-to-date') {
                     $newVersion = '^' . $package['latest'];
-                    echo "Updating {$package['name']} from {$package['version']} to {$newVersion}\n";
+                    echo "Updating {$package['name']} from {$package['version']} to " . colorize($newVersion, COLOR_GREEN) . "\n";
                     $composerJson['require-dev'][$package['name']] = $newVersion;
                     $updates++;
                 }
@@ -46,31 +57,31 @@ if (file_exists('composer.json')) {
             file_put_contents('composer.json', json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
             
             // Run composer update
-            echo "Running composer update...\n";
-            echo shell_exec('composer update');
+            echo colorize("Running composer update...\n", COLOR_BLUE);
+            system('composer update 2>/dev/null');
         } else {
-            echo "No composer packages need updating\n";
+            echo colorize("No composer packages need updating\n", COLOR_BLUE);
         }
     }
 } else {
-    echo "composer.json not found\n";
+    echo colorize("composer.json not found\n", COLOR_YELLOW);
 }
 
 // Update npm dependencies
 if (file_exists('package.json')) {
-    echo "Updating npm dependencies...\n";
+    echo colorize("Updating npm dependencies...\n", COLOR_BLUE);
     
     $packageJson = json_decode(file_get_contents('package.json'), true);
     if ($packageJson === null) {
-        echo "Error: Invalid package.json file\n";
+        echo colorize("Error: Invalid package.json file\n", COLOR_RED);
     } else {
         // Create backup of the original file
         file_put_contents('package.json.backup', file_get_contents('package.json'));
-        echo "Created backup at package.json.backup\n";
+        echo colorize("Created backup at package.json.backup\n", COLOR_BLUE);
         
         // Get outdated packages
-        echo "Checking outdated npm packages...\n";
-        $outdatedOutput = shell_exec('npm outdated --json');
+        echo colorize("Checking outdated npm packages...\n", COLOR_BLUE);
+        $outdatedOutput = shell_exec('npm outdated --json 2>/dev/null');
         $outdatedPackages = json_decode($outdatedOutput, true) ?: [];
         
         $updates = 0;
@@ -82,7 +93,7 @@ if (file_exists('package.json')) {
                     $latest = $outdatedPackages[$package]->latest ?? $outdatedPackages[$package]['latest'] ?? null;
                     if ($latest) {
                         $newVersion = '^' . $latest;
-                        echo "Updating {$package} to {$newVersion}\n";
+                        echo "Updating {$package} to " . colorize($newVersion, COLOR_GREEN) . "\n";
                         $packageJson['dependencies'][$package] = $newVersion;
                         $updates++;
                     }
@@ -97,7 +108,7 @@ if (file_exists('package.json')) {
                     $latest = $outdatedPackages[$package]->latest ?? $outdatedPackages[$package]['latest'] ?? null;
                     if ($latest) {
                         $newVersion = '^' . $latest;
-                        echo "Updating {$package} to {$newVersion}\n";
+                        echo "Updating {$package} to " . colorize($newVersion, COLOR_GREEN) . "\n";
                         $packageJson['devDependencies'][$package] = $newVersion;
                         $updates++;
                     }
@@ -110,14 +121,14 @@ if (file_exists('package.json')) {
             file_put_contents('package.json', json_encode($packageJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
             
             // Run npm update
-            echo "Running npm update...\n";
-            echo shell_exec('npm update');
+            echo colorize("Running npm update...\n", COLOR_BLUE);
+            system('npm update 2>/dev/null');
         } else {
-            echo "No npm packages need updating\n";
+            echo colorize("No npm packages need updating\n", COLOR_BLUE);
         }
     }
 } else {
-    echo "package.json not found\n";
+    echo colorize("package.json not found\n", COLOR_YELLOW);
 }
 
-echo "Dependencies update completed!\n";
+echo colorize("Dependencies update completed!\n", COLOR_GREEN);
