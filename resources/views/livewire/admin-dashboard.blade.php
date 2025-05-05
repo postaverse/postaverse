@@ -255,7 +255,7 @@
                                 
                                 <div>
                                     <x-label for="admin_rank" :value="__('Admin Rank')" />
-                                    <select id="admin_rank" wire:model="admin_rank" class="border-white/20 bg-gray-800/10 backdrop-blur-sm text-gray-300 focus:border-white/30 focus:ring-indigo-600 rounded-md shadow-sm w-full mt-1">
+                                    <select id="admin_rank" wire:model="admin_rank" class="border-white/20 bg-gray-800/10 backdrop-blur-sm text-gray-300 focus:border-white/30 focus:ring-indigo-600 rounded-md shadow-sm w-full mt-1 p-1.75">
                                         <option value="">Select a rank</option>
                                         @foreach($adminRanks as $rank => $details)
                                             @if($rank > 0 && $rank < auth()->user()->admin_rank)

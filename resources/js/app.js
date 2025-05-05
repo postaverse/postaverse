@@ -1,2 +1,1 @@
-import './bootstrap';
-import './apple';
+import './stars.js';

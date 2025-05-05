@@ -11,6 +11,8 @@
 
 ### v3.0.0 Beta
 * UI fixes
+* Fix Markdown
+* Fix file names
 
 ### v3.0.0 Alpha
 * Code cleanup
