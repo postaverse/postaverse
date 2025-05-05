@@ -13,6 +13,7 @@
 * UI fixes
 * Fix Markdown
 * Fix file names
+* Update Dependencies
 
 ### v3.0.0 Alpha
 * Code cleanup
