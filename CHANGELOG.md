@@ -14,6 +14,7 @@
 * Fix Markdown
 * Fix file names
 * Update Dependencies
+* Internal File Restructure
 
 ### v3.0.0 Alpha
 * Code cleanup
