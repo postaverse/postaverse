@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
-use App\Models\Like;
-use App\Models\Comment;
+use App\Models\Post\Post;
+use App\Models\Post\Like;
+use App\Models\Post\Comment;
 
 class DeleteController extends Controller
 {

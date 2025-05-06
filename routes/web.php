@@ -1,16 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Profile;
-use App\Livewire\Follow;
-use App\Livewire\Feed;
-use App\Livewire\Settings;
-use App\Livewire\Search;
-use App\Livewire\AdminDashboard;
-use App\Livewire\Blogs;
-use App\Livewire\BlogPage;
-use App\Livewire\PostPage;
-use App\Livewire\Banned;
+use App\Livewire\User\Profile;
+use App\Livewire\Interaction\Follow;
+use App\Livewire\Post\Feed;
+use App\Livewire\User\Settings;
+use App\Livewire\Interaction\Search;
+use App\Livewire\Admin\AdminDashboard;
+use App\Livewire\Blog\Blogs;
+use App\Livewire\Blog\BlogPage;
+use App\Livewire\Post\PostPage;
+use App\Livewire\User\Banned;
+use App\Livewire\Interaction\Notifications;
 use App\Http\Middleware\CheckIfBanned;
 
 require __DIR__ . '/auth.php';
@@ -61,7 +62,7 @@ Route::middleware([
     // User content routes with banned check
     Route::middleware([CheckIfBanned::class])->group(function () {
         Route::get('/feed', Feed::class)->name('feed');
-        Route::get('/notifications', \App\Livewire\Notifications::class)->name('notifications');
+        Route::get('/notifications', Notifications::class)->name('notifications');
     });
     
     Route::get('/settings', [Settings::class, 'show'])->name('settings.show');

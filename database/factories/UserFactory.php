@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\ConnectedAccount;
 use App\Models\Team;
-use App\Models\User;
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use JoelButcher\Socialstream\Providers;

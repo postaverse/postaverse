@@ -8,7 +8,7 @@
     </x-slot>
 
     <div class="py-12 main">
-        <livewire:create-post />
-        <livewire:all-posts />
+        <livewire:post.create-post />
+        <livewire:post.all-posts />
     </div>
 </x-app-layout>
