@@ -102,7 +102,7 @@
     @livewireScripts
     <div id="stars" class="stars"></div>
     <div id="confetti-container"></div>
-    @vite(['resources/js/stars.js'])
+    @vite(['resources/js/app.js'])
 </body>
 
 </html>
