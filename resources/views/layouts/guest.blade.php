@@ -37,7 +37,7 @@
 
     @livewireScripts
     <div id="stars" class="stars"></div>
-    @vite(['resources/js/stars.js'])
+    @vite(['resources/js/app.js'])
 </body>
 
 </html>
