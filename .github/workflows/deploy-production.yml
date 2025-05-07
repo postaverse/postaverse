@@ -19,7 +19,7 @@ jobs:
           path: vendor
           key: composer-${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            composer-${{ runner.os }}-php-${{ matrix.php-version }}-
+            composer-
 
       - name: Install PHP
         uses: shivammathur/setup-php@v2
