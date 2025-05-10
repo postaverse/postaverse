@@ -16,6 +16,7 @@ class VerifyWebsite extends Component
     public $domain;
     public $site;
     public $isVerified;
+    public $verificationStep = 'domain';
 
     public function mount()
     {

@@ -16,6 +16,11 @@ class Settings extends Controller
     public function show(Request $request)
     {
         $user = Auth::user();
+        
+        // Make sure we have a verified user
+        if (!$user || !$user->hasVerifiedEmail()) {
+            return redirect('/login');
+        }
 
         return view('profile.show', [
             'request' => $request,

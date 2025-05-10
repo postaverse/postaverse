@@ -6,12 +6,16 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Http\Responses\RegisterResponse;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
+use App\Models\User\User;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -20,7 +24,8 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Bind custom response for registration
+        $this->app->singleton(RegisterResponseContract::class, RegisterResponse::class);
     }
 
     /**
@@ -33,6 +38,20 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
+        // Configure Fortify to authenticate using either email or handle
+        Fortify::authenticateUsing(function (Request $request) {
+            // Get the login identifier - could be in 'login' or 'email' field
+            $login = $request->login ?? $request->email;
+            
+            $user = User::where('email', $login)
+                ->orWhere('handle', $login)
+                ->first();
+
+            if ($user && Hash::check($request->password, $user->password)) {
+                return $user;
+            }
+        });
+        
         RateLimiter::for('login', function (Request $request) {
             $throttleKey = Str::transliterate(Str::lower($request->input(Fortify::username())).'|'.$request->ip());
 

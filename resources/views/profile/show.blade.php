@@ -19,13 +19,17 @@
 
                 <!-- Blocked Users -->
                 <div class="mt-10 sm:mt-0 mb-10">
-                    @livewire('blocked-users')
+                    @livewire('user.blocked-users')
                 </div>
                 <x-section-border />
 
                 <!-- Verify Website -->
                 <div class="mt-10 sm:mt-0 mb-10">
-                    @livewire('verify-website')
+                    @if (class_exists(\App\Livewire\User\VerifyWebsite::class))
+                        @livewire('user.verify-website')
+                    @else
+                        <div>Website verification is not available</div>
+                    @endif
                 </div>
                 <x-section-border />
 

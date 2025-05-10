@@ -12,11 +12,26 @@ class DeleteController extends Controller
     public function deletePost($postId)
     {
         $post = Post::find($postId);
-        $likes = Like::where('post_id', $postId)->get();
-        $comments = Comment::where('post_id', $postId)->get();
-        $likes->each->delete();
-        $comments->each->delete();
-        $post->delete();
+        
+        // Check if the post exists
+        if (!$post) {
+            return response()->json(['error' => 'Post not found'], 404);
+        }
+        
+        // Check if the user is authorized to delete this post
+        if (auth()->check() && (auth()->id() == $post->user_id || auth()->user()->admin_rank >= 3)) {
+            // Delete related records first
+            Like::where('post_id', $postId)->delete();
+            Comment::where('post_id', $postId)->delete();
+            
+            // Delete the post
+            $post->delete();
+            
+            return response()->json(['success' => 'Post deleted successfully']);
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+        
     }
 
     // Delete a comment

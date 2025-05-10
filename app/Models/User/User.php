@@ -11,6 +11,7 @@ use App\Models\Blog\Blog;
 use App\Models\Blog\BlogComment;
 use App\Models\Blog\BlogLike;
 use App\Models\Admin\AdminLogs;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -23,7 +24,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Http;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens;
     use HasConnectedAccounts;
@@ -34,6 +35,20 @@ class User extends Authenticatable
     use Notifiable;
     use SetsProfilePhotoFromUrl;
     use TwoFactorAuthenticatable;
+
+    /**
+     * Override the email verification notification sending.
+     * We're using a custom verification system with PendingUser model, so
+     * we don't need to send the standard Laravel verification email.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        // Don't send the standard Laravel verification email
+        // Our email is sent during PendingUser creation
+        return;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -159,6 +174,22 @@ class User extends Authenticatable
     public function follows()
     {
         return $this->belongsToMany(User::class, 'followers', 'follower_id', 'following_id');
+    }
+    
+    public function follow($user)
+    {
+        // Make sure we're not following ourselves and not already following this user
+        if ($user->id != $this->id && !$this->follows()->where('following_id', $user->id)->exists()) {
+            return $this->follows()->attach($user->id);
+        }
+    }
+    
+    public function unfollow($user)
+    {
+        // Make sure we're not trying to unfollow ourselves
+        if ($user->id != $this->id) {
+            return $this->follows()->detach($user->id);
+        }
     }
 
     public function isSiteVerified()

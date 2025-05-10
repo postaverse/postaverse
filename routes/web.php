@@ -13,6 +13,7 @@ use App\Livewire\Post\PostPage;
 use App\Livewire\User\Banned;
 use App\Livewire\Interaction\Notifications;
 use App\Http\Middleware\CheckIfBanned;
+use App\Http\Controllers\EmailVerificationController;
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/markdown.php';
@@ -25,6 +26,13 @@ Route::get('/welcome', function () {
 Route::get('/banned', Banned::class)->name('banned');
 
 Route::get('/blog', Blogs::class)->name('blogs');
+
+// Email verification routes
+Route::get('/verify-email/{id}/{token}', [EmailVerificationController::class, 'verify'])
+    ->name('verification.verify');
+Route::get('/email/verify', function () {
+    return view('auth.registration-verification');
+})->name('verification.notice');
 
 // Routes with banned check middleware
 Route::middleware([CheckIfBanned::class])->group(function () {
@@ -56,8 +64,9 @@ Route::middleware([
     Route::get('/admin', AdminDashboard::class)->name('admin');
     
     // User interactions
-    Route::post('/follow/{user}', Follow::class)->name('follow');
-    Route::delete('/unfollow/{user}', Follow::class)->name('unfollow');
+    Route::post('/follow/{user}', [App\Http\Controllers\FollowController::class, 'follow'])->name('follow');
+    Route::delete('/unfollow/{user}', [App\Http\Controllers\FollowController::class, 'unfollow'])->name('unfollow');
+    Route::delete('/post/{postId}', [App\Http\Controllers\DeleteController::class, 'deletePost'])->name('post.delete');
     
     // User content routes with banned check
     Route::middleware([CheckIfBanned::class])->group(function () {
