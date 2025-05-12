@@ -112,7 +112,7 @@ class VerifyWebsite extends Component
 
     public function render()
     {
-        return view('livewire.user.verify-website', [
+        return view('livewire.User.verify-website', [
             'isVerified' => $this->isVerified,
             'verificationCode' => $this->verificationCode,
         ]);
