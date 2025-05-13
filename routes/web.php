@@ -29,7 +29,7 @@ Route::get('/blog', Blogs::class)->name('blogs');
 
 // Email verification routes
 Route::get('/verify-email/{id}/{token}', [EmailVerificationController::class, 'verify'])
-    ->name('verification.verify');
+    ->name('pending.verification.verify');
 Route::get('/email/verify', function () {
     return view('auth.registration-verification');
 })->name('verification.notice');

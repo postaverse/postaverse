@@ -82,7 +82,7 @@ class CreateNewUser implements CreatesNewUsers
      */
     protected function sendVerificationEmail(PendingUser $pendingUser): void
     {
-        $verificationUrl = config('app.url') . '/verify-email/' . $pendingUser->id . '/' . $pendingUser->verification_token;
+        $verificationUrl = route('pending.verification.verify', ['id' => $pendingUser->id, 'token' => $pendingUser->verification_token]);
         
         Mail::send('emails.verify-email', ['url' => $verificationUrl, 'handle' => $pendingUser->handle], function ($message) use ($pendingUser) {
             $message->to($pendingUser->email)
