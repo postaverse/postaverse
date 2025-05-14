@@ -20,7 +20,7 @@
     "preferred-install": "dist",
     "sort-packages": true
   },
-  "description": "The skeleton application for the Laravel framework.",
+  "description": "The Postaverse social media platform.",
   "extra": {
     "laravel": {
       "dont-discover": []
@@ -28,16 +28,19 @@
   },
   "keywords": [
     "laravel",
-    "framework"
+    "social",
+    "media",
+    "platform",
+    "postaverse"
   ],
   "license": "MIT",
   "minimum-stability": "stable",
-  "name": "laravel/laravel",
+  "name": "postaverse/postaverse",
   "prefer-stable": true,
   "require": {
     "erusev/parsedown": "^1.7",
     "joelbutcher/socialstream": "^6.3",
-    "laravel/framework": "^v12.13.0",
+    "laravel/framework": "^v12.14.1",
     "laravel/jetstream": "^5.3",
     "laravel/pulse": "^1.4",
     "laravel/sanctum": "^4.1",
@@ -53,7 +56,7 @@
     "fakerphp/faker": "^1.24",
     "itsgoingd/clockwork": "^5.3",
     "laravel/pint": "^v1.22.1",
-    "laravel/sail": "^1.41",
+    "laravel/sail": "^v1.43.0",
     "mockery/mockery": "^1.6.12",
     "nunomaduro/collision": "^8.5",
     "phpunit/phpunit": "^12.1.4",

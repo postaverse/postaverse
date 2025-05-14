@@ -574,7 +574,7 @@
 </head>
 
 <body class="antialiased">
-    <div class="flex items-center justify-center min-h-screen bg-black dark:bg-black">
+    <div class="flex items-center justify-center min-h-screen bg-black">
         <div class="mx-auto sm:px-6 lg:px-8">
             <a href="{{ route('home') }}" class="text-white text-3xl font-bold">
                 <img src="{{ asset('images/error/404.png') }}" alt="404" class="mx-auto" width="500">

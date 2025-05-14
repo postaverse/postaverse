@@ -7,7 +7,8 @@ Welcome to **Postaverse** - a friendly social space where people connect and sha
 
 - 👤 Create your own personalized profile
 - 📝 Share posts with text and images
-- 💬 Comment on friends' posts
+- 📄 Create and publish blogs
+- 💬 Comment on posts and blogs
 - ❤️ Like content you enjoy
 - 👥 Follow others to see their updates
 - 🔔 Get notified when something happens
@@ -43,6 +44,15 @@ Setting up Postaverse on your computer is simple:
 
 Your Postaverse will be ready at `http://localhost:8000`!
 
+## Content System Architecture
+
+Postaverse uses a unified content handling system that combines blog and post functionality:
+
+- **Content Components**: All content (posts and blogs) is handled by the same set of components in the `App\Livewire\Content` namespace
+- **Type-Based Behavior**: Components use a `type` parameter ('post' or 'blog') to determine behavior and rendering
+- **Consistent UI**: Unified templates maintain a consistent user experience across different content types
+- **Code Efficiency**: Shared code reduces duplication while maintaining distinct content type features
+
 ## Join Our Community
 
 We'd love your help making Postaverse better! You can:
@@ -63,7 +73,3 @@ This project wouldn't be possible without:
 ## License
 
 Postaverse is available under the MPL 2.0 License - see the [LICENSE](LICENSE.md) file.
-
-## How We're Organized
-
-We've built Postaverse with a friendly structure that groups similar features together, making it easy for anyone to understand how things work and where to find them. Whether you're looking at user profiles, posts, or admin features, everything has its logical place!
