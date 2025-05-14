@@ -2,41 +2,49 @@
 
 namespace App\Livewire\Post;
 
+use App\Livewire\Content\BaseList;
 use App\Models\Post\Post;
-use Livewire\Component;
-use Livewire\WithPagination;
-use App\Http\Controllers\LikeController;
-use App\Http\Controllers\DeleteController;
 
-class AllPosts extends Component
+class AllPosts extends BaseList
 {
-    use WithPagination;
+    protected function getModel(): string
+    {
+        return Post::class;
+    }
+
+    protected function getRelations(): array
+    {
+        return ['user', 'comments', 'likes'];
+    }
 
     public function likePost($postId)
     {
-        $likeController = new LikeController();
-        $likeController->likePost($postId);
+        app(\App\Http\Controllers\LikeController::class)->likePost($postId);
     }
 
     public function delete(int $postId)
     {
-        $deleteController = new DeleteController();
-        $deleteController->deletePost($postId);
+        app(\App\Http\Controllers\DeleteController::class)->deletePost($postId);
     }
 
-    public function render()
+    protected function applyFilters($query)
     {
-        $blockedUsers = [];
+        // Exclude blocked users
         if (auth()->check()) {
             $blockedUsers = auth()->user()->blockedUsers->pluck('blocked_users')->toArray();
             $blockedUsers = array_map('trim', explode(',', implode(',', $blockedUsers)));
+            $query->whereNotIn('user_id', $blockedUsers);
         }
+        return $query;
+    }
 
-        $posts = Post::with('user', 'comments', 'likes')
-            ->whereNotIn('user_id', $blockedUsers)
-            ->orderByDesc('id')
-            ->paginate(20);
-        
-        return view('livewire.Post.all-posts', compact('posts'))->layout('layouts.app');
+    protected function view(): string
+    {
+        return 'livewire.Post.all-posts';
+    }
+
+    protected function getVariableName(): string
+    {
+        return 'posts';
     }
 }

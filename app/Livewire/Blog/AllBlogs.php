@@ -2,16 +2,21 @@
 
 namespace App\Livewire\Blog;
 
+use App\Livewire\Content\BaseList;
 use App\Models\Blog\Blog;
-use App\Models\Blog\BlogLike;
-use Livewire\Component;
-use Livewire\WithPagination;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
 
-class AllBlogs extends Component
+class AllBlogs extends BaseList
 {
-    use WithPagination;
+    protected function getModel(): string
+    {
+        return Blog::class;
+    }
+
+    protected function getRelations(): array
+    {
+        return ['user', 'comments', 'likes'];
+    }
 
     public function delete(int $blogId)
     {
@@ -20,39 +25,38 @@ class AllBlogs extends Component
             $blog->delete();
         }
     }
-    
+
     public function likeBlog(int $blogId)
     {
         if (!auth()->check()) {
             return;
         }
-        
         $blog = Blog::find($blogId);
         if (!$blog) {
             return;
         }
-        
-        $like = BlogLike::where('blog_id', $blogId)
-            ->where('user_id', auth()->id())
-            ->first();
-            
+        $like = $blog->likes()->where('user_id', auth()->id())->first();
         if ($like) {
             $like->delete();
         } else {
-            BlogLike::create([
-                'blog_id' => $blogId,
-                'user_id' => auth()->id()
-            ]);
+            $blog->likes()->create(['user_id' => auth()->id()]);
         }
+        // Refresh count or similar if needed
     }
 
-    public function render()
+    protected function view(): string
     {
-        $blogs = Blog::with(['user', 'comments', 'likes'])->latest()->paginate(5);
-        $blogs->getCollection()->transform(function ($blog) {
-            $blog->content = Str::markdown($blog->content);
-            return $blog;
-        });
-        return view('livewire.Blog.all-blogs', compact('blogs'))->layout('layouts.app');
+        return 'livewire.Blog.all-blogs';
+    }
+
+    protected function getVariableName(): string
+    {
+        return 'blogs';
+    }
+
+    protected function transformItem($blog)
+    {
+        $blog->content = Str::markdown($blog->content);
+        return $blog;
     }
 }

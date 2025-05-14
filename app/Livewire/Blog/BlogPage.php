@@ -2,58 +2,45 @@
 
 namespace App\Livewire\Blog;
 
+use App\Livewire\Content\BasePage;
+use App\Livewire\Content\HandlesReplies;
 use App\Models\Blog\Blog;
 use App\Models\Blog\BlogComment;
 use App\Models\Blog\BlogLike;
 use App\Models\Blog\BlogImage;
 use App\Models\Interaction\Notification;
-use App\Models\User\User;
-use App\Services\Profanity;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use Livewire\Component;
+use App\Services\Profanity;
 
-class BlogPage extends Component
+class BlogPage extends BasePage
 {
+    use HandlesReplies;
+
     public $blog;
     public $comments;
-    public $content = '';
-    public $user;
     public ?Collection $images = null;
-    
-    // New properties for reply functionality
-    public $replyingTo = null;
-    public $replyContent = '';
 
     public function mount($blogId)
     {
-        if (Auth::check()) {
-            $this->user = Auth::user();
-        }
-        
+        $this->initializeBasePage();
+        // block list
         $blockedUsers = [];
-        if (Auth::check()) {
+        if (auth()->check()) {
             $blockedUsers = $this->user->blockedUsers->pluck('blocked_users')->toArray();
             $blockedUsers = array_map('trim', explode(',', implode(',', $blockedUsers)));
         }
 
-        $this->blog = Blog::query()
-            ->with('images')
-            ->where('id', $blogId)
-            ->firstOrFail();
-            
-        // Load comments with nested replies of any depth
+        $this->blog = Blog::with('images')->findOrFail($blogId);
         $this->comments = $this->blog->comments()
-            ->with(['user', 'replies.user', 'replies.replies.user', 'replies.replies.replies.user'])
-            ->whereNull('parent_id') // Only root comments
+            ->with(['user','replies.user','replies.replies.user','replies.replies.replies.user'])
+            ->whereNull('parent_id')
             ->whereNotIn('user_id', $blockedUsers)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('created_at','desc')
             ->get();
-            
         $this->images = $this->blog->images;
     }
-    
+
     // Start replying to a comment
     public function startReply($commentId)
     {
@@ -159,14 +146,6 @@ class BlogPage extends Component
         }
         
         $this->blog = Blog::with('likes')->find($blogId);
-    }
-
-    private function getMentionedUsers($text)
-    {
-        $mention = preg_match_all('/@(\w+)/', $text, $matches);
-        // Handle or ID
-        $users = User::whereIn('handle', $matches[1])->orWhereIn('id', $matches[1])->get();
-        return $users;
     }
 
     public function delete(int $blogId)
@@ -288,7 +267,7 @@ class BlogPage extends Component
 
         return view('livewire.Blog.blog-page', [
             'blog' => $this->blog,
-            'blogContent' => $blogContent,
+            'blogContent' => Str::markdown($blogContent),
             'comments' => $comments,
         ])->layout('layouts.app');
     }

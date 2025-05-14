@@ -5,8 +5,8 @@
         </h2>
     </x-slot>
     <div class="flex flex-col items-center justify-center main py-8">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8 main w-full">
-            <!-- Main Post Content Card -->
+        <!-- Main Post Content Card -->
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8 w-full">
             <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                 <!-- User Info and Post Metadata -->
                 <div class="flex items-center space-x-4 mb-6 pb-4 border-b border-white/10">
@@ -65,10 +65,10 @@
                 </div>
             </div>
         </div>
-        
+
         @if (auth()->user())
             <!-- Likes Section -->
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8 main w-full">
+            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8 w-full">
                 <h2 class="text-2xl font-bold text-white mb-4 ml-1">Likes</h2>
                 <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                     <div class="flex items-center gap-6">
@@ -102,9 +102,9 @@
                 </div>
             </div>
         @endif
-        
+
         <!-- Comments Section -->
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8 main w-full mt-6">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8 w-full mt-6">
             <h2 class="text-2xl font-bold text-white mb-4 ml-1">Comments</h2>
             <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                 <!-- Comment Form -->
@@ -251,31 +251,31 @@
             </div>
         </div>
     </div>
-    
-    <script>
-        document.querySelectorAll('.likeButton').forEach(button => {
-            const postId = button.dataset.postId;
-            const countText = document.getElementById(`likeCount-${postId}`);
-
-            button.addEventListener('click', function() {
-                if (button.innerHTML.includes('unliked.png')) {
-                    button.innerHTML =
-                        '<img src="{{ asset('images/icons/like/liked.png') }}" alt="Like" width="40" height="40" class="p-1 filter hover:brightness-125 transition-all">';
-                    countText.innerHTML = parseInt(countText.innerHTML) - 1 + ' likes';
-                } else {
-                    button.innerHTML =
-                        '<img src="{{ asset('images/icons/like/unliked.png') }}" alt="Unlike" width="40" height="40" class="p-1 filter hover:brightness-125 transition-all">';
-                    countText.innerHTML = parseInt(countText.innerHTML) + 1 + ' likes';
-                }
-            });
-        });
-        
-        // For reply form
-        document.addEventListener('livewire:load', function() {
-            Livewire.on('replyAdded', () => {
-                // This will be triggered after a reply is submitted
-                // No need to reset form as it's done in the component
-            });
-        });
-    </script>
 </div>
+
+<script>
+    document.querySelectorAll('.likeButton').forEach(button => {
+        const postId = button.dataset.postId;
+        const countText = document.getElementById(`likeCount-${postId}`);
+
+        button.addEventListener('click', function() {
+            if (button.innerHTML.includes('unliked.png')) {
+                button.innerHTML =
+                    '<img src="{{ asset('images/icons/like/liked.png') }}" alt="Like" width="40" height="40" class="p-1 filter hover:brightness-125 transition-all">';
+                countText.innerHTML = parseInt(countText.innerHTML) - 1 + ' likes';
+            } else {
+                button.innerHTML =
+                    '<img src="{{ asset('images/icons/like/unliked.png') }}" alt="Unlike" width="40" height="40" class="p-1 filter hover:brightness-125 transition-all">';
+                countText.innerHTML = parseInt(countText.innerHTML) + 1 + ' likes';
+            }
+        });
+    });
+    
+    // For reply form
+    document.addEventListener('livewire:load', function() {
+        Livewire.on('replyAdded', () => {
+            // This will be triggered after a reply is submitted
+            // No need to reset form as it's done in the component
+        });
+    });
+</script>

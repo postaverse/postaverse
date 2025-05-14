@@ -47,7 +47,7 @@ class Feed extends Component
         } else {
             // Normal production query with filters
             $posts = Post::with(['user', 'comments', 'likes', 'images'])
-                ->whereNotIn('user_id', $blockedUsers)
+                ->whereNotIn('posts.user_id', $blockedUsers)
                 ->leftJoin('followers', function($join) use ($userId) {
                     $join->on('posts.user_id', '=', 'followers.following_id')
                         ->where('followers.follower_id', '=', $userId);

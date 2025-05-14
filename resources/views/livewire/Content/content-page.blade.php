@@ -1,37 +1,37 @@
 <div>
     <x-slot name="header" class="header">
         <h2 class="font-semibold text-xl text-gray-200 leading-tight">
-            {{ __('Blog') }}
+            {{ $contentType === 'blog' || $contentType === 'blogs' ? __('Blog') : __('Post') }}
         </h2>
     </x-slot>
     <div class="flex flex-col items-center justify-center main py-8">
-        <!-- Main Blog Content Card -->
+        <!-- Main Content Card -->
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-8 w-full">
             <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
-                <!-- User Info and Blog Metadata -->
+                <!-- User Info and Content Metadata -->
                 <div class="flex items-center space-x-4 mb-6 pb-4 border-b border-white/10">
-                    <img src="{{ $blog->user->profile_photo_url }}" alt="{{ $blog->user->name ?: $blog->user->handle }}'s profile photo"
+                    <img src="{{ $content->user->profile_photo_url }}" alt="{{ $content->user->name ?: $content->user->handle }}'s profile photo"
                         class="w-12 h-12 rounded-full ring-2 ring-indigo-500/50">
                     <div>
                         <h2 class="text-lg font-bold text-white flex items-center">
-                            <a href="{{ route('user-profile', $blog->user->id) }}" class="hover:text-indigo-400 transition-colors">
-                                {{ $blog->user->name ?: $blog->user->handle }}
+                            <a href="{{ route('user-profile', $content->user->id) }}" class="hover:text-indigo-400 transition-colors">
+                                {{ $content->user->name ?: $content->user->handle }}
                             </a>
-                            <x-admin-tag :user="$blog->user" />
+                            <x-admin-tag :user="$content->user" />
                         </h2>
-                        <p class="text-sm text-gray-400">{{ $blog->created_at->diffForHumans() }}</p>
+                        <p class="text-sm text-gray-400">{{ $content->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
                 
-                <!-- Blog Title -->
+                <!-- Content Title -->
                 <h1 class="text-2xl font-bold text-white mb-4">
-                    {{ $blog->title }}
+                    {{ $content->title }}
                 </h1>
                 
-                <!-- Blog Content -->
+                <!-- Content Body -->
                 <div class="text-white prose prose-invert max-w-none bg-gray-800/40 backdrop-blur-sm rounded-lg mb-6">
                     <div class="p-6">
-                        {!! $blogContent !!}
+                        {!! $formattedContent !!}
                     </div>
                 </div>
 
@@ -50,12 +50,12 @@
                 <!-- Actions Bar -->
                 <div class="flex items-center justify-between mt-6 pt-4 border-t border-white/10">
                     <!-- Like Count -->
-                    <span class="text-white" id="likeCount-{{ $blog->id }}">{{ $blog->likes->count() }} likes</span>
+                    <span class="text-white" id="likeCount-{{ $content->id }}">{{ $content->likes->count() }} likes</span>
                     
                     <!-- Delete Button -->
-                    @if (auth()->user() && ($blog->user_id == auth()->user()->id || auth()->user()->admin_rank >= 3))
+                    @if (auth()->user() && ($content->user_id == auth()->user()->id || auth()->user()->admin_rank >= 3))
                         <button class="text-red-500 hover:text-red-400 font-semibold transition-colors flex items-center gap-1" 
-                                wire:click="delete({{ $blog->id }})">
+                                wire:click="delete({{ $content->id }})">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                             </svg>
@@ -73,28 +73,38 @@
                 <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
                     <div class="flex items-center gap-6">
                         <!-- Like Button -->
-                        <button wire:click="likeBlog({{ $blog->id }})" class="text-white hover:scale-110 transition-transform" id="likeButton">
-                            @if (!$blog->likes->contains('user_id', auth()->id()))
-                                <img src="{{ asset('images/icons/like/unliked.png') }}" alt="Unlike" width="40"
-                                    height="40" class="p-1 filter hover:brightness-125 transition-all">
+                        <button wire:click="likeContent({{ $content->id }})" class="text-white hover:scale-110 transition-transform likeButton" data-content-id="{{ $content->id }}">
+                            @if ($contentType === 'blog' || $contentType === 'blogs')
+                                @if (!$content->likes->contains('user_id', auth()->id()))
+                                    <img src="{{ asset('images/icons/like/unliked.png') }}" alt="Unlike" width="40"
+                                        height="40" class="p-1 filter hover:brightness-125 transition-all">
+                                @else
+                                    <img src="{{ asset('images/icons/like/liked.png') }}" alt="Like" width="40"
+                                        height="40" class="p-1 filter hover:brightness-125 transition-all">
+                                @endif
                             @else
-                                <img src="{{ asset('images/icons/like/liked.png') }}" alt="Like" width="40"
-                                    height="40" class="p-1 filter hover:brightness-125 transition-all">
+                                @if (!$content->likes->contains('user_id', auth()->id()))
+                                    <img src="{{ asset('images/icons/like/unliked.png') }}" alt="Unlike" width="40"
+                                        height="40" class="p-1 filter hover:brightness-125 transition-all">
+                                @else
+                                    <img src="{{ asset('images/icons/like/liked.png') }}" alt="Like" width="40"
+                                        height="40" class="p-1 filter hover:brightness-125 transition-all">
+                                @endif
                             @endif
                         </button>
                         
                         <!-- User Avatars -->
                         <div class="flex -space-x-2 overflow-hidden">
-                            @foreach ($blog->likes->take(10) as $like)
+                            @foreach ($content->likes->take(10) as $like)
                                 <a href="{{ route('user-profile', $like->user->id) }}" class="relative hover:z-10 transition-all">
                                     <img src="{{ $like->user->profile_photo_url }}"
                                         alt="{{ $like->user->name ?: $like->user->handle }}'s profile photo"
                                         class="w-10 h-10 rounded-full border-2 border-gray-800 bg-gray-800 hover:border-indigo-500 transition-all">
                                 </a>
                             @endforeach
-                            @if ($blog->likes->count() > 10)
+                            @if ($content->likes->count() > 10)
                                 <div class="flex items-center justify-center w-10 h-10 rounded-full bg-indigo-600 text-white border-2 border-gray-800 relative hover:z-10 font-semibold text-sm">
-                                    +{{ $blog->likes->count() - 10 }}
+                                    +{{ $content->likes->count() - 10 }}
                                 </div>
                             @endif
                         </div>
@@ -116,9 +126,9 @@
                                 <textarea 
                                     id="comment" 
                                     class="w-full p-3 rounded-lg bg-gray-800/40 backdrop-blur-sm border border-white/10 text-white focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all" 
-                                    wire:model="content"
+                                    wire:model="commentText"
                                     placeholder="Write your comment here..."></textarea>
-                                @error('content')
+                                @error('commentText')
                                     <span class="error text-red-500 text-sm mt-1">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -173,7 +183,7 @@
                                         <!-- Delete Button -->
                                         @if (auth()->user() && 
                                             ($comment->user_id == auth()->user()->id ||
-                                             $comment->blog->user_id == auth()->user()->id ||
+                                             ($contentType === 'blog' ? $comment->blog->user_id : $comment->post->user_id) == auth()->user()->id ||
                                              auth()->user()->admin_rank > 2))
                                             <button wire:click="deleteComment({{ $comment->id }})"
                                                 class="text-red-500 hover:text-red-400 transition-colors text-sm">
@@ -236,7 +246,7 @@
                                 @if ($comment->replies && $comment->replies->count() > 0)
                                     <div class="mt-4 pl-4 border-l border-indigo-500/20">
                                         @foreach ($comment->replies as $reply)
-                                            @include('partials.blog-comment-replies', ['reply' => $reply, 'replyingTo' => $replyingTo])
+                                            @include('partials.content-comment-replies', ['reply' => $reply, 'replyingTo' => $replyingTo, 'contentType' => $contentType])
                                         @endforeach
                                     </div>
                                 @endif
@@ -255,8 +265,8 @@
 
 <script>
     document.querySelectorAll('.likeButton').forEach(button => {
-        const blogId = button.dataset.blogId;
-        const countText = document.getElementById(`likeCount-${blogId}`);
+        const contentId = button.dataset.contentId;
+        const countText = document.getElementById(`likeCount-${contentId}`);
 
         button.addEventListener('click', function() {
             if (button.innerHTML.includes('unliked.png')) {
