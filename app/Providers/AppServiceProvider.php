@@ -24,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
             $event->extendSocialite('discord', \SocialiteProviders\Discord\Provider::class);
+            $event->extendSocialite('reddit', \SocialiteProviders\Reddit\Provider::class);
         });
 
         Pulse::user(function (User $user) {
