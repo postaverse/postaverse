@@ -40,9 +40,9 @@
   "require": {
     "erusev/parsedown": "^1.7",
     "joelbutcher/socialstream": "^6.3",
-    "laravel/framework": "^v12.14.1",
+    "laravel/framework": "^v12.16.0",
     "laravel/jetstream": "^5.3",
-    "laravel/pulse": "^1.4",
+    "laravel/pulse": "^v1.4.2",
     "laravel/sanctum": "^4.1",
     "laravel/tinker": "^2.10",
     "league/flysystem-aws-s3-v3": "^3.29",
@@ -56,10 +56,10 @@
     "fakerphp/faker": "^1.24",
     "itsgoingd/clockwork": "^5.3",
     "laravel/pint": "^v1.22.1",
-    "laravel/sail": "^v1.43.0",
+    "laravel/sail": "^v1.43.1",
     "mockery/mockery": "^1.6.12",
     "nunomaduro/collision": "^8.5",
-    "phpunit/phpunit": "^12.1.4",
+    "phpunit/phpunit": "^12.1.6",
     "spatie/laravel-ignition": "^2.4"
   },
   "scripts": {
