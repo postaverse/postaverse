@@ -105,6 +105,6 @@ class CreateBlog extends Component
 
     public function render()
     {
-        return view('livewire.blog.create-blog');
+        return view('livewire.Blog.create-blog');
     }
 }
