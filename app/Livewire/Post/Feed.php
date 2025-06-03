@@ -36,6 +36,8 @@ class Feed extends Component
             if (auth()->user()->blockedUsers) {
                 $blockedUsers = auth()->user()->blockedUsers->pluck('blocked_users')->toArray();
                 $blockedUsers = array_map('trim', explode(',', implode(',', $blockedUsers)));
+                // Filter out empty strings
+                $blockedUsers = array_filter($blockedUsers);
             }
         }
         
@@ -46,8 +48,7 @@ class Feed extends Component
                 ->paginate(20);
         } else {
             // Normal production query with filters
-            $posts = Post::with(['user', 'comments', 'likes', 'images'])
-                ->whereNotIn('posts.user_id', $blockedUsers)
+            $query = Post::with(['user', 'comments', 'likes', 'images'])
                 ->leftJoin('followers', function($join) use ($userId) {
                     $join->on('posts.user_id', '=', 'followers.following_id')
                         ->where('followers.follower_id', '=', $userId);
@@ -63,8 +64,14 @@ class Feed extends Component
                 })
                 ->select('posts.*')
                 ->distinct()
-                ->orderByDesc('created_at')
-                ->paginate(20);
+                ->orderByDesc('posts.created_at');
+                
+            // Only add blocked users filter if there are actual blocked users
+            if (!empty($blockedUsers)) {
+                $query->whereNotIn('posts.user_id', $blockedUsers);
+            }
+            
+            $posts = $query->paginate(20);
         }
 
         $parsedown = new Parsedown();
