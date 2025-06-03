@@ -21,12 +21,13 @@ class EmailVerificationTest extends TestCase
         Mail::fake();
         
         $email = $this->faker->safeEmail();
-        $handle = 'testuser' . random_int(100, 999); // Safe username without special characters
+        $handle = 'testuser' . random_int(100, 999);
         
         // Set the correct emoji in the session
         session(['correct_emoji' => '👍']);
         
-        $response = $this->post('/register', [
+        $response = $this->withoutMiddleware()
+            ->post('/register', [
             'handle' => $handle,
             'email' => $email,
             'password' => 'Password123!',

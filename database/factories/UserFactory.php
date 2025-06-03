@@ -11,10 +11,17 @@ use JoelButcher\Socialstream\Providers;
 use Laravel\Jetstream\Features as JetstreamFeatures;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User\User>
  */
 class UserFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = \App\Models\User\User::class;
+
     /**
      * Define the model's default state.
      *

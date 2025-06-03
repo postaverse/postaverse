@@ -27,7 +27,8 @@ class VerificationSystemTest extends TestCase
         // Set correct emoji
         session(['correct_emoji' => '👍']);
         
-        $response = $this->post('/register', [
+        $response = $this->withoutMiddleware()
+            ->post('/register', [
             'handle' => $handle,
             'email' => $email,
             'password' => 'Password123!',

@@ -66,8 +66,11 @@ class ProfileTest extends TestCase
         $this->actingAs($this->user);
         $this->user->markEmailAsVerified();
         
-        // Follow another user
+        // Follow another user using the correct route
         $response = $this->post('/follow/' . $this->anotherUser->id);
+        
+        // Check that the response redirects back
+        $response->assertStatus(302);
         
         // Check that the follow was recorded in the database
         $this->assertDatabaseHas('followers', [
@@ -78,8 +81,14 @@ class ProfileTest extends TestCase
     
     public function test_users_can_unfollow_other_users(): void
     {
-        // Create a follow relationship
+        // Create a follow relationship first
         Follower::create([
+            'follower_id' => $this->user->id,
+            'following_id' => $this->anotherUser->id,
+        ]);
+        
+        // Verify the relationship exists
+        $this->assertDatabaseHas('followers', [
             'follower_id' => $this->user->id,
             'following_id' => $this->anotherUser->id,
         ]);
@@ -88,7 +97,7 @@ class ProfileTest extends TestCase
         $this->actingAs($this->user);
         $this->user->markEmailAsVerified();
         
-        // Unfollow the other user
+        // Unfollow the other user using the correct route
         $response = $this->delete('/unfollow/' . $this->anotherUser->id);
         
         // Check that there's a redirect

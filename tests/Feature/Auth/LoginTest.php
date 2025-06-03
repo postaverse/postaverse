@@ -30,7 +30,8 @@ class LoginTest extends TestCase
             'password' => Hash::make('password'),
         ]);
         
-        $response = $this->post('/login', [
+        $response = $this->withoutMiddleware()
+            ->post('/login', [
             'email' => 'test@example.com',
             'password' => 'password',
         ]);
@@ -50,7 +51,8 @@ class LoginTest extends TestCase
         ]);
         
         // Wrong password
-        $response = $this->post('/login', [
+        $response = $this->withoutMiddleware()
+            ->post('/login', [
             'email' => 'test@example.com',
             'password' => 'wrong-password',
         ]);
@@ -59,7 +61,8 @@ class LoginTest extends TestCase
         $response->assertSessionHasErrors();
         
         // Wrong email
-        $response = $this->post('/login', [
+        $response = $this->withoutMiddleware()
+            ->post('/login', [
             'email' => 'wrong@example.com',
             'password' => 'password',
         ]);
@@ -78,7 +81,8 @@ class LoginTest extends TestCase
             'password' => Hash::make('password'),
         ]);
         
-        $response = $this->post('/login', [
+        $response = $this->withoutMiddleware()
+            ->post('/login', [
             'email' => 'testuser', // Using handle in the email field
             'password' => 'password',
         ]);

@@ -370,6 +370,7 @@
                                         <th scope="col" class="px-6 py-3">Email</th>
                                         <th scope="col" class="px-6 py-3">Banned on</th>
                                         <th scope="col" class="px-6 py-3">Reason</th>
+                                        <th scope="col" class="px-6 py-3">Banned IPs</th>
                                         <th scope="col" class="px-6 py-3 rounded-r-lg">Actions</th>
                                     </tr>
                                 </thead>
@@ -381,6 +382,19 @@
                                         <td class="px-6 py-4">{{ $banned->user->email }}</td>
                                         <td class="px-6 py-4">{{ $banned->created_at->format('M d, Y') }}</td>
                                         <td class="px-6 py-4 max-w-xs truncate">{{ $banned->reason }}</td>
+                                        <td class="px-6 py-4">
+                                            @if($banned->bannedIps->count() > 0)
+                                                <div class="flex flex-wrap gap-1">
+                                                    @foreach($banned->bannedIps as $bannedIp)
+                                                        <span class="inline-block bg-red-500/20 text-red-300 text-xs px-2 py-1 rounded">
+                                                            {{ $bannedIp->ip_address }}
+                                                        </span>
+                                                    @endforeach
+                                                </div>
+                                            @else
+                                                <span class="text-gray-500 text-xs">No IPs banned</span>
+                                            @endif
+                                        </td>
                                         <td class="px-6 py-4">
                                             <button wire:click="confirmAction('unban', {{ $banned->user_id }})" class="text-indigo-400 hover:text-indigo-300 transition-colors">
                                                 Unban

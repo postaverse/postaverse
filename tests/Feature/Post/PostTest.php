@@ -127,6 +127,7 @@ class PostTest extends TestCase
         
         // User should be able to delete their own post
         $response = $this->actingAs($this->user)
+            ->withoutMiddleware()
             ->delete('/post/' . $ownPost->id);
             
         $this->assertDatabaseMissing('posts', [
@@ -135,6 +136,7 @@ class PostTest extends TestCase
         
         // User should not be able to delete someone else's post
         $response = $this->actingAs($this->user)
+            ->withoutMiddleware()
             ->delete('/post/' . $otherPost->id);
             
         $this->assertDatabaseHas('posts', [

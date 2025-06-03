@@ -6,11 +6,13 @@ use Livewire\Component;
 use App\Models\User\User;
 use App\Models\Badge;
 use App\Models\User\Banned;
+use App\Models\BannedIp;
 use App\Models\Admin\AdminLogs;
 use App\Models\Admin\Whitelisted;
 use App\Models\Post\Post;
 use App\Models\Post\Comment;
 use App\Models\Post\Like;
+use App\Services\IpBanService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Illuminate\Http\Response;
@@ -120,7 +122,7 @@ class AdminDashboard extends Component
     
     public function getBannedUsers()
     {
-        $query = Banned::with('user');
+        $query = Banned::with(['user', 'bannedIps']);
         
         if ($this->searchTerm) {
             $query->whereHas('user', function($q) {
@@ -182,69 +184,31 @@ class AdminDashboard extends Component
 
     public function banUser(): Response|null
     {
-        if (!$this->hasPermission('perm_ban')) {
-            session()->flash('error', 'You do not have permission to permanently ban users.');
-            return null;
-        }
+        $ipBanService = new IpBanService();
+        $result = $ipBanService->banUser($this->user_id, $this->reason);
         
-        $user = User::find($this->user_id);
+        if ($result['success']) {
+            session()->flash('banmessage', $result['message']);
+            $this->reset('user_id', 'reason');
+            $this->cancelAction();
+        } else {
+            session()->flash('error', $result['message']);
+        }
 
-        if (!$user) {
-            session()->flash('error', 'User not found.');
-            return null;
-        }
-        
-        // Cannot ban admins
-        if ($user->admin_rank > 0 && $user->admin_rank >= Auth::user()->admin_rank) {
-            session()->flash('error', 'You cannot ban an admin with equal or higher rank.');
-            return null;
-        }
-        
-        $user->bans()->create([
-            'reason' => $this->reason,
-        ]);
-        
-        AdminLogs::create([
-            'admin_id' => Auth::id(),
-            'action' => 'Banned user ' . $user->name . ' (ID: ' . $user->id . ')',
-        ]);
-        
-        session()->flash('banmessage', 'User banned successfully.');
-        $this->reset('user_id', 'reason');
-        $this->cancelAction();
-        
         return null;
     }
 
     public function unbanUser(): void
     {
-        if (!$this->hasPermission('unban')) {
-            session()->flash('error', 'You do not have permission to unban users.');
-            return;
-        }
+        $ipBanService = new IpBanService();
+        $result = $ipBanService->unbanUser($this->uid);
         
-        $user = User::find($this->uid);
-
-        if (!$user) {
-            session()->flash('error', 'User not found.');
-            return;
-        }
-        
-        $ban = Banned::where('user_id', $user->id)->first();
-        
-        if ($ban) {
-            $ban->delete();
-            
-            AdminLogs::create([
-                'admin_id' => Auth::id(),
-                'action' => 'Unbanned user ' . $user->name . ' (ID: ' . $user->id . ')',
-            ]);
-            
-            session()->flash('unbanmessage', 'User unbanned successfully.');
+        if ($result['success']) {
+            session()->flash('unbanmessage', $result['message']);
             $this->reset('uid');
             $this->cancelAction();
         } else {
-            session()->flash('error', 'User is not currently banned.');
+            session()->flash('error', $result['message']);
         }
     }
 

@@ -25,7 +25,8 @@ class RegistrationTest extends TestCase
     {
         Mail::fake();
         
-        $response = $this->post('/register', [
+        $response = $this->withoutMiddleware()
+            ->post('/register', [
             'handle' => '',
             'email' => 'invalid-email',
             'password' => 'short',
@@ -60,7 +61,8 @@ class RegistrationTest extends TestCase
         session(['correct_emoji' => '👍']);
         
         // Try to register with email already in pending_users
-        $response = $this->post('/register', [
+        $response = $this->withoutMiddleware()
+            ->post('/register', [
             'handle' => 'newuser',
             'email' => 'existing@example.com',
             'password' => 'Password123!',
@@ -71,7 +73,8 @@ class RegistrationTest extends TestCase
         $response->assertSessionHasErrors('email');
         
         // Try to register with email already in users
-        $response = $this->post('/register', [
+        $response = $this->withoutMiddleware()
+            ->post('/register', [
             'handle' => 'newuser',
             'email' => 'verified@example.com',
             'password' => 'Password123!',
@@ -107,7 +110,8 @@ class RegistrationTest extends TestCase
         session(['correct_emoji' => '👍']);
         
         // Try to register with handle already in pending_users
-        $response = $this->post('/register', [
+        $response = $this->withoutMiddleware()
+            ->post('/register', [
             'handle' => 'existinghandle',
             'email' => 'new@example.com',
             'password' => 'Password123!',
@@ -118,7 +122,8 @@ class RegistrationTest extends TestCase
         $response->assertSessionHasErrors('handle');
         
         // Try to register with handle already in users
-        $response = $this->post('/register', [
+        $response = $this->withoutMiddleware()
+            ->post('/register', [
             'handle' => 'verifiedhandle',
             'email' => 'new2@example.com',
             'password' => 'Password123!',

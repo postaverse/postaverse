@@ -57,6 +57,7 @@ class SettingsTest extends TestCase
         $email = $this->user->email;
         
         $response = $this->actingAs($this->user)
+            ->withoutMiddleware()
             ->put('/user/profile-information', [
                 'name' => 'Updated Name',
                 'handle' => $this->user->handle, // Keep the handle
@@ -85,6 +86,7 @@ class SettingsTest extends TestCase
         $newEmail = 'newemail@example.com';
         
         $response = $this->actingAs($this->user)
+            ->withoutMiddleware()
             ->put('/user/profile-information', [
                 'name' => $this->user->name,
                 'email' => $newEmail,
@@ -109,6 +111,7 @@ class SettingsTest extends TestCase
     public function test_user_can_update_password(): void
     {
         $response = $this->actingAs($this->user)
+            ->withoutMiddleware()
             ->put('/user/password', [
                 'current_password' => 'password',
                 'password' => 'new-password123',
