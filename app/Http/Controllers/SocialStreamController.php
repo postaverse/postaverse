@@ -10,73 +10,110 @@ use Illuminate\Support\Facades\Auth;
 use App\Actions\Socialstream\CreateConnectedAccount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Log;
+use Exception;
 
 class SocialStreamController extends Controller
 {
+    /**
+     * Redirect the user to the specified provider authentication page.
+     *
+     * @param string $provider
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function redirectToProvider($provider)
     {
         return Socialite::driver($provider)->redirect();
     }
 
+    /**
+     * Handle the callback from the OAuth provider.
+     *
+     * @param string $provider
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function handleProviderCallback($provider)
     {
         try {
-            $user = Socialite::driver($provider)->user();
-        } catch (\Exception $e) {
-            return redirect('/login');
+            $providerUser = Socialite::driver($provider)->user();
+        } catch (Exception $e) {
+            Log::error("OAuth error with provider {$provider}: " . $e->getMessage());
+            return redirect()->route('login')->with('error', 'Failed to authenticate with ' . ucfirst($provider));
         }
 
-        // First, check if the user is logged in
-        $liu = Auth::user();
-        $u = User::where('email', $user->getEmail())->first();
-
-        if ($liu) {
-            // Set the email of the connected account to the email of the logged in user
-            // instead of the email of the connected account.
-            // This prevents account creation if the user is already logged in.
-            // This modifies the $u variable
-            $u = $liu;
+        // Get authenticated user if logged in
+        $authenticatedUser = Auth::user();
+        $email = $providerUser->getEmail();
+        
+        // If no email was provided by the provider, we can't proceed
+        if (!$email) {
+            return redirect()->route('login')->with('error', 'Could not retrieve email from ' . ucfirst($provider));
         }
-
-        if ($u) {
-            // Check if the user has already connected the account
-            $connectedAccount = ConnectedAccount::where('user_id', $u->id)
-                ->where('provider', $provider)
-                ->where('provider_id', $user->getId())
-                ->first();
-
-            if ($connectedAccount) {
-                Auth::login($u, true);
-                return redirect()->intended('/home');
-            } else {
-                // Create a new connected account
-                $createConnectedAccount = new CreateConnectedAccount();
-                $createConnectedAccount->create($u, $provider, $user);
-            }
+        
+        // Find existing user with this email
+        $user = $authenticatedUser ?? User::where('email', $email)->first();
+        
+        if ($user) {
+            return $this->handleExistingUser($user, $provider, $providerUser);
         } else {
-            // Check if whitelisting is enabled
-            if (Config::get('whitelisting.enabled', false)) {
-                // Only check whitelist if the feature is enabled
-                if (Whitelisted::where('email', Socialite::driver($provider)->user()->getEmail())->first() == null) {
-                    return redirect()->route('login')->with('error', 'You are not whitelisted.');
-                }
-            }
-            
-            // Create a new user and connect the account
-            User::create([
-                'name' => $user->getName(),
-                'email' => $user->getEmail(),
-            ]);
+            return $this->createNewUser($provider, $providerUser);
+        }
+    }
 
-            $u = User::where('email', $user->getEmail())->first();
+    /**
+     * Handle existing user social authentication.
+     *
+     * @param User $user
+     * @param string $provider
+     * @param \Laravel\Socialite\Contracts\User $providerUser
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    private function handleExistingUser(User $user, $provider, $providerUser)
+    {
+        // Check if the user has already connected the account
+        $connectedAccount = ConnectedAccount::where('user_id', $user->id)
+            ->where('provider', $provider)
+            ->where('provider_id', $providerUser->getId())
+            ->first();
 
+        if (!$connectedAccount) {
             // Create a new connected account
             $createConnectedAccount = new CreateConnectedAccount();
-            $createConnectedAccount->create($u, $provider, $user);
+            $createConnectedAccount->create($user, $provider, $providerUser);
         }
 
-        Auth::login($u, true);
+        Auth::login($user, true);
+        return redirect()->intended('/home');
+    }
 
+    /**
+     * Create a new user from OAuth data.
+     *
+     * @param string $provider
+     * @param \Laravel\Socialite\Contracts\User $providerUser
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    private function createNewUser($provider, $providerUser)
+    {
+        $email = $providerUser->getEmail();
+        
+        // Check if whitelisting is enabled
+        if (Config::get('whitelisting.enabled', false) && 
+            !Whitelisted::where('email', $email)->exists()) {
+            return redirect()->route('login')->with('error', 'You are not whitelisted.');
+        }
+        
+        // Create a new user
+        $user = User::create([
+            'name' => $providerUser->getName() ?? explode('@', $email)[0],
+            'email' => $email,
+        ]);
+
+        // Create a new connected account
+        $createConnectedAccount = new CreateConnectedAccount();
+        $createConnectedAccount->create($user, $provider, $providerUser);
+
+        Auth::login($user, true);
         return redirect()->intended('/home');
     }
 }
