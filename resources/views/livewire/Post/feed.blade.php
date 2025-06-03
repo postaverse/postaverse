@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        @include('livewire.content.list', [
+        @include('livewire.Content.list', [
             'items' => $posts,
             'title' => 'Feed',
             'emptyTitle' => 'No posts in your feed',
