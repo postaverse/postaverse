@@ -15,6 +15,7 @@
 * Fix file names
 * Update Dependencies
 * Internal File Restructure
+* Bug fixes
 
 ### v3.0.0 Alpha
 * Code cleanup
