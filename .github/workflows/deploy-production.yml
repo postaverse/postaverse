@@ -3,6 +3,7 @@ name: Deploy to Production server
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   deploy:
