@@ -5,7 +5,7 @@ namespace App\Livewire\Content;
 use App\Livewire\Content\BasePage;
 use App\Livewire\Content\HandlesReplies;
 use App\Models\Post\Post;
-use App\Models\Post\PostComment;
+use App\Models\Post\Comment;
 use App\Models\Blog\Blog;
 use App\Models\Blog\BlogLike;
 use App\Models\Blog\BlogComment;
@@ -139,7 +139,7 @@ class ContentPage extends BasePage
             );
             
             $this->commentText = '';
-            $this->emit('commentAdded');
+            $this->dispatch('commentAdded');
         } else {
             $comment = $this->content->comments()->create([
                 'user_id' => auth()->id(),
@@ -160,7 +160,7 @@ class ContentPage extends BasePage
             );
             
             $this->commentText = '';
-            $this->emit('commentAdded');
+            $this->dispatch('commentAdded');
         }
     }
 
@@ -183,7 +183,7 @@ class ContentPage extends BasePage
             }
         } else {
             // Handle post comment deletion
-            $comment = PostComment::find($commentId);
+            $comment = Comment::find($commentId);
             if (auth()->check() && ($comment->user_id == auth()->id() || 
                 $this->content->user_id == auth()->id() || 
                 auth()->user()->admin_rank > 2)) {

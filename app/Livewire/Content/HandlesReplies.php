@@ -4,7 +4,7 @@ namespace App\Livewire\Content;
 
 use App\Models\User\User;
 use App\Models\Blog\BlogComment;
-use App\Models\Post\PostComment;
+use App\Models\Post\Comment;
 use App\Models\Interaction\Notification;
 use Illuminate\Support\Facades\Auth;
 
@@ -40,7 +40,7 @@ trait HandlesReplies
         if ($contentType === 'blog' || $contentType === 'blogs') {
             $parentComment = BlogComment::find($this->replyingTo);
         } else {
-            $parentComment = PostComment::find($this->replyingTo);
+            $parentComment = Comment::find($this->replyingTo);
         }
         
         // If parent comment doesn't exist, treat as a top-level comment
@@ -59,7 +59,7 @@ trait HandlesReplies
                 'parent_id' => $this->replyingTo
             ]);
         } else {
-            $reply = PostComment::create([
+            $reply = Comment::create([
                 'post_id' => $this->content->id,
                 'user_id' => auth()->id(),
                 'content' => $this->replyContent,
@@ -92,7 +92,7 @@ trait HandlesReplies
             ->orderBy('created_at', 'desc')
             ->get();
         
-        $this->emit('replyAdded');
+        $this->dispatch('replyAdded');
     }
     
     protected function getMentionedUsers($text)
