@@ -2,12 +2,21 @@
 ## Table of Contents
 - [Changelog](#changelog)
   - [v3](#v3)
+    - [v3.0.x](#v30x)
     - [v3.0.0 Beta](#v300-beta)
     - [v3.0.0 Alpha](#v300-alpha)
-  - [v2.0.0](#v200)
+  - [v2](#v2)
+    - [v2.0.0](#v200)
     - [v2.0.0+](#v200-1)
 
 ## v3
+
+### v3.0.x
+* Improved Admin Dashboard
+* IP Banning
+* Improved Ban System
+* Componentize Admin Dashboard (from 1000+ lines to ~50 lines)
+* Bug fixes
 
 ### v3.0.0 Beta
 * UI fixes
@@ -16,10 +25,6 @@
 * Update Dependencies
 * Internal File Restructure
 * Bug fixes
-* Improved Admin Dashboard
-* IP Banning
-* Improved Ban System
-* Componentize Admin Dashboard (from 1000+ lines to ~50 lines)
 
 ### v3.0.0 Alpha
 * Code cleanup
@@ -49,7 +54,9 @@
 * Admin tags
 * Update Dependencies
 
-## v2.0.0
+## v2
+
+### v2.0.0
 * Full Rewrite of Postaverse from Python's Flask to PHP's Laravel
 
 ### v2.0.0+

@@ -15,16 +15,6 @@
             class="mr-2 py-3 px-4 text-center border-b-2 font-medium text-sm {{ $activeTab === 'users' ? 'border-indigo-500 text-indigo-400' : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-400' }}">
             User Management
         </button>
-        @if (auth()->user()->admin_rank >= 3)
-            <button wire:click="setActiveTab('ban')"
-                class="mr-2 py-3 px-4 text-center border-b-2 font-medium text-sm {{ $activeTab === 'ban' ? 'border-red-500 text-red-400' : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-400' }}">
-                Ban User
-            </button>
-            <button wire:click="setActiveTab('unban')"
-                class="mr-2 py-3 px-4 text-center border-b-2 font-medium text-sm {{ $activeTab === 'unban' ? 'border-green-500 text-green-400' : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-400' }}">
-                Unban User
-            </button>
-        @endif
         <button wire:click="setActiveTab('logs')"
             class="mr-2 py-3 px-4 text-center border-b-2 font-medium text-sm {{ $activeTab === 'logs' ? 'border-indigo-500 text-indigo-400' : 'border-transparent text-gray-400 hover:text-gray-300 hover:border-gray-400' }}">
             Logs

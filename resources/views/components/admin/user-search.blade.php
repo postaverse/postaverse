@@ -1,9 +1,9 @@
-@props(['model', 'placeholder', 'focusColor', 'searchResults', 'searchMethod', 'selectMethod'])
+@props(['model', 'placeholder', 'focusColor', 'searchResults', 'selectMethod'])
 
 <div>
     <label class="block text-sm font-medium text-gray-300 mb-2">Search User</label>
     <div class="relative">
-        <input type="text" wire:model.debounce.300ms="{{ $model }}" wire:keyup="{{ $searchMethod }}"
+        <input type="text" wire:model.live.debounce.300ms="{{ $model }}"
             class="w-full bg-gray-800/50 border border-gray-600 rounded-lg px-4 py-3 pr-12 text-white placeholder-gray-400 focus:border-{{ $focusColor }}-500 focus:ring-{{ $focusColor }}-500/20 focus:ring-2 transition-all"
             placeholder="{{ $placeholder }}" autocomplete="off" />
         <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none">

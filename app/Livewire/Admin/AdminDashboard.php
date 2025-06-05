@@ -41,6 +41,7 @@ class AdminDashboard extends Component
     public string $ban_user_search = '';
     public string $unban_user_search = '';
     public array $searchResults = [];
+    public array $bannedSearchResults = [];
     public ?User $selectedUser = null;
     public ?User $selectedUnbanUser = null;
     public bool $showBanModal = false;
@@ -81,6 +82,33 @@ class AdminDashboard extends Component
         return $permissions[$permission] ?? false;
     }
     
+    public function resetBanForm()
+    {
+        $this->selectedUser = null;
+        $this->user_id = null;
+        $this->reason = '';
+        $this->ban_user_search = '';
+        $this->searchResults = [];
+    }
+
+    public function resetUnbanForm()
+    {
+        $this->selectedUnbanUser = null;
+        $this->uid = null;
+        $this->unban_user_search = '';
+        $this->bannedSearchResults = [];
+    }
+
+    public function canBan(): bool
+    {
+        return $this->selectedUser && !empty(trim($this->reason ?? ''));
+    }
+    
+    public function canUnban(): bool
+    {
+        return $this->selectedUnbanUser !== null;
+    }
+    
     public function getAdminRankTitle($rank): array
     {
         return $this->adminRanks[$rank] ?? ['title' => 'Unknown', 'color' => 'gray'];
@@ -88,6 +116,11 @@ class AdminDashboard extends Component
     
     public function setActiveTab($tab): void
     {
+        // Redirect old ban/unban tabs to users tab
+        if ($tab === 'ban' || $tab === 'unban') {
+            $tab = 'users';
+        }
+        
         $this->activeTab = $tab;
         $this->resetPage();
         
@@ -107,6 +140,17 @@ class AdminDashboard extends Component
     public function updatedSearchTerm(): void
     {
         $this->resetPage();
+    }
+    
+    // Add lifecycle methods for user search functionality
+    public function updatedBanUserSearch(): void
+    {
+        $this->searchResults = $this->searchUsers();
+    }
+    
+    public function updatedUnbanUserSearch(): void
+    {
+        $this->bannedSearchResults = $this->searchBannedUsers();
     }
     
     // Add a manual search method for testing
@@ -290,11 +334,10 @@ class AdminDashboard extends Component
     public function searchUsers()
     {
         if (strlen($this->ban_user_search) < 2) {
-            $this->searchResults = [];
-            return;
+            return [];
         }
 
-        $this->searchResults = User::where(function($query) {
+        return User::where(function($query) {
             $query->where('name', 'like', '%' . $this->ban_user_search . '%')
                   ->orWhere('handle', 'like', '%' . $this->ban_user_search . '%')
                   ->orWhere('email', 'like', '%' . $this->ban_user_search . '%')
@@ -303,8 +346,10 @@ class AdminDashboard extends Component
         ->whereNotIn('id', function($query) {
             $query->select('user_id')->from('banned');
         })
+        // For testing: allow searching for admins (normally you'd want to exclude them)
+        // ->where('admin_rank', '=', 0) 
         ->limit(10)
-        ->get(['id', 'name', 'handle', 'email', 'admin_rank'])
+        ->get(['id', 'name', 'handle', 'email', 'admin_rank', 'profile_photo_path'])
         ->toArray();
     }
 
@@ -312,7 +357,7 @@ class AdminDashboard extends Component
     {
         $this->selectedUser = User::find($userId);
         $this->user_id = $userId;
-        $this->ban_user_search = $this->selectedUser->name . ' (@' . $this->selectedUser->handle . ')';
+        $this->ban_user_search = '';
         $this->searchResults = [];
     }
 
@@ -327,7 +372,7 @@ class AdminDashboard extends Component
     public function closeBanModal()
     {
         $this->showBanModal = false;
-        $this->reset(['ban_user_search', 'reason', 'user_id', 'selectedUser', 'searchResults']);
+        $this->resetBanForm();
     }
 
     public function confirmBanUser()
@@ -364,14 +409,16 @@ class AdminDashboard extends Component
                   ->orWhere('id', $this->unban_user_search);
         })
         ->limit(10)
-        ->get(['id', 'name', 'handle', 'email']);
+        ->get(['id', 'name', 'handle', 'email', 'profile_photo_path'])
+        ->toArray();
     }
 
     public function selectUserForUnban($userId)
     {
         $this->selectedUnbanUser = User::find($userId);
         $this->uid = $userId;
-        $this->unban_user_search = $this->selectedUnbanUser->name . ' (@' . $this->selectedUnbanUser->handle . ')';
+        $this->unban_user_search = '';
+        $this->bannedSearchResults = [];
     }
 
     public function openUnbanModal($userId = null)
@@ -385,7 +432,7 @@ class AdminDashboard extends Component
     public function closeUnbanModal()
     {
         $this->showUnbanModal = false;
-        $this->reset(['unban_user_search', 'uid', 'selectedUnbanUser']);
+        $this->resetUnbanForm();
     }
 
     public function confirmUnbanUser()

@@ -2,13 +2,22 @@
 
 <div class="bg-gray-800/50 rounded-lg p-6 border border-gray-600">
     <div class="flex items-center space-x-4 mb-4">
-        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center">
-            <span
-                class="text-white font-bold text-xl">{{ strtoupper(substr($user->name ?: $user->handle, 0, 1)) }}</span>
-        </div>
+        @if($user->profile_photo_path)
+            <div class="w-16 h-16 rounded-full overflow-hidden ring-4 ring-red-500/30">
+                <img src="{{ $user->profile_photo_url }}" 
+                     alt="{{ $user->name ?: $user->handle }}" 
+                     class="w-full h-full object-cover">
+            </div>
+        @else
+            <div
+                class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center">
+                <span
+                    class="text-white font-bold text-xl">{{ strtoupper(substr($user->name ?: $user->handle, 0, 1)) }}</span>
+            </div>
+        @endif
         <div class="flex-1">
             <h3 class="text-xl font-semibold text-white">{{ $user->name ?: 'No Name Set' }}</h3>
-            <p class="text-gray-400">@{{ $user - > handle }} • {{ $user->email }}</p>
+            <p class="text-gray-400">{{ $user->handle }} • {{ $user->email }}</p>
             <p class="text-gray-500 text-sm">User ID: {{ $user->id }}</p>
         </div>
         <div class="bg-red-500/20 text-red-300 px-3 py-2 rounded-lg">

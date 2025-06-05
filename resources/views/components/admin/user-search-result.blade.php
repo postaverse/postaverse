@@ -4,10 +4,17 @@
     class="px-4 py-3 hover:bg-gray-700/50 cursor-pointer border-b border-gray-600/50 last:border-b-0 transition-colors">
     <div class="flex items-center justify-between">
         <div class="flex items-center space-x-3">
-            <div
-                class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center">
-                <span
-                    class="text-white font-semibold text-sm">{{ strtoupper(substr($user['name'] ?: $user['handle'], 0, 1)) }}</span>
+            <div class="w-10 h-10 rounded-full overflow-hidden ring-2 ring-indigo-500/30">
+                @php
+                    $profilePhotoUrl = $user['profile_photo_path'] 
+                        ? (filter_var($user['profile_photo_path'], FILTER_VALIDATE_URL) 
+                            ? $user['profile_photo_path'] 
+                            : asset('storage/' . $user['profile_photo_path']))
+                        : 'https://gravatar.com/avatar/'.md5(strtolower($user['email'])).'?s=200&d=mp&d=retro';
+                @endphp
+                <img src="{{ $profilePhotoUrl }}" 
+                     alt="{{ $user['name'] ?: $user['handle'] }}" 
+                     class="w-full h-full object-cover">
             </div>
             <div>
                 <div class="text-white font-medium">{{ $user['name'] ?: 'No Name' }}</div>

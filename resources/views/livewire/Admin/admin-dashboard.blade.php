@@ -27,17 +27,7 @@
 
                 <!-- Users Tab -->
                 @if ($activeTab === 'users')
-                    <x-admin.users-tab :bannedUsers="$bannedUsers" />
-                @endif
-
-                <!-- Ban User Tab (R3+) -->
-                @if ($activeTab === 'ban' && auth()->user()->admin_rank >= 3)
-                    <x-admin.ban-user-tab :searchResults="$searchResults" :selectedUser="$selectedUser" />
-                @endif
-
-                <!-- Unban User Tab (R3+) -->
-                @if ($activeTab === 'unban' && auth()->user()->admin_rank >= 3)
-                    <x-admin.unban-user-tab :selectedUnbanUser="$selectedUnbanUser" />
+                    <x-admin.users-tab :bannedUsers="$bannedUsers" :searchResults="$searchResults" :selectedUser="$selectedUser" :selectedUnbanUser="$selectedUnbanUser" :bannedSearchResults="$bannedSearchResults" />
                 @endif
 
                 <!-- Logs Tab -->
