@@ -40,7 +40,7 @@
   "require": {
     "erusev/parsedown": "^1.7",
     "joelbutcher/socialstream": "^6.3",
-    "laravel/framework": "^v12.16.0",
+    "laravel/framework": "^v12.17.0",
     "laravel/jetstream": "^5.3",
     "laravel/pulse": "^v1.4.2",
     "laravel/sanctum": "^4.1",
