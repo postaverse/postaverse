@@ -103,6 +103,21 @@ class AdminDashboard extends Component
         $this->resetPage();
     }
     
+    // Add this method to handle search term updates
+    public function updatedSearchTerm(): void
+    {
+        $this->resetPage();
+    }
+    
+    // Add a manual search method for testing
+    public function performSearch($term = null): void
+    {
+        if ($term !== null) {
+            $this->searchTerm = $term;
+        }
+        $this->resetPage();
+    }
+    
     public function highlightSearchTerm($text, $searchTerm = null): string
     {
         if (empty($searchTerm)) {
