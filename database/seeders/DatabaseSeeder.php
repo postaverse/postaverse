@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         // Create a new user
         $user = User::create([
-            'name' => 'Test User',
-            'handle' => 'testuser',
-            'email' => 'test@test.test',
-            'password' => Hash::make('password123'),
-            'email_verified_at' => now(),
-            'admin_rank' => 5,
-            'bio' => 'This is a test user.',
+            'name' => 'Test User',                   // Display name
+            'handle' => 'testuser',                  // Handle
+            'email' => 'test@test.test',             // Fake email for testing
+            'password' => Hash::make('password123'), // Password
+            'email_verified_at' => now(),            // Verify to ignore looking through logs
+            'admin_rank' => 5,                       // Set to Owner rank
+            'bio' => 'This is a test user.',         // Set a bio
         ]);
 
         // Create a new site for the user
@@ -48,5 +48,8 @@ class DatabaseSeeder extends Seeder
             'title' => 'Test Blog',
             'content' => 'This is a test blog.',
         ]);
+
+        // Run the AdminLogsSeeder to populate admin logs for testing
+        $this->call(AdminLogsSeeder::class);
     }
 }
