@@ -16,6 +16,9 @@
 * Update Dependencies
 * Internal File Restructure
 * Bug fixes
+* Improved Admin Dashboard
+* IP Banning
+* Improved Ban System
 
 ### v3.0.0 Alpha
 * Code cleanup
