@@ -1,7 +1,8 @@
 @props(['statistics', 'adminRanks'])
 
 <!-- Admin Header with Stats -->
-<div class="mb-8 bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+<div
+    class="mb-8 bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
             <h1 class="text-2xl font-bold text-white">Welcome,
@@ -11,7 +12,8 @@
                     {{ auth()->user()->name }}
                 @endif
             </h1>
-            <div class="mt-2 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
+            <div
+                class="mt-2 inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
                 @if (auth()->user()->admin_rank == 1) bg-blue-500/20 text-blue-300
                 @elseif(auth()->user()->admin_rank == 2) bg-green-500/20 text-green-300
                 @elseif(auth()->user()->admin_rank == 3) bg-purple-500/20 text-purple-300
@@ -33,28 +35,15 @@
 
     <!-- Statistics Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-        <x-admin.stat-card 
-            title="Total Users" 
-            value="{{ $statistics['users']['total'] }}" 
-            icon="users" 
+        <x-admin.stat-card title="Total Users" value="{{ $statistics['users']['total'] }}" icon="users"
             color="indigo" />
-        
-        <x-admin.stat-card 
-            title="Total Posts" 
-            value="{{ $statistics['content']['posts'] }}" 
-            icon="posts" 
+
+        <x-admin.stat-card title="Total Posts" value="{{ $statistics['content']['posts'] }}" icon="posts"
             color="blue" />
-        
-        <x-admin.stat-card 
-            title="Admins" 
-            value="{{ $statistics['users']['admins'] }}" 
-            icon="shield" 
-            color="purple" />
-        
-        <x-admin.stat-card 
-            title="Banned Users" 
-            value="{{ $statistics['users']['banned'] }}" 
-            icon="ban" 
+
+        <x-admin.stat-card title="Admins" value="{{ $statistics['users']['admins'] }}" icon="shield" color="purple" />
+
+        <x-admin.stat-card title="Banned Users" value="{{ $statistics['users']['banned'] }}" icon="ban"
             color="red" />
     </div>
 </div>

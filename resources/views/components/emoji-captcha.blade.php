@@ -4,7 +4,8 @@
     </p>
     <div class="flex flex-wrap space-x-2">
         @foreach ($emojis as $emoji)
-            <button type="button" class="emoji-button text-2xl rounded-lg p-1" data-emoji="{{ $emoji }}">{{ $emoji }}</button>
+            <button type="button" class="emoji-button text-2xl rounded-lg p-1"
+                data-emoji="{{ $emoji }}">{{ $emoji }}</button>
         @endforeach
     </div>
     <input type="hidden" name="selected_emoji" id="selected_emoji">

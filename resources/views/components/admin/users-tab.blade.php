@@ -5,7 +5,8 @@
     <x-admin.session-messages />
 
     <!-- Banned Users List -->
-    <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+    <div
+        class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
         <h2 class="text-2xl font-bold text-white mb-4">Banned Users</h2>
 
         @if ($bannedUsers->count() > 0)
@@ -34,7 +35,8 @@
                                     @if ($banned->bannedIps->count() > 0)
                                         <div class="flex flex-wrap gap-1">
                                             @foreach ($banned->bannedIps as $bannedIp)
-                                                <span class="inline-block bg-red-500/20 text-red-300 text-xs px-2 py-1 rounded">
+                                                <span
+                                                    class="inline-block bg-red-500/20 text-red-300 text-xs px-2 py-1 rounded">
                                                     {{ $bannedIp->ip_address }}
                                                 </span>
                                             @endforeach

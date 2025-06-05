@@ -7,8 +7,9 @@
     </x-section-title>
 
     <div class="mt-5 md:mt-0 md:col-span-2">
-        <form @if($submit) wire:submit="{{ $submit }}" @endif>
-            <div class="bg-gray-800/10 backdrop-blur-sm border border-white/20 shadow-sm overflow-hidden {{ isset($actions) ? 'sm:rounded-md' : 'sm:rounded-md' }}">
+        <form @if ($submit) wire:submit="{{ $submit }}" @endif>
+            <div
+                class="bg-gray-800/10 backdrop-blur-sm border border-white/20 shadow-sm overflow-hidden {{ isset($actions) ? 'sm:rounded-md' : 'sm:rounded-md' }}">
                 <div class="px-4 py-5">
                     <div class="grid grid-cols-6 gap-6">
                         {{ $form }}

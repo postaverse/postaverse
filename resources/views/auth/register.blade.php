@@ -69,8 +69,8 @@
                         <div class="ml-2">
                             {!! __('I confirm that I am 13 years of age or older.') !!}
                         </div>
-                    </x-label>
-                </div>
+                </x-label>
+            </div>
             </div>
 
             <!-- Emoji Captcha -->

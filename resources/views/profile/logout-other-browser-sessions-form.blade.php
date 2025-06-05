@@ -18,7 +18,8 @@
             <div class="mt-5 space-y-4">
                 <!-- Other Browser Sessions -->
                 @foreach ($this->sessions as $session)
-                    <div class="flex items-center p-3 bg-gray-800/40 backdrop-blur-sm border border-white/10 rounded-lg hover:border-white/20 transition-all">
+                    <div
+                        class="flex items-center p-3 bg-gray-800/40 backdrop-blur-sm border border-white/10 rounded-lg hover:border-white/20 transition-all">
                         <div>
                             @if ($session->agent->isDesktop())
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -46,7 +47,8 @@
                                     <span class="font-mono mr-2">{{ $session->ip_address }}</span>
 
                                     @if ($session->is_current_device)
-                                        <span class="bg-green-500/20 text-green-300 text-xs px-2 py-1 rounded-full">{{ __('This device') }}</span>
+                                        <span
+                                            class="bg-green-500/20 text-green-300 text-xs px-2 py-1 rounded-full">{{ __('This device') }}</span>
                                     @else
                                         <span>{{ __('Last active') }} {{ $session->last_active }}</span>
                                     @endif
@@ -59,7 +61,8 @@
         @endif
 
         <div class="mt-6">
-            <x-button wire:click="confirmLogout" wire:loading.attr="disabled" class="bg-indigo-600 hover:bg-indigo-700 transition-colors">
+            <x-button wire:click="confirmLogout" wire:loading.attr="disabled"
+                class="bg-indigo-600 hover:bg-indigo-700 transition-colors">
                 {{ __('Log Out Other Browser Sessions') }}
             </x-button>
 
@@ -79,21 +82,23 @@
 
                 <div class="mt-4" x-data="{}"
                     x-on:confirming-logout-other-browser-sessions.window="setTimeout(() => $refs.password.focus(), 250)">
-                    <x-input type="password" class="mt-1 block w-3/4 bg-gray-800/40 backdrop-blur-sm border border-white/10 text-white focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all" autocomplete="current-password"
-                        placeholder="{{ __('Password') }}" x-ref="password" wire:model="password"
-                        wire:keydown.enter="logoutOtherBrowserSessions" />
+                    <x-input type="password"
+                        class="mt-1 block w-3/4 bg-gray-800/40 backdrop-blur-sm border border-white/10 text-white focus:border-indigo-500/50 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none transition-all"
+                        autocomplete="current-password" placeholder="{{ __('Password') }}" x-ref="password"
+                        wire:model="password" wire:keydown.enter="logoutOtherBrowserSessions" />
 
                     <x-input-error for="password" class="mt-2" />
                 </div>
             </x-slot>
 
             <x-slot name="footer">
-                <x-secondary-button wire:click="$toggle('confirmingLogout')" wire:loading.attr="disabled" 
+                <x-secondary-button wire:click="$toggle('confirmingLogout')" wire:loading.attr="disabled"
                     class="bg-gray-800/40 backdrop-blur-sm border border-white/10 hover:border-white/20 text-gray-300 hover:text-white transition-all">
                     {{ __('Cancel') }}
                 </x-secondary-button>
 
-                <x-button class="ml-3 bg-indigo-600 hover:bg-indigo-700 transition-colors" wire:click="logoutOtherBrowserSessions" wire:loading.attr="disabled">
+                <x-button class="ml-3 bg-indigo-600 hover:bg-indigo-700 transition-colors"
+                    wire:click="logoutOtherBrowserSessions" wire:loading.attr="disabled">
                     {{ __('Log Out Sessions') }}
                 </x-button>
             </x-slot>

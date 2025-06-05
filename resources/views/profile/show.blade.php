@@ -7,9 +7,10 @@
 
     <div class="py-8">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-8 mb-8 hover:border-white/20 transition-all duration-300">
+            <div
+                class="border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-8 mb-8 hover:border-white/20 transition-all duration-300">
                 <h2 class="text-2xl font-bold text-white mb-6">Account Settings</h2>
-                
+
                 @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                     <div class="mb-10">
                         @livewire('profile.update-profile-information-form')

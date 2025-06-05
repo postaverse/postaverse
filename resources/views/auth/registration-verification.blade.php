@@ -22,7 +22,8 @@
 
         <div class="mt-8">
             <div class="flex items-center justify-center">
-                <a href="{{ route('login') }}" class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800">
+                <a href="{{ route('login') }}"
+                    class="underline text-sm text-gray-400 hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800">
                     {{ __('Return to login') }}
                 </a>
             </div>

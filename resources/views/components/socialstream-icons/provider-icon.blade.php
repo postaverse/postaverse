@@ -41,7 +41,7 @@
         @default
             @if ($provider == 'discord')
                 <x-socialstream-icons.discord {{ $attributes }} />
-            {{--
+                {{--
             @elseif ($provider == 'reddit')
                 <x-socialstream-icons.reddit {{ $attributes }} />
             --}}

@@ -1,13 +1,14 @@
 @props(['title', 'value', 'icon', 'color'])
 
-<div class="bg-gray-800/30 backdrop-blur-sm border border-white/10 rounded-lg p-4 hover:border-white/20 transition-colors">
+<div
+    class="bg-gray-800/30 backdrop-blur-sm border border-white/10 rounded-lg p-4 hover:border-white/20 transition-colors">
     <div class="flex justify-between items-start">
         <div>
             <p class="text-gray-400 text-sm">{{ $title }}</p>
             <h3 class="text-white text-2xl font-bold">{{ $value }}</h3>
         </div>
         <div class="bg-{{ $color }}-500/20 rounded-lg p-2">
-            @if($icon === 'users')
+            @if ($icon === 'users')
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-{{ $color }}-400" fill="none"
                     viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

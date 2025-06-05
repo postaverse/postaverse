@@ -2,7 +2,8 @@
 
 <div class="space-y-6">
     <!-- List of admins -->
-    <div class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
+    <div
+        class="bg-linear-to-br from-gray-900/80 to-gray-800/60 backdrop-blur-xl border border-white/10 overflow-hidden shadow-lg sm:rounded-xl p-6 hover:border-white/20 transition-all duration-300">
         <h2 class="text-2xl font-bold text-white mb-4">Current Admin Team</h2>
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-300">
@@ -20,7 +21,8 @@
                             <td class="px-6 py-4 font-medium">{{ $admin->id }}</td>
                             <td class="px-6 py-4">{{ $admin->name ?: $admin->handle }}</td>
                             <td class="px-6 py-4">
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                <span
+                                    class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                     @if ($admin->admin_rank == 1) bg-blue-500/20 text-blue-300
                                     @elseif($admin->admin_rank == 2) bg-green-500/20 text-green-300
                                     @elseif($admin->admin_rank == 3) bg-purple-500/20 text-purple-300
