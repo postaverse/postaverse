@@ -90,6 +90,37 @@ class AdminDashboard extends Component
     {
         $this->activeTab = $tab;
         $this->resetPage();
+        
+        // Clear search term when switching tabs to avoid confusion
+        if ($tab !== 'logs') {
+            $this->searchTerm = '';
+        }
+    }
+    
+    public function clearSearch(): void
+    {
+        $this->searchTerm = '';
+        $this->resetPage();
+    }
+    
+    public function highlightSearchTerm($text, $searchTerm = null): string
+    {
+        if (empty($searchTerm)) {
+            $searchTerm = $this->searchTerm;
+        }
+        
+        if (empty($searchTerm) || empty($text)) {
+            return e($text);
+        }
+        
+        $escapedText = e($text);
+        $escapedSearchTerm = preg_quote($searchTerm, '/');
+        
+        return preg_replace(
+            '/(' . $escapedSearchTerm . ')/i',
+            '<mark class="bg-yellow-400/30 text-yellow-200 rounded px-1">$1</mark>',
+            $escapedText
+        );
     }
     
     public function confirmAction($action, $userId = null): void
@@ -441,8 +472,21 @@ class AdminDashboard extends Component
             return abort(403, 'You are not authorized to view this page.');
         }
 
-        $logs = AdminLogs::when($this->searchTerm, function($query) {
-                $query->where('action', 'like', '%' . $this->searchTerm . '%');
+        $logs = AdminLogs::with('admin')
+            ->when(!empty($this->searchTerm), function($query) {
+                $searchTerm = trim($this->searchTerm);
+                $query->where(function($q) use ($searchTerm) {
+                    // Search by action content
+                    $q->where('action', 'like', '%' . $searchTerm . '%')
+                      // Search by admin ID
+                      ->orWhere('admin_id', 'like', '%' . $searchTerm . '%')
+                      // Search by admin name or email
+                      ->orWhereHas('admin', function($adminQuery) use ($searchTerm) {
+                          $adminQuery->where('name', 'like', '%' . $searchTerm . '%')
+                                    ->orWhere('email', 'like', '%' . $searchTerm . '%')
+                                    ->orWhere('handle', 'like', '%' . $searchTerm . '%');
+                      });
+                });
             })
             ->orderBy('created_at', 'desc')
             ->paginate(15);
