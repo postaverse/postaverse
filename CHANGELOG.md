@@ -19,6 +19,7 @@
 * Improved Admin Dashboard
 * IP Banning
 * Improved Ban System
+* Componentize Admin Dashboard (from 1000+ lines to ~50 lines)
 
 ### v3.0.0 Alpha
 * Code cleanup
