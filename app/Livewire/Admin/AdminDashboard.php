@@ -37,6 +37,15 @@ class AdminDashboard extends Component
     public $actionType = null;
     public $targetUser = null;
     
+    // New properties for enhanced ban functionality
+    public string $ban_user_search = '';
+    public string $unban_user_search = '';
+    public array $searchResults = [];
+    public ?User $selectedUser = null;
+    public ?User $selectedUnbanUser = null;
+    public bool $showBanModal = false;
+    public bool $showUnbanModal = false;
+    
     // Define admin rank titles and permissions
     protected $adminRanks = [
         0 => ['title' => 'Regular User', 'color' => 'gray'],
@@ -207,6 +216,125 @@ class AdminDashboard extends Component
             session()->flash('unbanmessage', $result['message']);
             $this->reset('uid');
             $this->cancelAction();
+        } else {
+            session()->flash('error', $result['message']);
+        }
+    }
+
+    // New enhanced ban functionality
+    public function searchUsers()
+    {
+        if (strlen($this->ban_user_search) < 2) {
+            $this->searchResults = [];
+            return;
+        }
+
+        $this->searchResults = User::where(function($query) {
+            $query->where('name', 'like', '%' . $this->ban_user_search . '%')
+                  ->orWhere('handle', 'like', '%' . $this->ban_user_search . '%')
+                  ->orWhere('email', 'like', '%' . $this->ban_user_search . '%')
+                  ->orWhere('id', $this->ban_user_search);
+        })
+        ->whereNotIn('id', function($query) {
+            $query->select('user_id')->from('banned');
+        })
+        ->limit(10)
+        ->get(['id', 'name', 'handle', 'email', 'admin_rank'])
+        ->toArray();
+    }
+
+    public function selectUserForBan($userId)
+    {
+        $this->selectedUser = User::find($userId);
+        $this->user_id = $userId;
+        $this->ban_user_search = $this->selectedUser->name . ' (@' . $this->selectedUser->handle . ')';
+        $this->searchResults = [];
+    }
+
+    public function openBanModal($userId = null)
+    {
+        if ($userId) {
+            $this->selectUserForBan($userId);
+        }
+        $this->showBanModal = true;
+    }
+
+    public function closeBanModal()
+    {
+        $this->showBanModal = false;
+        $this->reset(['ban_user_search', 'reason', 'user_id', 'selectedUser', 'searchResults']);
+    }
+
+    public function confirmBanUser()
+    {
+        $this->validate([
+            'user_id' => 'required|exists:users,id',
+            'reason' => 'required|string|min:5',
+        ]);
+
+        $ipBanService = new IpBanService();
+        $result = $ipBanService->banUser($this->user_id, $this->reason);
+        
+        if ($result['success']) {
+            session()->flash('banmessage', $result['message']);
+            $this->closeBanModal();
+        } else {
+            session()->flash('error', $result['message']);
+        }
+    }
+
+    public function searchBannedUsers()
+    {
+        if (strlen($this->unban_user_search) < 2) {
+            return [];
+        }
+
+        return User::whereIn('id', function($query) {
+            $query->select('user_id')->from('banned');
+        })
+        ->where(function($query) {
+            $query->where('name', 'like', '%' . $this->unban_user_search . '%')
+                  ->orWhere('handle', 'like', '%' . $this->unban_user_search . '%')
+                  ->orWhere('email', 'like', '%' . $this->unban_user_search . '%')
+                  ->orWhere('id', $this->unban_user_search);
+        })
+        ->limit(10)
+        ->get(['id', 'name', 'handle', 'email']);
+    }
+
+    public function selectUserForUnban($userId)
+    {
+        $this->selectedUnbanUser = User::find($userId);
+        $this->uid = $userId;
+        $this->unban_user_search = $this->selectedUnbanUser->name . ' (@' . $this->selectedUnbanUser->handle . ')';
+    }
+
+    public function openUnbanModal($userId = null)
+    {
+        if ($userId) {
+            $this->selectUserForUnban($userId);
+        }
+        $this->showUnbanModal = true;
+    }
+
+    public function closeUnbanModal()
+    {
+        $this->showUnbanModal = false;
+        $this->reset(['unban_user_search', 'uid', 'selectedUnbanUser']);
+    }
+
+    public function confirmUnbanUser()
+    {
+        $this->validate([
+            'uid' => 'required|exists:users,id',
+        ]);
+
+        $ipBanService = new IpBanService();
+        $result = $ipBanService->unbanUser($this->uid);
+        
+        if ($result['success']) {
+            session()->flash('unbanmessage', $result['message']);
+            $this->closeUnbanModal();
         } else {
             session()->flash('error', $result['message']);
         }

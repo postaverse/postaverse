@@ -9,7 +9,8 @@ class Banned extends Component
 {
     public function render()
     {
-        $reason = User::find(auth()->id())->bans->first()->reason;
+        $user = User::find(auth()->id());
+        $reason = $user && $user->bans && $user->bans->first() ? $user->bans->first()->reason : 'Reason not provided';
         return view('livewire.User.banned', ['reason' => $reason])->layout('layouts.app');
     }
 }
