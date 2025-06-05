@@ -6,10 +6,11 @@
                 <div class="flex justify-between h-17">
                     <div class="flex">
                         <!-- Logo -->
-                        <div class="shrink-0 flex items-center">
+                        <div class="flex items-center">
                             <a href="{{ route('home') }}">
-                                <img src="{{ asset('images/icons/logo/logo.png') }}" class="block w-auto h-12"
-                                    alt="Logo">
+                                <img src="{{ asset('images/icons/logo/logo.png') }}" class="block w-auto"
+                                     style="height: 2.5rem;"
+                                     alt="Logo">
                             </a>
                         </div>
 
