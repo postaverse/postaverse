@@ -239,6 +239,19 @@ class AdminDashboard extends Component
 
     public function banUser(): Response|null
     {
+        // Check if the user is already banned
+        if (Banned::where('user_id', $this->user_id)->exists()) {
+            session()->flash('error', 'User is already banned.');
+            return null;
+        }
+
+        // Check if the user is an admin
+        $user = User::find($this->user_id);
+        if ($user && $user->admin_rank > 0) {
+            session()->flash('error', 'You cannot ban an admin.');
+            return null;
+        }
+
         $ipBanService = new IpBanService();
         $result = $ipBanService->banUser($this->user_id, $this->reason);
         
@@ -255,6 +268,12 @@ class AdminDashboard extends Component
 
     public function unbanUser(): void
     {
+        // Check if the user is not banned
+        if (!Banned::where('user_id', $this->uid)->exists()) {
+            session()->flash('error', 'User is not banned.');
+            return;
+        }
+
         $ipBanService = new IpBanService();
         $result = $ipBanService->unbanUser($this->uid);
         
