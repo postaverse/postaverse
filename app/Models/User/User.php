@@ -115,7 +115,9 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function bio(): string
     {
-        if ($this->attributes['bio'] === null || $this->attributes['bio'] === '') {
+        $bio = $this->attributes['bio'] ?? null;
+        
+        if ($bio === null || $bio === '') {
             $response = Http::get('https://gravatar.com/'.md5(strtolower($this->email)).'.json');
             if ($response->successful()) {
                 $data = $response->json();
@@ -124,7 +126,7 @@ class User extends Authenticatable implements MustVerifyEmail
             }
             return '';
         }
-        return $this->attributes['bio'];
+        return $bio;
     }
 
     public function sites()
