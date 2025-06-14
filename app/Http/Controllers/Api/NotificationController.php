@@ -36,6 +36,25 @@ class NotificationController extends Controller
     }
 
     /**
+     * Create a new notification (for testing purposes)
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'message' => 'required|string',
+            'link' => 'required|string'
+        ]);
+
+        $notification = Notification::create([
+            'user_id' => $request->user()->id,
+            'message' => $validated['message'],
+            'link' => $validated['link'],
+        ]);
+
+        return new NotificationResource($notification);
+    }
+
+    /**
      * Mark notification as read
      */
     public function markAsRead(Request $request, $id)
@@ -65,7 +84,68 @@ class NotificationController extends Controller
     }
 
     /**
-     * Delete a notification
+     * Mark notification as unread
+     */
+    public function markAsUnread(Request $request, $id)
+    {
+        $notification = Notification::findOrFail($id);
+        
+        if ($notification->user_id !== $request->user()->id) {
+            return response()->json(['message' => 'Unauthorized'], 403);
+        }
+
+        $notification->update(['read_at' => null]);
+
+        return new NotificationResource($notification->fresh());
+    }
+
+    /**
+     * Bulk action for notifications
+     */
+    public function bulkAction(Request $request)
+    {
+        $validated = $request->validate([
+            'action' => 'required|in:mark_read,mark_unread,delete',
+            'notification_ids' => 'required|array',
+            'notification_ids.*' => 'integer|exists:notifications,id'
+        ]);
+
+        $notifications = Notification::whereIn('id', $validated['notification_ids'])
+            ->where('user_id', $request->user()->id)
+            ->get();
+
+        if ($notifications->isEmpty()) {
+            return response()->json(['message' => 'No valid notifications found'], 404);
+        }
+
+        switch ($validated['action']) {
+            case 'mark_read':
+                Notification::whereIn('id', $validated['notification_ids'])
+                    ->where('user_id', $request->user()->id)
+                    ->update(['read_at' => now()]);
+                $message = 'Notifications marked as read';
+                break;
+                
+            case 'mark_unread':
+                Notification::whereIn('id', $validated['notification_ids'])
+                    ->where('user_id', $request->user()->id)
+                    ->update(['read_at' => null]);
+                $message = 'Notifications marked as unread';
+                break;
+                
+            case 'delete':
+                Notification::whereIn('id', $validated['notification_ids'])
+                    ->where('user_id', $request->user()->id)
+                    ->delete();
+                $message = 'Notifications deleted';
+                break;
+        }
+
+        return response()->json(['message' => $message]);
+    }
+
+    /**
+     * Delete a specific notification
      */
     public function destroy(Request $request, $id)
     {

@@ -28,7 +28,16 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        $blog = Blog::with(['user', 'likes', 'comments.user', 'images'])->findOrFail($id);
+        $blog = Blog::with([
+            'user', 
+            'likes', 
+            'comments' => function($query) {
+                $query->whereNull('parent_id')
+                      ->with(['user', 'replies.user', 'replies.replies.user'])
+                      ->orderBy('created_at', 'desc');
+            },
+            'images'
+        ])->findOrFail($id);
         return new BlogResource($blog);
     }
 
@@ -37,6 +46,11 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
+        // Check if user has admin rank 4 or 5 to create blogs
+        if (!$request->user()->admin_rank || $request->user()->admin_rank < 4) {
+            return response()->json(['message' => 'Only administrators (rank 4-5) can create blogs'], 403);
+        }
+
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string|max:5000',

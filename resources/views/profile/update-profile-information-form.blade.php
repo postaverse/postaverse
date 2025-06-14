@@ -69,7 +69,7 @@
             <x-input-error for="name" class="mt-2" />
         </div>
 
-        <!-- Handle (Username) -->
+        <!-- Username -->
         <div class="col-span-6 sm:col-span-4">
             <x-label for="handle" value="{{ __('Username') }}" class="text-gray-300 mb-2" />
             <x-input id="handle" type="text"

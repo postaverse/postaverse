@@ -21,6 +21,7 @@ class CommentController extends Controller
     {
         $request->validate([
             'content' => 'required|string|max:1024',
+            'parent_id' => 'nullable|exists:comments,id',
         ]);
 
         $post = Post::findOrFail($postId);
@@ -34,6 +35,7 @@ class CommentController extends Controller
             'post_id' => $postId,
             'user_id' => $request->user()->id,
             'has_profanity' => $hasProfanity,
+            'parent_id' => $request->parent_id,
         ]);
 
         // Create notification if not commenting on own post
@@ -55,6 +57,7 @@ class CommentController extends Controller
     {
         $request->validate([
             'content' => 'required|string|max:1024',
+            'parent_id' => 'nullable|exists:blog_comments,id',
         ]);
 
         $blog = Blog::findOrFail($blogId);
@@ -63,6 +66,7 @@ class CommentController extends Controller
             'content' => $request->content,
             'blog_id' => $blogId,
             'user_id' => $request->user()->id,
+            'parent_id' => $request->parent_id,
         ]);
 
         // Create notification if not commenting on own blog

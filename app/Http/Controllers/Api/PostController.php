@@ -7,6 +7,7 @@ use App\Http\Resources\PostResource;
 use App\Models\Post\Post;
 use App\Models\Post\Like;
 use App\Models\Interaction\Notification;
+use App\Services\Profanity;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,8 +17,14 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Post::with(['user', 'likes', 'comments.user', 'images'])
-            ->orderBy('created_at', 'desc');
+        $query = Post::with([
+            'user', 
+            'likes', 
+            'comments' => function ($query) {
+                $query->whereNull('parent_id')->with(['user', 'replies.user']);
+            },
+            'images'
+        ])->orderBy('created_at', 'desc');
 
         // Apply blocked users filter
         if ($request->user()) {
@@ -36,7 +43,14 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::with(['user', 'likes', 'comments.user', 'images'])->findOrFail($id);
+        $post = Post::with([
+            'user', 
+            'likes', 
+            'comments' => function ($query) {
+                $query->whereNull('parent_id')->with(['user', 'replies.user', 'replies.replies.user']);
+            },
+            'images'
+        ])->findOrFail($id);
         return new PostResource($post);
     }
 
@@ -50,15 +64,10 @@ class PostController extends Controller
             'content' => 'required|string|max:2000',
         ]);
 
-        // Basic profanity check (you may want to implement a more sophisticated filter)
-        $profanityWords = ['fuck', 'shit', 'damn']; // Add more as needed
-        $hasProfanity = false;
-        foreach ($profanityWords as $word) {
-            if (stripos($request->content, $word) !== false || stripos($request->title, $word) !== false) {
-                $hasProfanity = true;
-                break;
-            }
-        }
+        // Use the existing profanity service
+        $profanityService = new Profanity();
+        $hasProfanity = $profanityService->hasProfanity($request->content) || 
+                       $profanityService->hasProfanity($request->title);
 
         $post = $request->user()->posts()->create([
             'title' => $request->title,
@@ -157,8 +166,14 @@ class PostController extends Controller
         $user = $request->user();
         $followingIds = $user->follows()->pluck('following_id');
 
-        $posts = Post::with(['user', 'likes', 'comments.user', 'images'])
-            ->whereIn('user_id', $followingIds)
+        $posts = Post::with([
+            'user', 
+            'likes', 
+            'comments' => function ($query) {
+                $query->whereNull('parent_id')->with(['user', 'replies.user']);
+            },
+            'images'
+        ])->whereIn('user_id', $followingIds)
             ->orWhere('user_id', $user->id) // Include user's own posts
             ->orderBy('created_at', 'desc')
             ->paginate(20);
