@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\BlogController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\NotificationController;
+use App\Http\Controllers\Api\SecurityController;
+use App\Http\Controllers\Api\ConnectedAccountsController;
 
 // Public routes
 Route::post('/register', [AuthController::class, 'register']);
@@ -41,6 +43,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/users/{id}/posts', [UserController::class, 'posts']);
     Route::get('/users/{id}/blogs', [UserController::class, 'blogs']);
 
+    // User blocking
+    Route::get('/users/blocked', [UserController::class, 'getBlockedUsers']);
+    Route::post('/users/{id}/block', [UserController::class, 'blockUser']);
+    Route::delete('/users/{id}/block', [UserController::class, 'unblockUser']);
+
     // Blogs
     Route::apiResource('blogs', BlogController::class);
     Route::post('/blogs/{id}/like', [BlogController::class, 'toggleLike']);
@@ -60,6 +67,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
     Route::post('/notifications/bulk-action', [NotificationController::class, 'bulkAction']);
     Route::delete('/notifications/{id}', [NotificationController::class, 'destroy']);
+
+    // Security & Account Management
+    Route::put('/user/password', [SecurityController::class, 'updatePassword']);
+    Route::post('/user/two-factor-authentication', [SecurityController::class, 'enableTwoFactor']);
+    Route::post('/user/confirmed-two-factor-authentication', [SecurityController::class, 'confirmTwoFactor']);
+    Route::delete('/user/two-factor-authentication', [SecurityController::class, 'disableTwoFactor']);
+    Route::get('/user/two-factor-recovery-codes', [SecurityController::class, 'getRecoveryCodes']);
+    Route::post('/user/two-factor-recovery-codes', [SecurityController::class, 'regenerateRecoveryCodes']);
+    Route::get('/user/sessions', [SecurityController::class, 'getBrowserSessions']);
+    Route::delete('/user/other-browser-sessions', [SecurityController::class, 'logoutOtherSessions']);
+    Route::delete('/user', [SecurityController::class, 'deleteAccount']);
+
+    // Connected Accounts
+    Route::get('/user/connected-accounts', [ConnectedAccountsController::class, 'index']);
+    Route::delete('/user/connected-accounts/{id}', [ConnectedAccountsController::class, 'destroy']);
 });
 
 // Legacy route for compatibility

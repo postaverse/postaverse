@@ -203,4 +203,88 @@ class UserController extends Controller
 
         return response()->json(['following' => $isFollowing]);
     }
+
+    /**
+     * Get blocked users for current user
+     */
+    public function getBlockedUsers(Request $request)
+    {
+        $currentUser = $request->user();
+        $blockedUsers = \App\Models\User\BlockedUser::where('user_id', $currentUser->id)->first();
+        
+        if (!$blockedUsers || empty($blockedUsers->blocked_users)) {
+            return response()->json(['data' => []]);
+        }
+
+        $blockedIds = array_map('trim', explode(',', $blockedUsers->blocked_users));
+        $users = User::whereIn('id', $blockedIds)->get();
+
+        return UserResource::collection($users);
+    }
+
+    /**
+     * Block a user
+     */
+    public function blockUser(Request $request, $userId)
+    {
+        $currentUser = $request->user();
+        $userToBlock = User::findOrFail($userId);
+
+        if ($currentUser->id === $userToBlock->id) {
+            return response()->json(['message' => 'You cannot block yourself'], 400);
+        }
+
+        // Get or create blocked users record
+        $blockedUsers = \App\Models\User\BlockedUser::firstOrCreate(
+            ['user_id' => $currentUser->id],
+            ['blocked_users' => '']
+        );
+
+        $blockedIds = array_filter(array_map('trim', explode(',', $blockedUsers->blocked_users)));
+        
+        if (!in_array($userToBlock->id, $blockedIds)) {
+            $blockedIds[] = $userToBlock->id;
+            $blockedUsers->blocked_users = implode(',', $blockedIds);
+            $blockedUsers->save();
+
+            // Also unfollow if following
+            Follower::where('follower_id', $currentUser->id)
+                ->where('following_id', $userToBlock->id)
+                ->delete();
+            Follower::where('follower_id', $userToBlock->id)
+                ->where('following_id', $currentUser->id)
+                ->delete();
+        }
+
+        return response()->json(['message' => 'User blocked successfully']);
+    }
+
+    /**
+     * Unblock a user
+     */
+    public function unblockUser(Request $request, $userId)
+    {
+        $currentUser = $request->user();
+        $userToUnblock = User::findOrFail($userId);
+        
+        $blockedUsers = \App\Models\User\BlockedUser::where('user_id', $currentUser->id)->first();
+        
+        if (!$blockedUsers || empty($blockedUsers->blocked_users)) {
+            return response()->json(['message' => 'User is not blocked'], 400);
+        }
+
+        $blockedIds = array_filter(array_map('trim', explode(',', $blockedUsers->blocked_users)));
+        $blockedIds = array_filter($blockedIds, function($id) use ($userToUnblock) {
+            return $id != $userToUnblock->id;
+        });
+
+        if (empty($blockedIds)) {
+            $blockedUsers->delete();
+        } else {
+            $blockedUsers->blocked_users = implode(',', $blockedIds);
+            $blockedUsers->save();
+        }
+
+        return response()->json(['message' => 'User unblocked successfully']);
+    }
 }
