@@ -40,8 +40,8 @@
   "require": {
     "erusev/parsedown": "^1.7",
     "joelbutcher/socialstream": "^6.3",
-    "laravel/framework": "^v12.17.0",
-    "laravel/jetstream": "^5.3",
+    "laravel/framework": "^v12.19.3",
+    "laravel/jetstream": "^v5.3.7",
     "laravel/pulse": "^v1.4.2",
     "laravel/sanctum": "^4.1",
     "laravel/tinker": "^2.10",
@@ -58,8 +58,8 @@
     "laravel/pint": "^v1.22.1",
     "laravel/sail": "^v1.43.1",
     "mockery/mockery": "^1.6.12",
-    "nunomaduro/collision": "^8.5",
-    "phpunit/phpunit": "^12.1.6",
+    "nunomaduro/collision": "^v8.8.1",
+    "phpunit/phpunit": "^12.2.3",
     "spatie/laravel-ignition": "^2.4"
   },
   "scripts": {
