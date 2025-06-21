@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Livewire\User\Profile;
-use App\Livewire\Interaction\Follow;
 use App\Livewire\Post\Feed;
 use App\Livewire\User\Settings;
 use App\Livewire\Interaction\Search;
@@ -13,6 +12,8 @@ use App\Livewire\User\Banned;
 use App\Livewire\Interaction\Notifications;
 use App\Http\Middleware\CheckIfBanned;
 use App\Http\Controllers\EmailVerificationController;
+use App\Http\Controllers\FollowController;
+use App\Http\Controllers\DeleteController;
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/markdown.php';
@@ -63,9 +64,9 @@ Route::middleware([
     Route::get('/admin', AdminDashboard::class)->name('admin');
     
     // User interactions
-    Route::post('/follow/{user}', [App\Http\Controllers\FollowController::class, 'follow'])->name('follow');
-    Route::delete('/unfollow/{user}', [App\Http\Controllers\FollowController::class, 'unfollow'])->name('unfollow');
-    Route::delete('/post/{postId}', [App\Http\Controllers\DeleteController::class, 'deletePost'])->name('post.delete');
+    Route::post('/follow/{user}', [FollowController::class, 'follow'])->name('follow');
+    Route::delete('/unfollow/{user}', [FollowController::class, 'unfollow'])->name('unfollow');
+    Route::delete('/post/{postId}', [DeleteController::class, 'deletePost'])->name('post.delete');
     
     // User content routes with banned check
     Route::middleware([CheckIfBanned::class])->group(function () {
