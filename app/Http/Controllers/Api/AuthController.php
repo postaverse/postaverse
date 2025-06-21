@@ -8,6 +8,7 @@ use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Laravel\Fortify\Contracts\TwoFactorAuthenticationProvider;
 
 class AuthController extends Controller
 {
@@ -62,6 +63,7 @@ class AuthController extends Controller
         $request->validate([
             'login' => 'required|string', // Can be email or handle
             'password' => 'required|string',
+            'code' => 'nullable|string', // 2FA code
         ]);
 
         $user = User::where('email', $request->login)
@@ -72,6 +74,41 @@ class AuthController extends Controller
             throw ValidationException::withMessages([
                 'login' => ['The provided credentials are incorrect.'],
             ]);
+        }
+
+        // Check if 2FA is enabled and confirmed
+        if ($user->two_factor_secret && $user->two_factor_confirmed_at) {
+            // If no 2FA code provided, return challenge
+            if (!$request->code) {
+                return response()->json([
+                    'two_factor' => true,
+                    'recovery' => false,
+                    'message' => 'Two-factor authentication code required.'
+                ]);
+            }
+
+            // Verify 2FA code
+            $twoFactorProvider = app(TwoFactorAuthenticationProvider::class);
+            $valid = $twoFactorProvider->verify(
+                decrypt($user->two_factor_secret),
+                $request->code
+            );
+
+            if (!$valid) {
+                // Check if it's a recovery code
+                $recoveryCodes = json_decode(decrypt($user->two_factor_recovery_codes), true);
+                
+                if (!in_array($request->code, $recoveryCodes)) {
+                    throw ValidationException::withMessages([
+                        'code' => ['The provided two-factor authentication code is invalid.'],
+                    ]);
+                }
+
+                // Remove used recovery code
+                $recoveryCodes = array_diff($recoveryCodes, [$request->code]);
+                $user->two_factor_recovery_codes = encrypt(json_encode(array_values($recoveryCodes)));
+                $user->save();
+            }
         }
 
         $token = $user->createToken('Mobile App')->plainTextToken;

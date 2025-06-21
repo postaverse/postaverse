@@ -60,14 +60,16 @@ class SecurityController extends Controller
 
         app(EnableTwoFactorAuthentication::class)($user);
 
+        $secretKey = decrypt($user->two_factor_secret);
         $qrCode = app(TwoFactorAuthenticationProvider::class)->qrCodeUrl(
             config('app.name'),
             $user->email,
-            decrypt($user->two_factor_secret)
+            $secretKey
         );
 
         return response()->json([
             'qr_code' => $qrCode,
+            'secret_key' => $secretKey,
             'recovery_codes' => json_decode(decrypt($user->two_factor_recovery_codes), true),
         ]);
     }
