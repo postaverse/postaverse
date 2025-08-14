@@ -1559,16 +1559,16 @@
         },
         {
             "name": "laravel/fortify",
-            "version": "v1.27.0",
+            "version": "v1.28.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/fortify.git",
-                "reference": "0fb2ec99dfee77ed66884668fc06683acca91ebd"
+                "reference": "138d9790081343d4c4357daa5425790cd7f6bd82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/fortify/zipball/0fb2ec99dfee77ed66884668fc06683acca91ebd",
-                "reference": "0fb2ec99dfee77ed66884668fc06683acca91ebd",
+                "url": "https://api.github.com/repos/laravel/fortify/zipball/138d9790081343d4c4357daa5425790cd7f6bd82",
+                "reference": "138d9790081343d4c4357daa5425790cd7f6bd82",
                 "shasum": ""
             },
             "require": {
@@ -1620,20 +1620,20 @@
                 "issues": "https://github.com/laravel/fortify/issues",
                 "source": "https://github.com/laravel/fortify"
             },
-            "time": "2025-06-11T14:30:52+00:00"
+            "time": "2025-07-22T15:26:32+00:00"
         },
         {
             "name": "laravel/framework",
-            "version": "v12.23.1",
+            "version": "v12.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "2a0e9331a0db904236143fe915c281ff4be274a3"
+                "reference": "6dcf2c46da23d159f35d6246234953a74b740d83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/2a0e9331a0db904236143fe915c281ff4be274a3",
-                "reference": "2a0e9331a0db904236143fe915c281ff4be274a3",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/6dcf2c46da23d159f35d6246234953a74b740d83",
+                "reference": "6dcf2c46da23d159f35d6246234953a74b740d83",
                 "shasum": ""
             },
             "require": {
@@ -1743,7 +1743,7 @@
                 "league/flysystem-read-only": "^3.25.1",
                 "league/flysystem-sftp-v3": "^3.25.1",
                 "mockery/mockery": "^1.6.10",
-                "orchestra/testbench-core": "^10.0.0",
+                "orchestra/testbench-core": "^10.6.0",
                 "pda/pheanstalk": "^5.0.6|^7.0.0",
                 "php-http/discovery": "^1.15",
                 "phpstan/phpstan": "^2.0",
@@ -1837,20 +1837,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2025-08-12T17:35:05+00:00"
+            "time": "2025-08-13T20:30:36+00:00"
         },
         {
             "name": "laravel/jetstream",
-            "version": "v5.3.7",
+            "version": "v5.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/jetstream.git",
-                "reference": "b606c21daeaa38547f853789212e3802b0f6ff08"
+                "reference": "5720f0c0a81ad4bc44602d45c2d5ce55f8c7fe24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/jetstream/zipball/b606c21daeaa38547f853789212e3802b0f6ff08",
-                "reference": "b606c21daeaa38547f853789212e3802b0f6ff08",
+                "url": "https://api.github.com/repos/laravel/jetstream/zipball/5720f0c0a81ad4bc44602d45c2d5ce55f8c7fe24",
+                "reference": "5720f0c0a81ad4bc44602d45c2d5ce55f8c7fe24",
                 "shasum": ""
             },
             "require": {
@@ -1904,7 +1904,7 @@
                 "issues": "https://github.com/laravel/jetstream/issues",
                 "source": "https://github.com/laravel/jetstream"
             },
-            "time": "2025-06-16T13:27:00+00:00"
+            "time": "2025-07-18T18:49:50+00:00"
         },
         {
             "name": "laravel/prompts",
