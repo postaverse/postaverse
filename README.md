@@ -4,8 +4,8 @@ v4 Coming soon...
 Postaverse is an algorithm-free social media platform built using PHP and Laravel. It features an admin system, image posting, following/unfollowing, searching, mentioning and more!
 
 ## Preview
-!(home-feed)[https://postaverse.s3.amazonaws.com/photos/2RD4kNxedzCnhC7mbDmyelGj1txPJ8l7rHp1pj3P.png]
-!(profile-page)[https://postaverse.s3.amazonaws.com/photos/UO3f7MZGXNJVB2mElodprQnmNwZ01G1wZ0GjuPL5.png]
+![home-feed](https://postaverse.s3.amazonaws.com/photos/2RD4kNxedzCnhC7mbDmyelGj1txPJ8l7rHp1pj3P.png)
+![profile-page](https://postaverse.s3.amazonaws.com/photos/UO3f7MZGXNJVB2mElodprQnmNwZ01G1wZ0GjuPL5.png)
 
 ## Features
 - Chronological feed
