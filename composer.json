@@ -48,7 +48,7 @@
     "league/flysystem-aws-s3-v3": "^3.29",
     "livewire/livewire": "^3.6",
     "php": "^8.4",
-    "resend/resend-laravel": "^v0.21.0",
+    "resend/resend-laravel": "^v0.23.0",
     "socialiteproviders/discord": "^4.2",
     "socialiteproviders/reddit": "^4.1"
   },
